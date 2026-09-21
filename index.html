@@ -536,6 +536,15 @@ a:hover{color:var(--c-accent-text);opacity:.7}
               <span style="color:var(--c-faint);font-size:1.3rem;line-height:1">›</span>
             </button>
           </sc-if>
+          <sc-if value="{{ sel.canSuppr }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onSuppr }}" style="width:100%;margin-top:12px;border:0;border-radius:18px;font-size:.98rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease,color .18s ease;background: {{ sel.supprBg }};color: {{ sel.supprFg }}">{{ sel.supprLabel }}</button>
+          </sc-if>
+          <sc-if value="{{ sel.isSuppr }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;background:var(--c-group);border-radius:18px;padding:15px 18px;font-size:.94rem;color:var(--c-sec2);line-height:1.45">{{ sel.supprInfo }}</div>
+          </sc-if>
+          <sc-if value="{{ sel.canRestore }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onRestore }}" style="width:100%;margin-top:10px;border:0;border-radius:18px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.98rem;font-weight:600;padding:15px;cursor:pointer">Remettre ce bien dans l'affichage</button>
+          </sc-if>
         </div>
 
       </div>
@@ -650,6 +659,9 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 4px 14px">
         <span style="font-size:.94rem;font-weight:600;color:var(--c-sec2)">{{ tousCount }}</span>
+        <sc-if value="{{ suppShow }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ onSuppToggle }}" style="border:0;background:none;color:var(--c-sec);font-size:.88rem;font-weight:600;padding:8px 10px;cursor:pointer;border-radius:14px">{{ suppLabel }}</button>
+        </sc-if>
         <button onClick="{{ tousReset }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.92rem;font-weight:600;padding:8px 10px;cursor:pointer;border-radius:14px;transition:background .18s ease" style-hover="background:var(--c-group)">Tout afficher</button>
       </div>
 
@@ -948,7 +960,7 @@ class Component extends DCLogic {
     this.screenRef = React.createRef();
     /* Adresse de l'application web Google Apps Script (Déployer > Application web).
        Laisser vide pour travailler sans synchronisation. */
-    this.SYNC_URL = "https://script.google.com/macros/s/AKfycbx8gcL2tTPKjWsy68pa_0VhsG8FBe9XFjDyTb3wyFBKjp3_nkH5KGTlHHRPy6HTdZ6K/exec";
+    this.SYNC_URL = "";
     this.DIR = "Jonathan R.";
     this.LIB_STATUT = { nouveau: "Nouveau", attribue: "Confié", contacte: "Premier contact fait",
                         rdv: "Rendez-vous d'estimation", mandat: "Mandat signé", sansSuite: "Mis de côté" };
@@ -977,7 +989,11 @@ class Component extends DCLogic {
     this.build();
   }
 
-  /* ---------- données ---------- */
+  /* ---------- données ----------
+     this._L garde tous les biens ; this.L n'expose que ceux qui ne sont pas supprimés,
+     ce qui les retire d'un coup de toutes les listes et de tous les compteurs. */
+  get L() { return (this._L || []).filter(l => !l.supprime); }
+  set L(v) { this._L = v; }
   build() {
     /* Données réelles Melo — GET /documents/properties
        lat=43.3442 lon=3.2158 radius=15 publisherTypes[]=0 propertyTypes[]=0,1,5,6
@@ -1421,37 +1437,39 @@ class Component extends DCLogic {
   /* Tout ce qui décrit le travail sur un bien, y compris la position relevée sur place. */
   etatBien(l) {
     return { assign: l.assign || "", statut: l.statut, reached: l.reached || 0,
-             canal: l.canal || "", histo: l.histo || [], pin: this.lirePins()[this.cleBien(l)] || null };
+             canal: l.canal || "", histo: l.histo || [], pin: this.lirePins()[this.cleBien(l)] || null,
+             supprime: l.supprime || null };
   }
   estVierge(e) {
-    return !e.assign && e.statut === "nouveau" && !e.reached && !e.canal && !e.histo.length && !e.pin;
+    return !e.assign && e.statut === "nouveau" && !e.reached && !e.canal && !e.histo.length && !e.pin && !e.supprime;
   }
   appliquer(l, x) {
     l.assign = x.assign || ""; l.statut = x.statut || "nouveau";
     l.reached = Number(x.reached) || 0; l.canal = x.canal || ""; l.histo = x.histo || [];
+    l.supprime = x.supprime || null;
   }
 
   /* Cache local : la page se rouvre instantanément, même hors réseau. */
   restaurer() {
     let m = {};
     try { m = JSON.parse(localStorage.getItem("radar_travail") || "{}"); } catch (e) { m = {}; }
-    this.L.forEach(l => { const x = m[this.cleBien(l)]; if (x) this.appliquer(l, x); });
+    this._L.forEach(l => { const x = m[this.cleBien(l)]; if (x) this.appliquer(l, x); });
     /* ce qui vient du cache est considéré comme déjà connu : on n'enverra que les nouveaux gestes */
     this._envoye = {};
-    this.L.forEach(l => { this._envoye[this.cleBien(l)] = JSON.stringify(this.etatBien(l)); });
+    this._L.forEach(l => { this._envoye[this.cleBien(l)] = JSON.stringify(this.etatBien(l)); });
     this._file = {};
   }
 
   /* Appelé après chaque mise à jour de l'écran : repère les biens modifiés et les envoie. */
   sauver() {
     const m = {};
-    this.L.forEach(l => {
+    this._L.forEach(l => {
       const k = this.cleBien(l), e = this.etatBien(l), j = JSON.stringify(e);
       if (!this.estVierge(e)) m[k] = e;
       if (this._envoye && this._envoye[k] !== j) {
         this._envoye[k] = j;
         this._file[k] = Object.assign({ cle: k, titre: l.titre, commune: l.secteur, lien: l.url,
-          statut_libelle: this.LIB_STATUT[l.statut] || l.statut,
+          statut_libelle: l.supprime ? "Supprimé de l'affichage" : (this.LIB_STATUT[l.statut] || l.statut),
           dernier_geste: e.histo.length ? e.histo[e.histo.length - 1].quoi : "",
           maj_par: this.who(), maj_le: Date.now() }, e);
       }
@@ -1496,12 +1514,12 @@ class Component extends DCLogic {
       (j.rows || []).forEach(x => { parCle[x.cle] = x; });
       const pins = this.lirePins();
       let change = false;
-      this.L.forEach(l => {
+      this._L.forEach(l => {
         const k = this.cleBien(l);
         const x = parCle[k];
         if (!x || (this._file && this._file[k])) return;
         const e = { assign: x.assign || "", statut: x.statut || "nouveau", reached: Number(x.reached) || 0,
-                    canal: x.canal || "", histo: x.histo || [], pin: x.pin || null };
+                    canal: x.canal || "", histo: x.histo || [], pin: x.pin || null, supprime: x.supprime || null };
         const je = JSON.stringify(e);
         if (this._envoye[k] === je) return;
         this.appliquer(l, e);
@@ -1564,7 +1582,10 @@ class Component extends DCLogic {
     const base = this.isDir() ? this.L : this.L.filter(l => l.assign === this.state.role);
     return base.filter(l => (l.cible && l.actif) || l.assign);
   }
-  tous() { return this.isDir() ? this.L : this.L.filter(l => l.assign === this.state.role); }
+  tous() {
+    if (this.isDir() && this.state.voirSuppr) return (this._L || []).filter(l => l.supprime);
+    return this.isDir() ? this.L : this.L.filter(l => l.assign === this.state.role);
+  }
 
   /* filtres de l'écran « Tous les biens » */
   tousDefs() {
@@ -1607,7 +1628,7 @@ class Component extends DCLogic {
     );
   }
   who() { return this.state.user || (this.isDir() ? this.DIR : this.state.role); }
-  sel() { return this.L.find(l => l.id === this.state.selId); }
+  sel() { return (this._L || []).find(l => l.id === this.state.selId); }
 
   record(l, label) {
     const act = this.ACTIONS.find(a => a.l === label); if (!act) return;
@@ -1637,6 +1658,22 @@ class Component extends DCLogic {
       quoi: avant ? "Bien retiré à " + avant + " et confié à " + name : "Bien confié à " + name, et: "attribue" });
     this.setState(s => ({ tick: s.tick + 1 }));
     this.toast(name.split(" ")[0] + " s'en occupe");
+  }
+
+  supprimerBien(l) {
+    if (!this.isDir() || l.supprime) return;
+    l.supprime = { par: this.who(), t: Date.now() };
+    l.histo.push({ t: Date.now(), qui: this.who(), quoi: "Bien supprimé de l'affichage", et: "note" });
+    this.setState({ confSuppr: null, selId: null, tick: (this.state.tick || 0) + 1 });
+    this.back();
+    this.toast("Bien retiré de l'affichage");
+  }
+  restaurerBien(l) {
+    if (!l.supprime) return;
+    l.supprime = null;
+    l.histo.push({ t: Date.now(), qui: this.who(), quoi: "Bien remis dans l'affichage", et: "note" });
+    this.setState(s => ({ tick: (s.tick || 0) + 1 }));
+    this.toast("Bien restauré");
   }
 
   desattribuer(l) {
@@ -1880,6 +1917,15 @@ class Component extends DCLogic {
           };
         });
       })(),
+      canSuppr: this.isDir() && !l.supprime,
+      isSuppr: !!l.supprime,
+      supprLabel: this.state.confSuppr === l.id ? "Confirmer : retirer ce bien de l'affichage" : "Supprimer ce bien",
+      supprBg: this.state.confSuppr === l.id ? "#C0392B" : "var(--c-group)",
+      supprFg: this.state.confSuppr === l.id ? "#fff" : "#C0392B",
+      onSuppr: () => { if (this.state.confSuppr === l.id) this.supprimerBien(l); else this.setState({ confSuppr: l.id }); },
+      supprInfo: l.supprime ? "Supprimé par " + l.supprime.par + " le " + new Date(l.supprime.t).toLocaleDateString("fr-FR") + ". Il n'apparaît plus dans les listes ni dans les compteurs." : "",
+      canRestore: this.isDir() && !!l.supprime,
+      onRestore: () => this.restaurerBien(l),
       canDrop: l.statut !== "sansSuite" && l.reached < 4,
       isDropped: l.statut === "sansSuite",
       onDrop: () => this.record(l, "Ce bien ne donnera rien"),
@@ -2143,6 +2189,10 @@ class Component extends DCLogic {
         return n + (n > 1 ? " biens" : " bien") + " sur " + this.tous().length;
       })(),
       tousAucun: this.tousList().length === 0,
+      suppShow: this.isDir() && ((this._L || []).some(l => l.supprime) || !!this.state.voirSuppr),
+      suppLabel: this.state.voirSuppr ? "← Revenir aux biens affichés"
+        : "Voir les biens supprimés (" + (this._L || []).filter(l => l.supprime).length + ")",
+      onSuppToggle: () => this.setState(st => ({ voirSuppr: !st.voirSuppr, fType: "", fVille: "", fPrix: "", fAge: "", fCible: "", tousAll: false })),
       tousReset: () => this.setState({ fType: "", fVille: "", fPrix: "", fAge: "", fCible: "", tousAll: false }),
       tousCards: (() => {
         const li = this.tousList();
