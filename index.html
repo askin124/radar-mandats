@@ -48,6 +48,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 [data-chev]{grid-area:chev;align-self:center;text-align:right}
 [data-gtxt]{display:block}
 [data-ind]{display:grid;grid-template-columns:1fr;gap:10px}
+[data-steps]{display:flex;align-items:flex-start;gap:0}
+[data-steps] > div{flex:1;min-width:0;text-align:center}
 [data-sheetwrap]{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center}
 [data-sheet]{width:100%;max-width:560px;border-radius:28px 28px 0 0;padding-bottom:6px}
 [data-crit]{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px 20px}
@@ -90,6 +92,57 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 </style>
 </helmet>
 
+<sc-if value="{{ needLogin }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:200;background:var(--c-bg);overflow:auto;display:flex;justify-content:center;padding:max(40px,env(safe-area-inset-top)) 20px 40px">
+  <div style="width:100%;max-width:420px;animation:rmUp .34s cubic-bezier(.32,.72,0,1) both">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin:10px 0 30px">
+      <img src="logo.png" alt="Laborie Immobilier" style="width:64px;height:64px;border-radius:16px;object-fit:contain">
+      <div style="font-size:1.6rem;font-weight:700;letter-spacing:-.025em;margin-top:16px">Radar Mandats</div>
+      <div style="font-size:.95rem;color:var(--c-sec);margin-top:4px">Laborie Immobilier · Béziers</div>
+    </div>
+
+    <sc-if value="{{ loginPick }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="font-size:1.1rem;font-weight:600;margin:0 4px 14px">Qui êtes-vous ?</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ loginPeople }}" as="p" hint-placeholder-count="8">
+            <button onClick="{{ p.onPick }}" style="width:100%;text-align:left;border:0;background:var(--c-card);box-shadow:var(--sh-flat);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.985)">
+              <span style="width:42px;height:42px;border-radius:21px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;background: {{ p.avBg }};color: {{ p.avFg }}">{{ p.ini }}</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font-size:1.04rem;font-weight:600">{{ p.nom }}</span>
+                <span style="display:block;font-size:.84rem;color:var(--c-sec);margin-top:2px">{{ p.role }}</span>
+              </span>
+              <span style="color:var(--c-faint);font-size:1.2rem">›</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ loginPinOn }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div style="font-size:1.15rem;font-weight:600">{{ loginName }}</div>
+        <div style="font-size:.92rem;color:var(--c-sec);margin-top:4px">Tapez votre code à 4 chiffres</div>
+        <div style="display:flex;gap:16px;margin:26px 0 10px">
+          <sc-for list="{{ loginDots }}" as="d" hint-placeholder-count="4">
+            <span style="width:15px;height:15px;border-radius:8px;border:1.5px solid var(--c-ink);transition:background .15s ease;background: {{ d.bg }}"></span>
+          </sc-for>
+        </div>
+        <div style="height:22px;font-size:.88rem;color:#C0392B;font-weight:600">{{ loginErr }}</div>
+        <div style="display:grid;grid-template-columns:repeat(3,76px);gap:14px 22px;margin-top:10px">
+          <sc-for list="{{ loginKeys }}" as="k" hint-placeholder-count="12">
+            <button onClick="{{ k.onTap }}" aria-label="{{ k.aria }}" style="width:76px;height:76px;border-radius:38px;border:0;cursor:pointer;font-size:1.7rem;font-weight:500;color:var(--c-ink);transition:background .15s ease,transform .12s ease;background: {{ k.bg }};visibility: {{ k.vis }}" style-active="transform:scale(.92)">{{ k.label }}</button>
+          </sc-for>
+        </div>
+        <button onClick="{{ loginBack }}" style="margin-top:26px;border:0;background:none;color:var(--c-accent-text);font-size:.98rem;font-weight:600;padding:10px 14px;cursor:pointer;border-radius:14px">Changer de personne</button>
+      </div>
+    </sc-if>
+
+    <div style="font-size:.78rem;color:var(--c-faint);text-align:center;margin-top:34px;line-height:1.5">Version de démonstration — les codes d'accès ne sont pas sécurisés.</div>
+  </div>
+</div>
+</sc-if>
+
 <div style="min-height:100vh;background:var(--c-bg)">
 <div data-shell>
 
@@ -116,7 +169,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
     <span style="width:34px;height:34px;border-radius:17px;flex:none;background:var(--rm-accent,#0071E3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:600">{{ meIni }}</span>
     <span style="min-width:0">
       <span style="display:block;font-size:.92rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ meName }}</span>
-      <span style="display:block;font-size:.78rem;color:var(--c-sec)">Changer de vue</span>
+      <span style="display:block;font-size:.78rem;color:var(--c-sec)">{{ meSub }}</span>
     </span>
   </button>
 </div>
@@ -299,13 +352,32 @@ a:hover{color:var(--c-accent-text);opacity:.7}
         <div>
           <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">L'annonce du vendeur</div>
           <div style="background:var(--c-card);border-radius:24px;padding:22px;box-shadow:var(--sh-card)">
-            <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--c-rule)">
-              <span style="font-size:1.15rem;line-height:1.3;flex:none">📍</span>
-              <div style="min-width:0;flex:1">
-                <div style="font-size:1.08rem;font-weight:600;line-height:1.35;text-wrap:pretty">{{ sel.adr.ligne }}</div>
-                <div style="font-size:.82rem;color:var(--c-sec);margin-top:4px;line-height:1.4;text-wrap:pretty">{{ sel.adr.precision }}</div>
+            <div style="margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--c-rule)">
+              <span style="display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.02em;padding:5px 10px;border-radius:10px;background: {{ sel.adr.niveauBg }};color: {{ sel.adr.niveauFg }}">{{ sel.adr.niveau }}</span>
+              <div style="display:flex;align-items:flex-start;gap:12px;margin-top:12px">
+                <span style="font-size:1.15rem;line-height:1.3;flex:none">📍</span>
+                <div style="min-width:0;flex:1">
+                  <div style="font-size:1.12rem;font-weight:600;line-height:1.35;text-wrap:pretty">{{ sel.adr.ligne }}</div>
+                  <div style="font-size:.84rem;color:var(--c-sec);margin-top:5px;line-height:1.45;text-wrap:pretty">{{ sel.adr.precision }}</div>
+                </div>
               </div>
-              <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="flex:none;border-radius:14px;background:var(--c-group);color:var(--c-ink);font-size:.88rem;font-weight:600;padding:9px 13px;text-decoration:none;white-space:nowrap;transition:background .18s ease" style-hover="background:var(--c-hover)">Carte ↗</a>
+              <sc-if value="{{ sel.adr.hasCands }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+                  <sc-for list="{{ sel.adr.cands }}" as="c" hint-placeholder-count="3">
+                    <a href="{{ c.lien }}" target="_blank" rel="noopener noreferrer" style="display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 13px;border-radius:14px;background:var(--c-group);color:var(--c-ink);text-decoration:none;font-size:.9rem;transition:background .18s ease" style-hover="background:var(--c-hover)">
+                      <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.adresse }}</span>
+                      <span style="flex:none;color:var(--c-sec);font-size:.82rem;font-variant-numeric:tabular-nums">{{ c.dist }} ↗</span>
+                    </a>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
+                <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:15px;background:var(--c-group);color:var(--c-ink);font-size:.94rem;font-weight:600;padding:13px 10px;text-decoration:none;transition:background .18s ease" style-hover="background:var(--c-hover)">Itinéraire ↗</a>
+                <button onClick="{{ sel.adr.onDevant }}" style="border:0;border-radius:15px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.94rem;font-weight:600;padding:13px 10px;cursor:pointer;transition:transform .18s ease,opacity .18s ease" style-active="transform:scale(.97)">{{ sel.adr.devantLabel }}</button>
+              </div>
+              <sc-if value="{{ sel.adr.hasPin }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ sel.adr.onEffacer }}" style="margin-top:8px;border:0;background:none;color:var(--c-sec);font-size:.84rem;padding:6px 4px;cursor:pointer">Effacer la position relevée</button>
+              </sc-if>
             </div>
             <div style="font-size:.8rem;color:var(--c-sec);letter-spacing:.01em">{{ sel.sourceLine }}</div>
             <div style="font-size:1.02rem;line-height:1.6;margin-top:10px;text-wrap:pretty">{{ sel.texte }}</div>
@@ -356,7 +428,23 @@ a:hover{color:var(--c-accent-text);opacity:.7}
         </div>
 
         <div>
-          <div style="font-size:1.02rem;font-weight:600;margin:0 4px 10px">Où en est ce bien ?</div>
+          <div style="font-size:1.02rem;font-weight:600;margin:0 4px 22px">Où en est ce bien ?</div>
+
+          <div data-steps>
+            <sc-for list="{{ sel.pipe }}" as="p" hint-placeholder-count="5">
+              <div>
+                <div style="position:relative;height:38px;display:flex;align-items:center;justify-content:center">
+                  <span style="position:absolute;left:0;right:50%;height:3px;border-radius:2px;background: {{ p.barL }}"></span>
+                  <span style="position:absolute;left:50%;right:0;height:3px;border-radius:2px;background: {{ p.barR }}"></span>
+                  <span style="position:relative;width:34px;height:34px;border-radius:17px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;background: {{ p.bg }};color:#fff;border: {{ p.ring }};box-shadow: {{ p.shadow }};animation: {{ p.anim }}">{{ p.glyph }}</span>
+                </div>
+                <div style="font-size:.86rem;font-weight:600;line-height:1.3;margin-top:10px;padding:0 3px;min-height:2.6em;text-wrap:pretty;color: {{ p.labelFg }}">{{ p.label }}</div>
+                <div style="font-size:.76rem;color:var(--c-sec);margin-top:5px;line-height:1.3;padding:0 3px">{{ p.quand }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--c-sec2);margin:30px 4px 10px">Noter ce que vous avez fait</div>
           <div style="position:relative">
             <select value="{{ sel.step }}" onChange="{{ sel.onStep }}" style="appearance:none;-webkit-appearance:none;width:100%;border:0;border-radius:20px;background:var(--c-group);font-size:1.02rem;font-weight:500;padding:19px 52px 19px 20px;cursor:pointer;color:var(--c-ink);line-height:1.3">
               <sc-for list="{{ sel.options }}" as="o" hint-placeholder-count="5">
@@ -366,6 +454,12 @@ a:hover{color:var(--c-accent-text);opacity:.7}
             <span style="position:absolute;right:22px;top:50%;transform:translateY(-58%);pointer-events:none;color:var(--c-sec);font-size:1.05rem;line-height:1">⌄</span>
           </div>
           <button onClick="{{ sel.onSave }}" style="width:100%;margin-top:10px;border:0;border-radius:20px;background:var(--rm-accent,#0071E3);color:#fff;font-size:1.1rem;font-weight:600;padding:19px 20px;cursor:pointer;box-shadow:0 6px 18px rgba(0,113,227,.28);transition:transform .18s cubic-bezier(.32,.72,0,1)" style-active="transform:scale(.975)">Enregistrer</button>
+          <sc-if value="{{ sel.canDrop }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onDrop }}" style="width:100%;margin-top:8px;border:0;border-radius:20px;background:none;color:var(--c-sec2);font-size:.98rem;font-weight:500;padding:16px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-group)">Ce bien ne donnera rien</button>
+          </sc-if>
+          <sc-if value="{{ sel.isDropped }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:12px;background:var(--c-group);border-radius:18px;padding:15px 18px;font-size:.94rem;color:var(--c-sec2);line-height:1.45">Ce bien est mis de côté. Enregistrez une action pour le remettre en route.</div>
+          </sc-if>
 
           <sc-if value="{{ sel.showConsent }}" hint-placeholder-val="{{ false }}">
             <div style="margin-top:14px;background:var(--c-warnbg);border-radius:18px;padding:16px 18px">
@@ -412,13 +506,13 @@ a:hover{color:var(--c-accent-text);opacity:.7}
                   <div data-ind>
                     <sc-for list="{{ ai.items }}" as="i" hint-placeholder-count="4">
                       <div style="background:var(--c-card);border-radius:18px;padding:15px 16px;box-shadow:var(--sh-flat);animation:rmUp .3s cubic-bezier(.32,.72,0,1) both">
-                        <div style="font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--c-sec)">{{ i.label }}</div>
+                        <div style="font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--c-sec2)">{{ i.label }}</div>
                         <div style="font-size:1.02rem;font-weight:600;line-height:1.35;margin-top:7px;text-wrap:pretty">{{ i.value }}</div>
                       </div>
                     </sc-for>
                   </div>
                   <sc-if value="{{ ai.done }}" hint-placeholder-val="{{ false }}">
-                    <button onClick="{{ ai.onGo }}" style="margin-top:14px;border:0;background:none;padding:0 4px;color:var(--c-accent-text);font-size:.92rem;font-weight:600;cursor:pointer">Refaire la préparation</button>
+                    <button onClick="{{ ai.onGo }}" style="margin-top:14px;border:0;background:none;padding:0 4px;color:var(--c-accent-text);font-size:.92rem;font-weight:600;cursor:pointer;text-align:left;white-space:nowrap">Refaire la préparation</button>
                   </sc-if>
                 </div>
               </sc-if>
@@ -655,7 +749,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 
   <sc-if value="{{ isQui }}" hint-placeholder-val="{{ false }}">
     <div>
-      <div style="font-size:.98rem;color:var(--c-sec);line-height:1.5;margin:14px 4px 24px;text-wrap:pretty">La direction voit toute l'agence et répartit les biens. Un négociateur ne voit que les siens.</div>
+      <div style="font-size:.98rem;color:var(--c-sec);line-height:1.5;margin:14px 4px 24px;text-wrap:pretty">{{ quiIntro }}</div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <sc-for list="{{ people }}" as="p" hint-placeholder-count="9">
           <button onClick="{{ p.onPick }}" style="width:100%;text-align:left;border:0;background: {{ p.bg }};border-radius:20px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.985)">
@@ -668,6 +762,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </button>
         </sc-for>
       </div>
+
+      <button onClick="{{ onLogout }}" style="margin-top:22px;width:100%;border:0;border-radius:18px;background:var(--c-group);color:#C0392B;font-size:1rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-hover)">Se déconnecter</button>
 
       <div data-themeqi>
       <div style="font-size:1.02rem;font-weight:600;margin:34px 4px 12px">Affichage</div>
@@ -840,7 +936,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0071E3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0071E3&quot;,&quot;var(--c-ink)&quot;,&quot;#0A8F5B&quot;,&quot;#B0561A&quot;],&quot;section&quot;:&quot;Apparence&quot;},&quot;textScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.02,&quot;min&quot;:0.9,&quot;max&quot;:1.3,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Apparence&quot;},&quot;feter&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportement&quot;},&quot;vue&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Direction&quot;,&quot;Négociateur&quot;],&quot;default&quot;:&quot;Direction&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Comportement&quot;}}">
 class Component extends DCLogic {
-  state = { screen: "jour", stack: [], selId: null, role: "__dir", more: {}, ai: {}, toast: null, assignFor: null,
+  state = { user: null, loginFor: null, pin: "", pinErr: false, pinBusy: false, screen: "jour", stack: [], selId: null, role: "__dir", more: {}, ai: {}, toast: null, assignFor: null,
             party: null, repIdx: 0, tick: 0, filter: "contact",
             fType: "", fVille: "", fPrix: "", fAge: "", fCible: "", tousAll: false };
 
@@ -848,6 +944,12 @@ class Component extends DCLogic {
     super(props);
     this.screenRef = React.createRef();
     this.DIR = "Jonathan R.";
+    /* Comptes de démonstration — codes en clair, maquette uniquement. */
+    this.COMPTES = {
+      "Jonathan R.": "2026", "Melissa J.": "1101", "Renaud C.": "1102", "Isabelle S.": "1103",
+      "Vaik T.": "1104", "Émilie P.": "1105", "Mathias L.": "1106", "Christophe G.": "1107"
+    };
+    this.CP = {"Béziers": "34500", "Valras-Plage": "34350", "Vias": "34450", "Fleury": "11560", "Servian": "34290", "Villeneuve-lès-Béziers": "34420", "Colombiers": "34440", "Capestang": "34310", "Lignan-sur-Orb": "34490", "Maureilhan": "34370", "Murviel-lès-Béziers": "34490", "Corneilhan": "34490", "Sérignan": "34410", "Sauvian": "34410", "Cazouls-lès-Béziers": "34370", "Nissan-lez-Enserune": "34440", "Lieuran-lès-Béziers": "34290", "Puimisson": "34480", "Montady": "34310", "Vendres": "34350", "Boujan-sur-Libron": "34760", "Lespignan": "34710", "Salles-d'Aude": "11110", "Puissalicon": "34480", "Maraussan": "34370", "Abeilhan": "34290", "Bassan": "34290", "Saint-Geniès-de-Fontedit": "34480", "Espondeilhan": "34290", "Puisserguier": "34620", "Thézan-lès-Béziers": "34490"};
     this.TEAM = ["Jonathan R.","Melissa J.","Renaud C.","Isabelle S.","Vaik T.","Émilie P.","Mathias L.","Christophe G."];
     this.CANAUX = ["Courrier déposé","Passage sur place","Message sur l'annonce","Boîtage du quartier","Appel après accord"];
     this.ACTIONS = [
@@ -1049,6 +1151,93 @@ class Component extends DCLogic {
     return "";
   }
 
+  /* ---------- Localisation précise ----------
+     Ordre de confiance : relevé sur place > écrite par le vendeur >
+     retrouvée par le DPE > zone approximative du portail. */
+  cleBien(l) { return l.url || ("bien-" + l.id); }
+  lirePins() { try { return JSON.parse(localStorage.getItem("radar_pins") || "{}"); } catch (e) { return {}; } }
+  ecrirePins(p) { try { localStorage.setItem("radar_pins", JSON.stringify(p)); } catch (e) {} }
+
+  async chercherDPE(l) {
+    this._dpe = this._dpe || {};
+    const k = this.cleBien(l);
+    if (this._dpe[k] !== undefined) return;
+    const cp = this.CP[l.secteur];
+    const typeBat = l.type === "Maison" ? "maison" : l.type === "Appartement" ? "appartement" : "";
+    if (!l.dpe || !cp || !l.surface || !typeBat) { this._dpe[k] = { etat: "impossible" }; return; }
+    this._dpe[k] = { etat: "recherche" };
+    this.setState({ tick: (this.state.tick || 0) + 1 });
+    const lo = Math.max(0, l.surface - 3), hi = l.surface + 3;
+    const qs = 'code_postal_ban:"' + cp + '" AND etiquette_dpe:"' + l.dpe + '" AND surface_habitable_logement:[' + lo + ' TO ' + hi + ']';
+    const url = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?size=60" +
+      "&select=adresse_ban,nom_commune_ban,surface_habitable_logement,type_batiment,_geopoint" +
+      "&qs=" + encodeURIComponent(qs);
+    try {
+      const r = await fetch(url);
+      const j = await r.json();
+      const norm = t => (t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "");
+      const ville = norm(l.secteur);
+      const rows = (j.results || []).filter(x =>
+        x.adresse_ban && norm(x.nom_commune_ban) === ville &&
+        (!x.type_batiment || x.type_batiment === typeBat || (typeBat === "appartement" && x.type_batiment === "immeuble")));
+      /* une adresse = un candidat, même si plusieurs lots y sont diagnostiqués */
+      const parAdr = {};
+      rows.forEach(x => {
+        if (parAdr[x.adresse_ban]) return;
+        let d = null;
+        if (x._geopoint && l.lat) {
+          const [la, lo2] = String(x._geopoint).split(",").map(Number);
+          const R = 6371000, rad = Math.PI / 180;
+          const dl = (la - l.lat) * rad, dg = (lo2 - l.lon) * rad;
+          const a = Math.sin(dl / 2) ** 2 + Math.cos(l.lat * rad) * Math.cos(la * rad) * Math.sin(dg / 2) ** 2;
+          d = Math.round(2 * R * Math.asin(Math.sqrt(a)));
+        }
+        parAdr[x.adresse_ban] = { adresse: x.adresse_ban, dist: d };
+      });
+      let c = Object.values(parAdr);
+      /* on garde ce qui est plausible autour du point flouté du portail */
+      if (c.some(x => x.dist !== null)) c = c.filter(x => x.dist === null || x.dist <= 1500);
+      c.sort((a, b) => (a.dist ?? 9e9) - (b.dist ?? 9e9));
+      this._dpe[k] = { etat: c.length ? "ok" : "vide", candidats: c.slice(0, 4), total: c.length };
+    } catch (e) {
+      this._dpe[k] = { etat: "erreur" };
+    }
+    this.setState({ tick: (this.state.tick || 0) + 1 });
+  }
+
+  jeSuisDevant(l) {
+    if (!navigator.geolocation) { this.toast("Ce téléphone ne donne pas sa position."); return; }
+    this.setState({ pinBusy: true });
+    navigator.geolocation.getCurrentPosition(async pos => {
+      const la = pos.coords.latitude, lo = pos.coords.longitude, acc = Math.round(pos.coords.accuracy);
+      let adresse = "";
+      try {
+        const r = await fetch("https://api-adresse.data.gouv.fr/reverse/?lon=" + lo + "&lat=" + la + "&type=housenumber");
+        const j = await r.json();
+        const f = j.features && j.features[0];
+        if (f) adresse = f.properties.name || f.properties.label || "";
+      } catch (e) {}
+      const pins = this.lirePins();
+      pins[this.cleBien(l)] = { lat: la, lon: lo, acc, adresse, qui: this.who(), t: Date.now() };
+      this.ecrirePins(pins);
+      l.histo.push({ t: Date.now(), qui: this.who(),
+        quoi: "Position exacte relevée sur place" + (adresse ? " — " + adresse : "") + " (précision " + acc + " m)" });
+      this.setState({ pinBusy: false, tick: (this.state.tick || 0) + 1 });
+      this.toast("Position enregistrée sur cet appareil.");
+    }, err => {
+      this.setState({ pinBusy: false });
+      this.toast(err.code === 1 ? "Autorisez la localisation dans les réglages du navigateur." : "Position introuvable, réessayez à l'extérieur.");
+    }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
+  }
+
+  effacerPin(l) {
+    const pins = this.lirePins();
+    delete pins[this.cleBien(l)];
+    this.ecrirePins(pins);
+    l.histo.push({ t: Date.now(), qui: this.who(), quoi: "Position relevée sur place effacée" });
+    this.setState({ tick: (this.state.tick || 0) + 1 });
+  }
+
   /* Rue la plus proche des coordonnées Melo, via la Base Adresse Nationale (service public, sans clé). */
   async chercherRue(l) {
     if (!l.lat || !l.lon) return;
@@ -1176,7 +1365,9 @@ class Component extends DCLogic {
   componentDidMount() {
     document.documentElement.style.setProperty("--rm-accent", this.props.accent || "#0071E3");
     document.documentElement.style.fontSize = (16 * (this.props.textScale || 1.02)) + "px";
-    if (this.props.vue === "Négociateur") this.setState({ role: this.TEAM[0] });
+    let u = null;
+    try { u = localStorage.getItem("radar_user"); } catch (e) {}
+    if (u && this.COMPTES[u]) this.setState({ user: u, role: u === this.DIR ? "__dir" : u });
     this._mq = window.matchMedia("(min-width:1024px)");
     this._onMq = () => this.setState({ wide: this._mq.matches });
     if (this._mq.addEventListener) this._mq.addEventListener("change", this._onMq);
@@ -1201,6 +1392,33 @@ class Component extends DCLogic {
   go(s) { this.setState(st => ({ screen: s, stack: [...st.stack, st.screen] })); }
   back() { this.setState(st => ({ screen: st.stack[st.stack.length - 1] || "jour", stack: st.stack.slice(0, -1) })); }
   tab(s) { this.setState({ screen: s, stack: [] }); }
+  /* ---------- Session ---------- */
+  connecter(nom) {
+    const role = nom === this.DIR ? "__dir" : nom;
+    try { localStorage.setItem("radar_user", nom); } catch (e) {}
+    this.setState({ user: nom, role, loginFor: null, pin: "", pinErr: false,
+      screen: "jour", stack: [], selId: null, person: null, seeAll: false });
+  }
+  deconnecter() {
+    try { localStorage.removeItem("radar_user"); } catch (e) {}
+    this.setState({ user: null, role: "__dir", loginFor: null, pin: "", pinErr: false,
+      screen: "jour", stack: [], selId: null });
+  }
+  taperChiffre(ch) {
+    const nom = this.state.loginFor;
+    if (!nom) return;
+    let p = this.state.pin || "";
+    if (ch === "del") { this.setState({ pin: p.slice(0, -1), pinErr: false }); return; }
+    if (p.length >= 4) return;
+    p += ch;
+    this.setState({ pin: p, pinErr: false });
+    if (p.length === 4) {
+      if (this.COMPTES[nom] === p) setTimeout(() => this.connecter(nom), 180);
+      else setTimeout(() => this.setState({ pin: "", pinErr: true }), 260);
+    }
+  }
+  estDirecteur() { return this.state.user === this.DIR; }
+
   toast(msg) {
     clearTimeout(this._tt);
     this.setState({ toast: msg });
@@ -1358,7 +1576,7 @@ class Component extends DCLogic {
       score: l.score,
       gauge: this.gauge(l),
       scoreFg: l.score >= 70 ? "var(--c-scorehi)" : l.score >= 50 ? "var(--c-warnink)" : "var(--c-sec2)",
-      onOpen: () => { this.setState({ selId: l.id, fTab: "fiche", step: null, photoIdx: 0, zoom: false, showParts: false }); this.chercherRue(l); this.go("bien"); }
+      onOpen: () => { this.setState({ selId: l.id, fTab: "fiche", step: null, photoIdx: 0, zoom: false, showParts: false }); this.chercherRue(l); this.chercherDPE(l); this.go("bien"); }
     };
   }
 
@@ -1476,9 +1694,9 @@ class Component extends DCLogic {
               "Le vendeur accepte d'être rappelé (accord daté)"];
     } else if (l.reached === 2) {
       opts = ["Rendez-vous d'estimation obtenu", "Relance",
-              "Le vendeur accepte d'être rappelé (accord daté)", "Ce bien ne donnera rien"];
+              "Le vendeur accepte d'être rappelé (accord daté)"];
     } else if (l.reached === 3) {
-      opts = ["Mandat signé", "Estimation remise au vendeur", "Relance", "Ce bien ne donnera rien"];
+      opts = ["Mandat signé", "Estimation remise au vendeur", "Relance"];
     } else {
       opts = ["Estimation remise au vendeur", "Relance"];
     }
@@ -1492,6 +1710,37 @@ class Component extends DCLogic {
       prixM2: l.surface ? this.eur(Math.round(l.prix / l.surface)) + " le m²" : "surface non dite",
       ecart: l.ecartPct === null ? "en ligne depuis " + l.jours + " jours"
             : (l.ecartPct > 0 ? "+" + l.ecartPct + " % " : l.ecartPct + " % ") + "face au quartier",
+      pipe: (() => {
+        const G = "#34C759", off = "var(--c-track)";
+        const evOf = et => [...l.histo].filter(e => e.et === et).sort((x, y) => x.t - y.t)[0];
+        const jm = t => new Date(t).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+        const rows = [
+          ["Repéré", 0, l.vu.getTime()],
+          ["Confié", 1, (evOf("attribue") || {}).t],
+          ["Premier contact", 2, (evOf("contacte") || {}).t],
+          ["Rendez-vous", 3, (evOf("rdv") || {}).t],
+          ["Mandat signé", 4, (evOf("mandat") || {}).t]
+        ];
+        const cur = l.reached, stopped = l.statut === "sansSuite";
+        return rows.map((r, i) => {
+          const st = r[1] <= cur ? 2 : (!stopped && r[1] === cur + 1) ? 1 : 0;
+          return {
+            label: r[0],
+            quand: r[2] ? jm(r[2]) : (st === 1 ? "à faire" : "—"),
+            glyph: st === 2 ? "✓" : "",
+            bg: st === 2 ? G : st === 1 ? "var(--c-card)" : "var(--c-group)",
+            ring: st === 1 ? "3px solid " + a : "0",
+            shadow: st === 1 ? "0 4px 14px rgba(0,113,227,.3)" : "none",
+            anim: st === 1 ? "rmPop .4s cubic-bezier(.32,.72,0,1) both" : "none",
+            labelFg: st ? "var(--c-ink)" : "var(--c-sec)",
+            barL: i === 0 ? "transparent" : (st >= 1 ? G : off),
+            barR: i === rows.length - 1 ? "transparent" : (st === 2 ? G : off)
+          };
+        });
+      })(),
+      canDrop: l.statut !== "sansSuite" && l.reached < 4,
+      isDropped: l.statut === "sansSuite",
+      onDrop: () => this.record(l, "Ce bien ne donnera rien"),
       options: opts.map(v => ({ v })),
       step,
       onStep: e => this.setState({ step: e.target.value }),
@@ -1523,26 +1772,57 @@ class Component extends DCLogic {
       sourceLine: l.source + " · réf. " + l.ref + " · texte non retouché",
       url: l.url,
       adr: (() => {
+        const k = this.cleBien(l);
+        const pin = this.lirePins()[k];
+        const dpe = (this._dpe || {})[k] || {};
         const ecrite = this.adresseTexte(l);
         const rue = this._ruesCache ? this._ruesCache[l.id] : undefined;
-        if (ecrite) return {
+        const itin = q => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(q);
+        const vert = ["color-mix(in srgb,#0A8F5B 14%,var(--c-card))", "#0A7A4E"];
+        const bleu = ["var(--c-tint)", "var(--c-accent-text)"];
+        const orange = ["color-mix(in srgb,#B0561A 14%,var(--c-card))", "#9A4A12"];
+        const gris = ["var(--c-group)", "var(--c-sec)"];
+        const base = { cands: [], hasCands: false, hasPin: !!pin, busy: !!this.state.pinBusy,
+          devantLabel: this.state.pinBusy ? "Localisation en cours…" : (pin ? "Relever à nouveau" : "Je suis devant"),
+          onDevant: () => this.jeSuisDevant(l), onEffacer: () => this.effacerPin(l) };
+        const R = (o) => Object.assign({}, base, o, { niveauBg: o.c[0], niveauFg: o.c[1] });
+
+        if (pin) return R({ c: vert, niveau: "Relevé sur place",
+          ligne: (pin.adresse ? pin.adresse + ", " : "") + l.secteur,
+          precision: "Position exacte prise par " + pin.qui + " le " + new Date(pin.t).toLocaleDateString("fr-FR") + ", à " + pin.acc + " m près.",
+          carte: "https://www.google.com/maps/dir/?api=1&destination=" + pin.lat + "," + pin.lon });
+
+        if (ecrite) return R({ c: vert, niveau: "Écrite par le vendeur",
           ligne: ecrite + ", " + l.secteur,
-          precision: "adresse écrite par le vendeur dans son annonce",
-          sure: true, attente: false,
-          carte: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(ecrite + " " + l.secteur)
-        };
-        if (rue === undefined || rue === null) return {
-          ligne: l.secteur, precision: "recherche de la rue la plus proche…",
-          sure: false, attente: true,
-          carte: "https://www.google.com/maps/search/?api=1&query=" + l.lat + "," + l.lon
-        };
-        return {
+          precision: "Le vendeur l'indique lui-même dans son annonce.",
+          carte: itin(ecrite + " " + l.secteur) });
+
+        if (dpe.etat === "ok" && dpe.total === 1) {
+          const c0 = dpe.candidats[0];
+          return R({ c: bleu, niveau: "Retrouvée par le DPE",
+            ligne: c0.adresse,
+            precision: "Un seul logement de cette surface et de cette étiquette énergie est enregistré à l'ADEME" +
+              (c0.dist !== null ? ", à " + c0.dist + " m du point du portail." : ".") + " À vérifier au premier passage.",
+            carte: itin(c0.adresse) });
+        }
+        if (dpe.etat === "ok" && dpe.total > 1) return R({ c: orange,
+          niveau: dpe.total + " adresses possibles",
+          ligne: l.secteur,
+          precision: "Plusieurs logements correspondent à l'ADEME. Le plus proche du point du portail est en tête.",
+          cands: dpe.candidats.map(x => ({ adresse: x.adresse, dist: x.dist !== null ? x.dist + " m" : "", lien: itin(x.adresse) })),
+          hasCands: true,
+          carte: itin(dpe.candidats[0].adresse) });
+
+        const dpeEnCours = dpe.etat === "recherche";
+        const rueEnCours = !!l.lat && (rue === undefined || rue === null);
+        const pourquoi = dpe.etat === "vide" ? "Aucun DPE correspondant à l'ADEME. "
+                       : dpe.etat === "erreur" ? "Base de l'ADEME injoignable. " : "";
+        return R({ c: gris, niveau: (dpeEnCours || rueEnCours) ? "Recherche en cours…" : "Zone approximative",
           ligne: (rue ? rue + ", " : "") + l.secteur,
-          precision: rue ? "rue la plus proche du point fourni par le portail — à confirmer sur place"
-                         : "seule la commune est connue",
-          sure: false, attente: false,
-          carte: "https://www.google.com/maps/search/?api=1&query=" + l.lat + "," + l.lon
-        };
+          precision: dpeEnCours ? "Interrogation de la base des DPE de l'ADEME…"
+            : rueEnCours ? "Recherche de la rue la plus proche…"
+            : pourquoi + "Le portail floute la position des particuliers : le bien est dans un rayon d'environ 300 m. Relevez la porte au premier passage.",
+          carte: l.lat ? "https://www.google.com/maps/search/?api=1&query=" + l.lat + "," + l.lon : itin(l.secteur) });
       })(),
       cv: (() => {
         const c = this.contactVendeur(l);
@@ -1622,6 +1902,7 @@ class Component extends DCLogic {
       meIni: dir ? this.ini(this.DIR) : this.ini(this.state.role),
       meName: dir ? this.DIR : this.state.role,
       goQui: () => this.go("qui"),
+      meSub: this.estDirecteur() ? (dir ? "Changer de vue" : "Session de " + this.state.role) : "Mon compte",
       goRegles: () => this.go("regles"),
       layout: split ? "split" : "full",
       showList: base === "jour" && scr === "jour",
@@ -1729,6 +2010,28 @@ class Component extends DCLogic {
       tousMoreLabel: this.state.tousAll ? "Réduire la liste" : "Voir les " + this.tousList().length + " biens",
       onTousMore: () => this.setState(st => ({ tousAll: !st.tousAll })),
 
+      needLogin: !this.state.user,
+      loginPick: !this.state.user && !this.state.loginFor,
+      loginPinOn: !this.state.user && !!this.state.loginFor,
+      loginName: this.state.loginFor || "",
+      loginErr: this.state.pinErr ? "Code incorrect" : "",
+      loginPeople: this.TEAM.map(nm => ({
+        nom: nm, ini: this.ini(nm),
+        role: nm === this.DIR ? "Direction" : "Négociateur",
+        avBg: nm === this.DIR ? a : "var(--c-group)",
+        avFg: nm === this.DIR ? "#fff" : "var(--c-ink)",
+        onPick: () => this.setState({ loginFor: nm, pin: "", pinErr: false })
+      })),
+      loginDots: [0, 1, 2, 3].map(i => ({ bg: i < (this.state.pin || "").length ? "var(--c-ink)" : "transparent" })),
+      loginKeys: ["1","2","3","4","5","6","7","8","9","","0","del"].map(ch => ({
+        label: ch === "del" ? "⌫" : ch,
+        aria: ch === "del" ? "Effacer" : ch,
+        bg: ch === "del" ? "transparent" : "var(--c-group)",
+        vis: ch === "" ? "hidden" : "visible",
+        onTap: () => { if (ch !== "") this.taperChiffre(ch); }
+      })),
+      loginBack: () => this.setState({ loginFor: null, pin: "", pinErr: false }),
+
       sel: this.selVM(),
 
       ai: (() => {
@@ -1794,8 +2097,9 @@ class Component extends DCLogic {
         return rows.map(r => ({ label: r.label, right: r.s + " sur " + r.m, pct: Math.round(r.s / max * 100) }));
       })(),
 
-      people: [{ nom: "Jonathan R.", ini: this.ini(this.DIR), role: "Direction — voit toute l'agence", key: "__dir" }]
-        .concat(this.TEAM.map(nm => ({ nom: nm, ini: this.ini(nm), role: "Négociateur — ses biens seulement", key: nm })))
+      people: (!this.estDirecteur() ? [] :
+        [{ nom: "Jonathan R.", ini: this.ini(this.DIR), role: "Direction — voit toute l'agence", key: "__dir" }]
+        .concat(this.TEAM.filter(nm => nm !== this.DIR).map(nm => ({ nom: nm, ini: this.ini(nm), role: "Voir sa session", key: nm }))))
         .map(p => ({
           nom: p.nom, ini: p.ini, role: p.role,
           bg: this.state.role === p.key ? "var(--c-tint)" : "var(--c-group)",
@@ -1804,6 +2108,10 @@ class Component extends DCLogic {
           check: this.state.role === p.key ? "✓" : "",
           onPick: () => this.setState({ role: p.key, screen: "jour", stack: [], selId: null, more: {}, ai: {}, person: null, filter: "contact", seeAll: false })
         })),
+      quiIntro: this.estDirecteur()
+        ? "Vous êtes connecté en tant que direction. Vous pouvez ouvrir la session de n'importe quel collaborateur pour voir ce qu'il voit."
+        : "Vous êtes connecté en tant que " + (this.state.user || "") + ". Vous voyez uniquement les biens qui vous sont confiés.",
+      onLogout: () => this.deconnecter(),
 
       rep: {
         hasLead: !!repLead, empty: !repLead,
