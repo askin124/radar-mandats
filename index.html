@@ -825,6 +825,9 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </button>
         </sc-for>
       </div>
+      <sc-if value="{{ attCanRemove }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onAttRemove }}" style="width:100%;margin-top:18px;border:0;border-radius:18px;background:var(--c-group);color:#C0392B;font-size:1rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-hover)">{{ attRemoveLabel }}</button>
+      </sc-if>
 
     </div>
   </sc-if>
@@ -943,7 +946,12 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.screenRef = React.createRef();
+    /* Adresse de l'application web Google Apps Script (Déployer > Application web).
+       Laisser vide pour travailler sans synchronisation. */
+    this.SYNC_URL = "https://script.google.com/macros/s/AKfycbx8gcL2tTPKjWsy68pa_0VhsG8FBe9XFjDyTb3wyFBKjp3_nkH5KGTlHHRPy6HTdZ6K/exec";
     this.DIR = "Jonathan R.";
+    this.LIB_STATUT = { nouveau: "Nouveau", attribue: "Confié", contacte: "Premier contact fait",
+                        rdv: "Rendez-vous d'estimation", mandat: "Mandat signé", sansSuite: "Mis de côté" };
     /* Comptes de démonstration — codes en clair, maquette uniquement. */
     this.COMPTES = {
       "Jonathan R.": "2026", "Melissa J.": "1101", "Renaud C.": "1102", "Isabelle S.": "1103",
@@ -1129,6 +1137,7 @@ class Component extends DCLogic {
       l.vu = new Date(NOW0 - l.jours * 86400000);
       return l;
     }).sort((a, b) => b.score - a.score);
+    this.restaurer();
 
     /* Aucune antériorité : tous les biens arrivent non attribués.
        Jonathan répartit lui-même en séance. */
@@ -1227,7 +1236,7 @@ class Component extends DCLogic {
       l.histo.push({ t: Date.now(), qui: this.who(),
         quoi: "Position exacte relevée sur place" + (adresse ? " — " + adresse : "") + " (précision " + acc + " m)" });
       this.setState({ pinBusy: false, tick: (this.state.tick || 0) + 1 });
-      this.toast("Position enregistrée sur cet appareil.");
+      this.toast(this.SYNC_URL ? "Position enregistrée pour toute l'équipe." : "Position enregistrée sur cet appareil.");
     }, err => {
       this.setState({ pinBusy: false });
       this.toast(err.code === 1 ? "Autorisez la localisation dans les réglages du navigateur." : "Position introuvable, réessayez à l'extérieur.");
@@ -1346,6 +1355,7 @@ class Component extends DCLogic {
 
   /* ---------- navigation ---------- */
   componentDidUpdate(prevProps, prevState) {
+    this.sauver();
     const prev = (prevState && prevState.screen) || this._lastScreen;
     if (prev !== this.state.screen) {
       const el = this.screenRef.current;
@@ -1367,6 +1377,14 @@ class Component extends DCLogic {
     if (key === null) this._aiKey = null;
   }
   componentDidMount() {
+    if (this.SYNC_URL) {
+      this.charger();
+      this._poll = setInterval(() => this.charger(), 30000);
+      this._onFocus = () => this.charger();
+      window.addEventListener("focus", this._onFocus);
+    } else {
+      this._charge = true;
+    }
     document.documentElement.style.setProperty("--rm-accent", this.props.accent || "#0071E3");
     document.documentElement.style.fontSize = (16 * (this.props.textScale || 1.02)) + "px";
     let u = null;
@@ -1396,6 +1414,111 @@ class Component extends DCLogic {
   go(s) { this.setState(st => ({ screen: s, stack: [...st.stack, st.screen] })); }
   back() { this.setState(st => ({ screen: st.stack[st.stack.length - 1] || "jour", stack: st.stack.slice(0, -1) })); }
   tab(s) { this.setState({ screen: s, stack: [] }); }
+  /* ---------- Mémoire du travail de l'équipe ----------
+     Attributions, statuts et historique sont conservés dans le navigateur,
+     rattachés à l'adresse de l'annonce : ils survivent à la fermeture de la
+     page et à une actualisation des données. */
+  /* Tout ce qui décrit le travail sur un bien, y compris la position relevée sur place. */
+  etatBien(l) {
+    return { assign: l.assign || "", statut: l.statut, reached: l.reached || 0,
+             canal: l.canal || "", histo: l.histo || [], pin: this.lirePins()[this.cleBien(l)] || null };
+  }
+  estVierge(e) {
+    return !e.assign && e.statut === "nouveau" && !e.reached && !e.canal && !e.histo.length && !e.pin;
+  }
+  appliquer(l, x) {
+    l.assign = x.assign || ""; l.statut = x.statut || "nouveau";
+    l.reached = Number(x.reached) || 0; l.canal = x.canal || ""; l.histo = x.histo || [];
+  }
+
+  /* Cache local : la page se rouvre instantanément, même hors réseau. */
+  restaurer() {
+    let m = {};
+    try { m = JSON.parse(localStorage.getItem("radar_travail") || "{}"); } catch (e) { m = {}; }
+    this.L.forEach(l => { const x = m[this.cleBien(l)]; if (x) this.appliquer(l, x); });
+    /* ce qui vient du cache est considéré comme déjà connu : on n'enverra que les nouveaux gestes */
+    this._envoye = {};
+    this.L.forEach(l => { this._envoye[this.cleBien(l)] = JSON.stringify(this.etatBien(l)); });
+    this._file = {};
+  }
+
+  /* Appelé après chaque mise à jour de l'écran : repère les biens modifiés et les envoie. */
+  sauver() {
+    const m = {};
+    this.L.forEach(l => {
+      const k = this.cleBien(l), e = this.etatBien(l), j = JSON.stringify(e);
+      if (!this.estVierge(e)) m[k] = e;
+      if (this._envoye && this._envoye[k] !== j) {
+        this._envoye[k] = j;
+        this._file[k] = Object.assign({ cle: k, titre: l.titre, commune: l.secteur, lien: l.url,
+          statut_libelle: this.LIB_STATUT[l.statut] || l.statut,
+          dernier_geste: e.histo.length ? e.histo[e.histo.length - 1].quoi : "",
+          maj_par: this.who(), maj_le: Date.now() }, e);
+      }
+    });
+    const j = JSON.stringify(m);
+    if (j !== this._dernierSave) {
+      this._dernierSave = j;
+      try { localStorage.setItem("radar_travail", j); } catch (e) {}
+    }
+    this.envoyer();
+  }
+
+  async envoyer() {
+    if (!this.SYNC_URL || !this._charge || this._envoiEnCours) return;
+    const cles = Object.keys(this._file || {});
+    if (!cles.length) return;
+    this._envoiEnCours = true;
+    const lot = cles.map(k => this._file[k]);
+    try {
+      /* text/plain évite la requête préalable que Google refuse */
+      const r = await fetch(this.SYNC_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+                                             body: JSON.stringify({ rows: lot }) });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.erreur || "refus");
+      lot.forEach(x => { if (this._file[x.cle] === x) delete this._file[x.cle]; });
+      if (this._syncKo) { this._syncKo = false; this.toast("Synchronisation rétablie"); }
+    } catch (e) {
+      if (!this._syncKo) { this._syncKo = true; this.toast("Enregistrement en ligne impossible — nouvel essai dans 30 s"); }
+    }
+    this._envoiEnCours = false;
+    if (Object.keys(this._file).length && !this._syncKo) this.envoyer();
+  }
+
+  /* Récupère le travail de toute l'équipe. Un geste local pas encore envoyé reste prioritaire. */
+  async charger() {
+    if (!this.SYNC_URL) return;
+    try {
+      const r = await fetch(this.SYNC_URL + (this.SYNC_URL.includes("?") ? "&" : "?") + "t=" + Date.now());
+      const j = await r.json();
+      if (!j.ok) throw new Error("refus");
+      const parCle = {};
+      (j.rows || []).forEach(x => { parCle[x.cle] = x; });
+      const pins = this.lirePins();
+      let change = false;
+      this.L.forEach(l => {
+        const k = this.cleBien(l);
+        const x = parCle[k];
+        if (!x || (this._file && this._file[k])) return;
+        const e = { assign: x.assign || "", statut: x.statut || "nouveau", reached: Number(x.reached) || 0,
+                    canal: x.canal || "", histo: x.histo || [], pin: x.pin || null };
+        const je = JSON.stringify(e);
+        if (this._envoye[k] === je) return;
+        this.appliquer(l, e);
+        if (e.pin) pins[k] = e.pin; else delete pins[k];
+        this._envoye[k] = je;
+        change = true;
+      });
+      if (change) this.ecrirePins(pins);
+      this._charge = true;
+      if (this._syncKo) { this._syncKo = false; this.toast("Synchronisation rétablie"); }
+      if (change) this.setState(s => ({ tick: (s.tick || 0) + 1 }));
+      this.envoyer();
+    } catch (e) {
+      if (!this._syncKo) { this._syncKo = true; this.toast("Données de l'équipe injoignables — nouvel essai dans 30 s"); }
+    }
+  }
+
   /* ---------- Session ---------- */
   connecter(nom) {
     const role = nom === this.DIR ? "__dir" : nom;
@@ -1483,7 +1606,7 @@ class Component extends DCLogic {
       (!st.fCible || (st.fCible === "oui") === !!l.cible)
     );
   }
-  who() { return this.isDir() ? this.DIR : this.state.role; }
+  who() { return this.state.user || (this.isDir() ? this.DIR : this.state.role); }
   sel() { return this.L.find(l => l.id === this.state.selId); }
 
   record(l, label) {
@@ -1506,11 +1629,24 @@ class Component extends DCLogic {
   }
 
   assign(l, name) {
+    const avant = l.assign;
+    if (avant === name) return;
     l.assign = name;
     if (l.reached < 1) { l.statut = "attribue"; l.reached = 1; }
-    l.histo.push({ t: Date.now(), qui: this.DIR, quoi: "Bien confié à " + name, et: "attribue" });
+    l.histo.push({ t: Date.now(), qui: this.who(),
+      quoi: avant ? "Bien retiré à " + avant + " et confié à " + name : "Bien confié à " + name, et: "attribue" });
     this.setState(s => ({ tick: s.tick + 1 }));
     this.toast(name.split(" ")[0] + " s'en occupe");
+  }
+
+  desattribuer(l) {
+    const avant = l.assign;
+    if (!avant) return;
+    l.assign = "";
+    if (l.reached <= 1 && l.statut !== "sansSuite") { l.statut = "nouveau"; l.reached = 0; }
+    l.histo.push({ t: Date.now(), qui: this.who(), quoi: "Attribution retirée à " + avant, et: "note" });
+    this.setState(s => ({ tick: s.tick + 1 }));
+    this.toast("Plus personne ne suit ce bien");
   }
 
   /* ---------- présentation ---------- */
@@ -1679,6 +1815,8 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    clearInterval(this._poll);
+    if (this._onFocus) window.removeEventListener("focus", this._onFocus);
     window.removeEventListener("keydown", this._onKey);
     clearInterval(this._ph); clearInterval(this._rv); clearTimeout(this._tt); clearTimeout(this._pt);
     if (this._mq && this._onMq) {
@@ -2135,6 +2273,9 @@ class Component extends DCLogic {
         check: l && l.assign === nm ? "✓" : "",
         onPick: () => { if (l) this.assign(l, nm); this.back(); }
       })),
+      attCanRemove: !!(l && l.assign),
+      attRemoveLabel: l && l.assign ? "Retirer ce bien à " + l.assign : "",
+      onAttRemove: () => { if (l) this.desattribuer(l); this.back(); },
 
       tabs: [
         { label: dir ? "Aujourd'hui" : "Mes biens", icon: "◉", key: "jour" },
