@@ -1,0 +1,583 @@
+[
+ {
+  "slug": "abeilhan",
+  "commune": "Abeilhan",
+  "cp": "34290",
+  "adresses": 914,
+  "octets": 43869
+ },
+ {
+  "slug": "agel",
+  "commune": "Agel",
+  "cp": "34210",
+  "adresses": 220,
+  "octets": 10044
+ },
+ {
+  "slug": "aigne",
+  "commune": "Aigne",
+  "cp": "34210",
+  "adresses": 261,
+  "octets": 11699
+ },
+ {
+  "slug": "aigues-vives",
+  "commune": "Aigues-Vives",
+  "cp": "11800",
+  "adresses": 884,
+  "octets": 40132
+ },
+ {
+  "slug": "argeliers",
+  "commune": "Argeliers",
+  "cp": "11120",
+  "adresses": 1441,
+  "octets": 68930
+ },
+ {
+  "slug": "argens-minervois",
+  "commune": "Argens-Minervois",
+  "cp": "11200",
+  "adresses": 343,
+  "octets": 16096
+ },
+ {
+  "slug": "armissan",
+  "commune": "Armissan",
+  "cp": "11110",
+  "adresses": 836,
+  "octets": 38791
+ },
+ {
+  "slug": "azillanet",
+  "commune": "Azillanet",
+  "cp": "34210",
+  "adresses": 346,
+  "octets": 15544
+ },
+ {
+  "slug": "azille",
+  "commune": "Azille",
+  "cp": "11700",
+  "adresses": 874,
+  "octets": 41054
+ },
+ {
+  "slug": "bassan",
+  "commune": "Bassan",
+  "cp": "34290",
+  "adresses": 1348,
+  "octets": 62450
+ },
+ {
+  "slug": "beaufort",
+  "commune": "Beaufort",
+  "cp": "34210",
+  "adresses": 196,
+  "octets": 9512
+ },
+ {
+  "slug": "beziers",
+  "commune": "Béziers",
+  "cp": "34500",
+  "adresses": 24287,
+  "octets": 1179151
+ },
+ {
+  "slug": "bize-minervois",
+  "commune": "Bize-Minervois",
+  "cp": "11120",
+  "adresses": 1163,
+  "octets": 54438
+ },
+ {
+  "slug": "boujan-sur-libron",
+  "commune": "Boujan-sur-Libron",
+  "cp": "34760",
+  "adresses": 1418,
+  "octets": 66026
+ },
+ {
+  "slug": "boutenac",
+  "commune": "Boutenac",
+  "cp": "11200",
+  "adresses": 635,
+  "octets": 29204
+ },
+ {
+  "slug": "canet",
+  "commune": "Canet",
+  "cp": "11200",
+  "adresses": 3042,
+  "octets": 157653
+ },
+ {
+  "slug": "capestang",
+  "commune": "Capestang",
+  "cp": "34310",
+  "adresses": 2129,
+  "octets": 96062
+ },
+ {
+  "slug": "castelnau-d-aude",
+  "commune": "Castelnau-d'Aude",
+  "cp": "11700",
+  "adresses": 418,
+  "octets": 19286
+ },
+ {
+  "slug": "cazouls-les-beziers",
+  "commune": "Cazouls-lès-Béziers",
+  "cp": "34370",
+  "adresses": 2571,
+  "octets": 121875
+ },
+ {
+  "slug": "cers",
+  "commune": "Cers",
+  "cp": "34420",
+  "adresses": 1146,
+  "octets": 52973
+ },
+ {
+  "slug": "cessenon-sur-orb",
+  "commune": "Cessenon-sur-Orb",
+  "cp": "34460",
+  "adresses": 1864,
+  "octets": 89626
+ },
+ {
+  "slug": "cesseras",
+  "commune": "Cesseras",
+  "cp": "34210",
+  "adresses": 387,
+  "octets": 18034
+ },
+ {
+  "slug": "colombiers",
+  "commune": "Colombiers",
+  "cp": "34440",
+  "adresses": 1374,
+  "octets": 63208
+ },
+ {
+  "slug": "corneilhan",
+  "commune": "Corneilhan",
+  "cp": "34490",
+  "adresses": 982,
+  "octets": 45566
+ },
+ {
+  "slug": "coursan",
+  "commune": "Coursan",
+  "cp": "11110",
+  "adresses": 2995,
+  "octets": 140917
+ },
+ {
+  "slug": "cuxac-d-aude",
+  "commune": "Cuxac-d'Aude",
+  "cp": "11590",
+  "adresses": 2175,
+  "octets": 103229
+ },
+ {
+  "slug": "escales",
+  "commune": "Escales",
+  "cp": "11200",
+  "adresses": 429,
+  "octets": 19602
+ },
+ {
+  "slug": "felines-minervois",
+  "commune": "Félines-Minervois",
+  "cp": "34210",
+  "adresses": 396,
+  "octets": 20293
+ },
+ {
+  "slug": "fleury",
+  "commune": "Fleury",
+  "cp": "11560",
+  "adresses": 10319,
+  "octets": 543317
+ },
+ {
+  "slug": "ginestas",
+  "commune": "Ginestas",
+  "cp": "11120",
+  "adresses": 1136,
+  "octets": 52422
+ },
+ {
+  "slug": "gruissan",
+  "commune": "Gruissan",
+  "cp": "11430",
+  "adresses": 3343,
+  "octets": 156209
+ },
+ {
+  "slug": "homps",
+  "commune": "Homps",
+  "cp": "11200",
+  "adresses": 426,
+  "octets": 19306
+ },
+ {
+  "slug": "la-caunette",
+  "commune": "La Caunette",
+  "cp": "34210",
+  "adresses": 377,
+  "octets": 16813
+ },
+ {
+  "slug": "la-liviniere",
+  "commune": "La Livinière",
+  "cp": "34210",
+  "adresses": 495,
+  "octets": 24181
+ },
+ {
+  "slug": "la-redorte",
+  "commune": "La Redorte",
+  "cp": "11700",
+  "adresses": 833,
+  "octets": 38522
+ },
+ {
+  "slug": "lespignan",
+  "commune": "Lespignan",
+  "cp": "34710",
+  "adresses": 2010,
+  "octets": 90976
+ },
+ {
+  "slug": "lezignan-corbieres",
+  "commune": "Lézignan-Corbières",
+  "cp": "11200",
+  "adresses": 6245,
+  "octets": 291622
+ },
+ {
+  "slug": "lieuran-les-beziers",
+  "commune": "Lieuran-lès-Béziers",
+  "cp": "34290",
+  "adresses": 913,
+  "octets": 41190
+ },
+ {
+  "slug": "lignan-sur-orb",
+  "commune": "Lignan-sur-Orb",
+  "cp": "34490",
+  "adresses": 1547,
+  "octets": 73837
+ },
+ {
+  "slug": "magalas",
+  "commune": "Magalas",
+  "cp": "34480",
+  "adresses": 2073,
+  "octets": 97438
+ },
+ {
+  "slug": "maraussan",
+  "commune": "Maraussan",
+  "cp": "34370",
+  "adresses": 2355,
+  "octets": 113418
+ },
+ {
+  "slug": "marcorignan",
+  "commune": "Marcorignan",
+  "cp": "11120",
+  "adresses": 788,
+  "octets": 35883
+ },
+ {
+  "slug": "maureilhan",
+  "commune": "Maureilhan",
+  "cp": "34370",
+  "adresses": 1160,
+  "octets": 54063
+ },
+ {
+  "slug": "minerve",
+  "commune": "Minerve",
+  "cp": "34210",
+  "adresses": 131,
+  "octets": 5634
+ },
+ {
+  "slug": "montady",
+  "commune": "Montady",
+  "cp": "34310",
+  "adresses": 1894,
+  "octets": 86663
+ },
+ {
+  "slug": "montbrun-des-corbieres",
+  "commune": "Montbrun-des-Corbières",
+  "cp": "11700",
+  "adresses": 328,
+  "octets": 15728
+ },
+ {
+  "slug": "montredon-des-corbieres",
+  "commune": "Montredon-des-Corbières",
+  "cp": "11100",
+  "adresses": 836,
+  "octets": 38887
+ },
+ {
+  "slug": "moussan",
+  "commune": "Moussan",
+  "cp": "11120",
+  "adresses": 1237,
+  "octets": 59965
+ },
+ {
+  "slug": "murviel-les-beziers",
+  "commune": "Murviel-lès-Béziers",
+  "cp": "34490",
+  "adresses": 1966,
+  "octets": 94099
+ },
+ {
+  "slug": "narbonne",
+  "commune": "Narbonne",
+  "cp": "11100",
+  "adresses": 18868,
+  "octets": 872232
+ },
+ {
+  "slug": "nevian",
+  "commune": "Névian",
+  "cp": "11200",
+  "adresses": 743,
+  "octets": 34366
+ },
+ {
+  "slug": "nissan-lez-enserune",
+  "commune": "Nissan-lez-Enserune",
+  "cp": "34440",
+  "adresses": 2427,
+  "octets": 112274
+ },
+ {
+  "slug": "olonzac",
+  "commune": "Olonzac",
+  "cp": "34210",
+  "adresses": 1342,
+  "octets": 62364
+ },
+ {
+  "slug": "oupia",
+  "commune": "Oupia",
+  "cp": "34210",
+  "adresses": 297,
+  "octets": 13712
+ },
+ {
+  "slug": "pailhes",
+  "commune": "Pailhès",
+  "cp": "34490",
+  "adresses": 371,
+  "octets": 18008
+ },
+ {
+  "slug": "paraza",
+  "commune": "Paraza",
+  "cp": "11200",
+  "adresses": 670,
+  "octets": 31503
+ },
+ {
+  "slug": "pepieux",
+  "commune": "Pépieux",
+  "cp": "11700",
+  "adresses": 847,
+  "octets": 39406
+ },
+ {
+  "slug": "poilhes",
+  "commune": "Poilhes",
+  "cp": "34310",
+  "adresses": 360,
+  "octets": 17052
+ },
+ {
+  "slug": "portiragnes",
+  "commune": "Portiragnes",
+  "cp": "34420",
+  "adresses": 2173,
+  "octets": 104024
+ },
+ {
+  "slug": "pouzols-minervois",
+  "commune": "Pouzols-Minervois",
+  "cp": "11120",
+  "adresses": 424,
+  "octets": 20203
+ },
+ {
+  "slug": "puicheric",
+  "commune": "Puichéric",
+  "cp": "11700",
+  "adresses": 743,
+  "octets": 35326
+ },
+ {
+  "slug": "puimisson",
+  "commune": "Puimisson",
+  "cp": "34480",
+  "adresses": 661,
+  "octets": 29700
+ },
+ {
+  "slug": "puissalicon",
+  "commune": "Puissalicon",
+  "cp": "34480",
+  "adresses": 859,
+  "octets": 41258
+ },
+ {
+  "slug": "raissac-d-aude",
+  "commune": "Raissac-d'Aude",
+  "cp": "11200",
+  "adresses": 208,
+  "octets": 9271
+ },
+ {
+  "slug": "rieux-minervois",
+  "commune": "Rieux-Minervois",
+  "cp": "11160",
+  "adresses": 1560,
+  "octets": 71507
+ },
+ {
+  "slug": "roubia",
+  "commune": "Roubia",
+  "cp": "11200",
+  "adresses": 422,
+  "octets": 20184
+ },
+ {
+  "slug": "saint-andre-de-roquelongue",
+  "commune": "Saint-André-de-Roquelongue",
+  "cp": "11200",
+  "adresses": 1197,
+  "octets": 54951
+ },
+ {
+  "slug": "saint-jean-de-minervois",
+  "commune": "Saint-Jean-de-Minervois",
+  "cp": "34360",
+  "adresses": 310,
+  "octets": 13989
+ },
+ {
+  "slug": "saint-marcel-sur-aude",
+  "commune": "Saint-Marcel-sur-Aude",
+  "cp": "11120",
+  "adresses": 1201,
+  "octets": 57595
+ },
+ {
+  "slug": "saint-nazaire-d-aude",
+  "commune": "Saint-Nazaire-d'Aude",
+  "cp": "11120",
+  "adresses": 1076,
+  "octets": 52156
+ },
+ {
+  "slug": "sainte-valiere",
+  "commune": "Sainte-Valière",
+  "cp": "11120",
+  "adresses": 453,
+  "octets": 20810
+ },
+ {
+  "slug": "salles-d-aude",
+  "commune": "Salles-d'Aude",
+  "cp": "11110",
+  "adresses": 1985,
+  "octets": 92255
+ },
+ {
+  "slug": "sauvian",
+  "commune": "Sauvian",
+  "cp": "34410",
+  "adresses": 2756,
+  "octets": 128452
+ },
+ {
+  "slug": "serignan",
+  "commune": "Sérignan",
+  "cp": "34410",
+  "adresses": 5261,
+  "octets": 249244
+ },
+ {
+  "slug": "servian",
+  "commune": "Servian",
+  "cp": "34290",
+  "adresses": 2773,
+  "octets": 127402
+ },
+ {
+  "slug": "siran",
+  "commune": "Siran",
+  "cp": "34210",
+  "adresses": 647,
+  "octets": 30113
+ },
+ {
+  "slug": "thezan-les-beziers",
+  "commune": "Thézan-lès-Béziers",
+  "cp": "34490",
+  "adresses": 1634,
+  "octets": 77262
+ },
+ {
+  "slug": "tourouzelle",
+  "commune": "Tourouzelle",
+  "cp": "11200",
+  "adresses": 451,
+  "octets": 20461
+ },
+ {
+  "slug": "valras-plage",
+  "commune": "Valras-Plage",
+  "cp": "34350",
+  "adresses": 3350,
+  "octets": 162042
+ },
+ {
+  "slug": "vendres",
+  "commune": "Vendres",
+  "cp": "34350",
+  "adresses": 1737,
+  "octets": 81048
+ },
+ {
+  "slug": "vias",
+  "commune": "Vias",
+  "cp": "34450",
+  "adresses": 4215,
+  "octets": 201613
+ },
+ {
+  "slug": "villeneuve-les-beziers",
+  "commune": "Villeneuve-lès-Béziers",
+  "cp": "34420",
+  "adresses": 2415,
+  "octets": 112663
+ },
+ {
+  "slug": "vinassan",
+  "commune": "Vinassan",
+  "cp": "11110",
+  "adresses": 1358,
+  "octets": 64010
+ }
+]
