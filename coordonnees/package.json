@@ -1,0 +1,16 @@
+{
+  "name": "radar-mandats",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Service local de Radar Mandats : sert la page design/ et la recherche de coordonnées PagesBlanches.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "browser:install": "playwright install chromium"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "playwright": "^1.63.0"
+  }
+}

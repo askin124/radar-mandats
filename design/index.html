@@ -733,6 +733,10 @@ a:hover{color:var(--c-accent-text);opacity:.7}
             <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:.84rem;align-items:baseline">
               <span style="color:var(--c-sec2)">Annonceur</span>
               <span style="font-weight:600;color: {{ sel.cv.nomColor }}">{{ sel.cv.nom }} <span style="font-weight:400;color:var(--c-sec2);font-size:.78rem">{{ sel.cv.nomLabel }} — {{ sel.cv.nomUtil }}</span></span>
+              <sc-if value="{{ sel.cv.hasIdentite }}" hint-placeholder-val="{{ false }}">
+                <span style="color:var(--c-sec2)">Nom et prénom</span>
+                <span style="font-weight:600;color:var(--c-ink)">{{ sel.cv.identite }}</span>
+              </sc-if>
               <span style="color:var(--c-sec2)">Téléphone</span>
               <span style="color: {{ sel.cv.telColor }}">{{ sel.cv.tel }}</span>
               <span style="color:var(--c-sec2)">E-mail</span>
@@ -742,6 +746,14 @@ a:hover{color:var(--c-accent-text);opacity:.7}
               <div style="padding:10px 12px;border-radius:12px;background:var(--c-group2);font-size:.8rem;line-height:1.45;color:var(--c-sec2);text-wrap:pretty">{{ sel.cv.dispo }}</div>
             </sc-if>
             <div style="font-size:.78rem;color:var(--c-sec2);line-height:1.45;text-wrap:pretty">{{ sel.canalNote }}</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button type="button" onClick="{{ sel.lookup.onTap }}" aria-disabled="{{ sel.lookup.disabled }}" aria-busy="{{ sel.lookup.busy }}" style="display:flex;align-items:center;justify-content:center;gap:7px;min-height:40px;border:0;border-radius:12px;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text);font-size:.8rem;font-weight:700;padding:9px 14px;cursor: {{ sel.lookup.cursor }};opacity: {{ sel.lookup.opacity }};transition:transform .18s ease" style-active="transform:scale(.98)">
+                <sc-if value="{{ sel.lookup.busy }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width:13px;height:13px;border-radius:50%;border:2px solid color-mix(in srgb,var(--c-accent-text) 30%,transparent);border-top-color:var(--c-accent-text);animation:rmSpin .7s linear infinite;flex:none"></span></sc-if>
+                <sc-if value="{{ sel.lookup.idle }}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></sc-if>
+                <span>{{ sel.lookup.label }}</span>
+              </button>
+              <sc-if value="{{ sel.lookup.hasStatus }}" hint-placeholder-val="{{ false }}"><div role="status" aria-live="polite" style="font-size:.76rem;line-height:1.4;text-align:center;color: {{ sel.lookup.statusColor }};text-wrap:pretty">{{ sel.lookup.status }}</div></sc-if>
+            </div>
             <a href="{{ sel.url }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;background:var(--rm-accent,#3D67B1);color:#fff;font-size:.86rem;font-weight:700;padding:12px 14px;text-decoration:none">Écrire par la messagerie de l'annonce ↗</a>
             <div style="border-top:1px solid var(--c-rule);padding-top:12px">
               <div style="font-size:.74rem;color:var(--c-sec2);letter-spacing:.01em">{{ sel.sourceLine }}</div>
@@ -1427,6 +1439,11 @@ class Component extends DCLogic {
     /* Adresse de l'application web Google Apps Script (Déployer > Application web).
        Laisser vide pour travailler sans synchronisation. */
     this.SYNC_URL = "";
+    /* Recherche de coordonnées PagesBlanches : service local (dossier coordonnees/, npm start).
+       Disponible seulement quand la page est servie par ce service, pas sur GitHub Pages. */
+    this._pbApi = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) ? "/api/radar" : "";
+    this._pbTimers = {};
+    try { this._pbLookups = JSON.parse(localStorage.getItem("rm_pb_lookups") || "{}"); } catch (e) { this._pbLookups = {}; }
     /* Secteurs des négociateurs : une simple suggestion affichée à Jonathan.
        L'attribution reste toujours manuelle. */
     this.SECTEURS = {
@@ -1898,6 +1915,74 @@ class Component extends DCLogic {
      Ordre de confiance : relevé sur place > écrite par le vendeur >
      retrouvée par le DPE > zone approximative du portail. */
   cleBien(l) { return l.url || ("bien-" + l.id); }
+
+  /* ---------- Coordonnées PagesBlanches ----------
+     Le service local ouvre PagesBlanches dans un Chrome dédié et lit les particuliers
+     inscrits à l'adresse confirmée. Résultats gardés par annonce (serveur + copie locale). */
+  lookupFor(l) { return this._pbLookups[this.cleBien(l)] || { status: "idle", results: [] }; }
+  saveLookup(l, value) {
+    this._pbLookups[this.cleBien(l)] = value;
+    try { localStorage.setItem("rm_pb_lookups", JSON.stringify(this._pbLookups)); } catch (e) {}
+    this.setState(s => ({ tick: (s.tick || 0) + 1 }));
+  }
+  async readLookup(l, jobId) {
+    const k = this.cleBien(l);
+    clearTimeout(this._pbTimers[k]);
+    try {
+      const r = await fetch(this._pbApi + "/lookups/" + encodeURIComponent(jobId));
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "La recherche n'est pas disponible.");
+      this.saveLookup(l, { jobId, status: d.status, message: d.message || "", results: d.results || [] });
+      if (d.status === "queued" || d.status === "running") this._pbTimers[k] = setTimeout(() => this.readLookup(l, jobId), 1200);
+    } catch (e) {
+      this.saveLookup(l, { jobId, status: "error", results: this.lookupFor(l).results || [], message: e.message || "Connexion impossible au service de recherche." });
+    }
+  }
+  async rechercherCoordonnees(l, address) {
+    const cur = this.lookupFor(l);
+    if (!address || ["starting", "queued", "running"].includes(cur.status)) return;
+    if (!this._pbApi) {
+      this.saveLookup(l, { ...cur, status: "offline", message: "Recherche disponible quand Radar est lancé sur l'ordinateur (dossier coordonnees, npm start)." });
+      return;
+    }
+    this.saveLookup(l, { ...cur, status: "starting", message: "Connexion au service PagesBlanches…" });
+    try {
+      const reprise = cur.jobId && (cur.status === "paused" || cur.status === "error");
+      const r = await fetch(this._pbApi + "/lookups" + (reprise ? "/" + encodeURIComponent(cur.jobId) + "/resume" : ""), {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: reprise ? "{}" : JSON.stringify({ address, reference: l.ref || "" })
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "La recherche n'a pas pu démarrer.");
+      this.saveLookup(l, { jobId: d.id, status: d.status, message: d.message || "Recherche lancée", results: d.results || [] });
+      this.readLookup(l, d.id);
+    } catch (e) {
+      this.saveLookup(l, { ...cur, status: "error", message: e.message || "Démarrez le service de recherche, puis réessayez." });
+    }
+  }
+  lookupVM(l, adr) {
+    const d = this.lookupFor(l);
+    const res = Array.isArray(d.results) ? d.results : [];
+    const busy = ["starting", "queued", "running"].includes(d.status);
+    const noms = [...new Set(res.map(x => (x.fullName || ((x.firstName || "") + " " + (x.lastName || ""))).trim()).filter(Boolean))];
+    const tels = [...new Set(res.map(x => (x.phone || "").trim()).filter(Boolean))];
+    const adresse = adr.ok ? (this.normCommune(adr.titre).includes(this.normCommune(l.secteur)) ? adr.titre : adr.titre + ", " + l.secteur) : "";
+    const actif = !!adresse && !busy;
+    const ko = d.status === "error" || d.status === "paused" || d.status === "offline";
+    return {
+      busy, idle: !busy, noms, tels,
+      label: busy ? "Recherche en cours…" : d.status === "completed" ? "Relancer la recherche de coordonnées"
+           : (d.status === "paused" || d.status === "error") ? "Réessayer la recherche" : "Rechercher les coordonnées",
+      disabled: !actif, cursor: actif ? "pointer" : "default", opacity: adresse ? "1" : ".55",
+      hasStatus: !adresse || d.status !== "idle",
+      status: !adresse ? "Confirmez d'abord l'adresse du bien (tiroir « Adresse ») pour chercher les occupants."
+            : d.status === "completed" ? (res.length ? res.length + " contact" + (res.length > 1 ? "s trouvés" : " trouvé") + " sur PagesBlanches au " + adresse + "."
+                                                     : "Personne d'inscrit sur PagesBlanches au " + adresse + ".")
+            : (d.message || "Recherche en cours…"),
+      statusColor: ko ? "var(--c-err)" : "var(--c-sec2)",
+      onTap: () => { if (actif) this.rechercherCoordonnees(l, adresse); }
+    };
+  }
   lirePins() { try { return JSON.parse(localStorage.getItem("radar_pins") || "{}"); } catch (e) { return {}; } }
   ecrirePins(p) { try { localStorage.setItem("radar_pins", JSON.stringify(p)); } catch (e) {} }
 
@@ -3388,6 +3473,14 @@ class Component extends DCLogic {
       parts: l.parts.map(p => ({ label: p[0], note: p[3], pct: Math.round(p[1] / p[2] * 100) }))
     };
     vm.brutResume = vm.brut.length + " données · dossier " + (l.dossier || "non attribué");
+    vm.lookup = this.lookupVM(l, vm.adr);
+    vm.cv.hasIdentite = vm.lookup.noms.length > 0;
+    vm.cv.identite = vm.lookup.noms.join(" · ");
+    if (vm.lookup.tels.length) {
+      const tels = [...new Set([cv0.tel, ...vm.lookup.tels].filter(Boolean))];
+      vm.cv.tel = tels.join(" · ");
+      vm.cv.telColor = "var(--c-ink)";
+    }
     return vm;
   }
 
