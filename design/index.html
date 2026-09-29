@@ -423,16 +423,26 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </sc-if>
 
           <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:16px 0 8px">Noter ce que vous avez fait</div>
-          <div style="display:flex;gap:8px">
-            <div style="position:relative;flex:1;min-width:0">
-              <select value="{{ sel.step }}" onChange="{{ sel.onStep }}" aria-label="Ce que vous avez fait" style="appearance:none;-webkit-appearance:none;width:100%;border:1px solid var(--c-rule);border-radius:12px;background:var(--c-card);font-size:.86rem;font-weight:500;padding:12px 34px 12px 12px;cursor:pointer;color:var(--c-ink);line-height:1.3;text-overflow:ellipsis">
-                <sc-for list="{{ sel.options }}" as="o" hint-placeholder-count="5">
-                  <option value="{{ o.v }}">{{ o.v }}</option>
-                </sc-for>
-              </select>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--c-sec)"><path d="M6 9l6 6 6-6"></path></svg>
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <div style="flex:1;min-width:0;border-radius:12px;background:var(--c-card);overflow:hidden;transition:border-color .2s ease;border:1.5px solid {{ sel.stepBorder }}">
+              <button onClick="{{ sel.onStepToggle }}" aria-expanded="{{ sel.stepOpen }}" style="width:100%;border:0;background:none;padding:11px 12px;display:flex;align-items:center;gap:8px;text-align:left;cursor:pointer;color:var(--c-ink)">
+                <span style="flex:1;min-width:0;font-size:.86rem;font-weight:600;line-height:1.3;text-wrap:pretty">{{ sel.step }}</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-accent-text);transition:transform .2s ease;transform: {{ sel.stepChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+              </button>
+              <sc-if value="{{ sel.stepOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="border-top:1px solid var(--c-rule);animation:rmFade .2s ease both">
+                  <sc-for list="{{ sel.options }}" as="o" hint-placeholder-count="5">
+                    <button onClick="{{ o.onPick }}" style="width:100%;border:0;border-bottom:1px solid var(--c-rule);padding:10px 12px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;color:var(--c-ink);background: {{ o.bg }}">
+                      <span style="width:16px;height:16px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;border:1.5px solid {{ o.radio }}">
+                        <span style="width:8px;height:8px;border-radius:4px;background: {{ o.dot }}"></span>
+                      </span>
+                      <span style="flex:1;min-width:0;font-size:.84rem;line-height:1.35;text-wrap:pretty;font-weight: {{ o.w }}">{{ o.v }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </sc-if>
             </div>
-            <button onClick="{{ sel.onSave }}" aria-label="Enregistrer" title="Enregistrer" style="flex:none;border:0;border-radius:12px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.88rem;font-weight:800;padding:0 16px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.95)">OK</button>
+            <button onClick="{{ sel.onSave }}" aria-label="Enregistrer" title="Enregistrer" style="flex:none;height:44px;border:0;border-radius:12px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.88rem;font-weight:800;padding:0 16px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.95)">OK</button>
           </div>
           <sc-if value="{{ sel.canDrop }}" hint-placeholder-val="{{ false }}">
             <button onClick="{{ sel.onDrop }}" style="margin-top:10px;border:0;background:none;padding:2px 0;color:var(--c-accent-text);font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:underline">Ce bien ne donnera rien</button>
@@ -2871,10 +2881,20 @@ class Component extends DCLogic {
       canDrop: l.statut !== "sansSuite" && l.reached < 4,
       isDropped: l.statut === "sansSuite",
       onDrop: () => this.record(l, "Ce bien ne donnera rien"),
-      options: opts.map(v => ({ v })),
+      options: opts.map(v => {
+        const on = v === step;
+        return { v, w: on ? 700 : 500,
+          bg: on ? "color-mix(in srgb,var(--c-sky) 11%,var(--c-card))" : "var(--c-card)",
+          radio: on ? "var(--rm-accent,#2F6FE4)" : "var(--c-faint)", dot: on ? "var(--rm-accent,#2F6FE4)" : "transparent",
+          onPick: () => this.setState({ step: v, stepOpen: false }) };
+      }),
+      stepOpen: !!this.state.stepOpen,
+      stepBorder: this.state.stepOpen ? "var(--rm-accent,#2F6FE4)" : "var(--c-rule)",
+      stepChev: this.state.stepOpen ? "rotate(180deg)" : "none",
+      onStepToggle: () => this.setState(st => ({ stepOpen: !st.stepOpen })),
       step,
       onStep: e => this.setState({ step: e.target.value }),
-      onSave: () => { this.record(l, step); this.setState({ step: null }); },
+      onSave: () => { this.record(l, step); this.setState({ step: null, stepOpen: false }); },
       tabFiche: tab === "fiche", tabSuivi: tab === "suivi",
       tabs: [
         { key: "fiche", label: "La fiche" },
