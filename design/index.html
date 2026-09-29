@@ -69,6 +69,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 [data-pill]{display:inline-flex;align-items:center;gap:4px;border-radius:9px;padding:5px 9px;font-size:.76rem;font-weight:600;white-space:nowrap}
 [data-seg]{display:flex;gap:4px;background:color-mix(in srgb,var(--c-navy) 8%,var(--c-bg));border-radius:14px;padding:4px;overflow-x:auto;scrollbar-width:none}
 [data-seg]::-webkit-scrollbar{display:none}
+[data-menu]{position:fixed;top:74px;right:12px;width:min(340px,calc(100vw - 24px));max-height:calc(100vh - 170px);overflow-y:auto;z-index:66}
 [data-fiche] select:focus-visible{outline:2px solid var(--rm-accent,#3D67B1);outline-offset:2px}
 @media (min-width:1024px){
   [data-shell]{display:grid;grid-template-columns:244px minmax(0,1fr);min-height:100vh}
@@ -88,6 +89,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   [data-sheetwrap]{align-items:center}
   [data-sheet]{max-width:480px;border-radius:26px}
   [data-herocard]{margin:22px 0 26px;padding:20px 24px}
+  [data-menu]{top:auto;right:auto;left:16px;bottom:84px}
   [data-herophoto]{margin:0}
   [data-herophoto] [data-photoin]{border-radius:18px}
   [data-herophoto] [data-photo]{aspect-ratio:16 / 9}
@@ -173,7 +175,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
       <button onClick="{{ th.onTap }}" aria-label="{{ th.label }}" title="{{ th.label }}" style="flex:1;border:0;border-radius:12px;padding:9px 0;font-size:1.05rem;line-height:1;cursor:pointer;transition:background .22s ease,box-shadow .22s ease;background: {{ th.bg }};color: {{ th.color }};box-shadow: {{ th.shadow }}">{{ th.icon }}</button>
     </sc-for>
   </div>
-  <button onClick="{{ goQui }}" style="border:0;background:none;padding:12px 12px;border-radius:14px;cursor:pointer;display:flex;align-items:center;gap:11px;text-align:left;transition:background .18s ease" style-hover="background:var(--c-group)">
+  <button onClick="{{ onMenu }}" aria-expanded="{{ menuOpen }}" style="border:0;background:none;padding:12px 12px;border-radius:14px;cursor:pointer;display:flex;align-items:center;gap:11px;text-align:left;transition:background .18s ease" style-hover="background:var(--c-group)">
     <span style="width:34px;height:34px;border-radius:17px;flex:none;background:var(--rm-accent,#3D67B1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:600">{{ meIni }}</span>
     <span style="min-width:0">
       <span style="display:block;font-size:.92rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ meName }}</span>
@@ -206,8 +208,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
         <span style="position:absolute;top:-4px;right:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:#FF3B30;color:#fff;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px var(--c-navy);animation:rmPop .35s cubic-bezier(.32,.72,0,1) both">{{ bellCount }}</span>
       </sc-if>
     </button>
-    <button data-headav onClick="{{ goQui }}" aria-label="{{ meName }}" style="border:0;padding:0;background:none;cursor:pointer;flex:none;display:flex;align-items:center;transition:transform .18s ease" style-active="transform:scale(.94)">
-      <span style="width:38px;height:38px;border-radius:19px;background:var(--c-navy3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;letter-spacing:.02em">{{ meIni }}</span>
+    <button data-headav onClick="{{ onMenu }}" aria-label="Mon compte" aria-expanded="{{ menuOpen }}" style="border:0;padding:0;background:none;cursor:pointer;flex:none;display:flex;align-items:center;transition:transform .18s ease" style-active="transform:scale(.94)">
+      <span style="width:38px;height:38px;border-radius:19px;background:var(--c-navy3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;letter-spacing:.02em;transition:box-shadow .2s ease;box-shadow: {{ menuRing }}">{{ meIni }}</span>
     </button>
     </div>
     <sc-if value="{{ isBien }}" hint-placeholder-val="{{ false }}">
@@ -457,7 +459,10 @@ a:hover{color:var(--c-accent-text);opacity:.7}
         </sc-if>
 
         <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
-          <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin-bottom:10px">Où en est ce bien ?</div>
+          <button onClick="{{ sel.dr.onPipe }}" aria-expanded="{{ sel.dr.pipe }}" style="width:100%;border:0;background:none;padding:0;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:var(--c-sec2)">
+            <span style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Où en est ce bien ?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.pipeChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
           <div data-steps>
             <sc-for list="{{ sel.pipe }}" as="p" hint-placeholder-count="5">
               <div>
@@ -473,6 +478,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </div>
           <div style="font-size:1rem;font-weight:800;letter-spacing:-.01em;margin-top:12px">{{ sel.nextLabel }}</div>
           <div style="font-size:.8rem;color:var(--c-sec2);margin-top:2px;line-height:1.4">{{ sel.nextSub }}</div>
+          <sc-if value="{{ sel.dr.pipe }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:rmFade .22s ease both">
           <sc-if value="{{ sel.canRecule }}" hint-placeholder-val="{{ false }}">
             <button onClick="{{ sel.onRecule }}" style="margin-top:6px;border:0;background:none;padding:4px 0;color:var(--c-sec2);font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:underline">{{ sel.reculeLabel }}</button>
           </sc-if>
@@ -504,6 +511,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </sc-if>
           <sc-if value="{{ sel.isDropped }}" hint-placeholder-val="{{ false }}">
             <div style="margin-top:10px;background:var(--c-group);border-radius:12px;padding:11px 13px;font-size:.82rem;color:var(--c-sec2);line-height:1.45">Ce bien est mis de côté. Enregistrez une action pour le remettre en route.</div>
+          </sc-if>
+          </div>
           </sc-if>
         </div>
 
@@ -1225,6 +1234,51 @@ a:hover{color:var(--c-accent-text);opacity:.7}
     </sc-for>
   </div>
 </div>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ onMenuClose }}" style="position:fixed;inset:0;z-index:65"></div>
+  <div data-menu role="menu" aria-label="Mon compte" style="background:var(--c-card);border:1px solid var(--c-rule);border-radius:20px;box-shadow:0 18px 50px rgba(10,15,30,.28);padding:14px;animation:rmIn .2s cubic-bezier(.32,.72,0,1) both">
+    <div style="display:flex;align-items:center;gap:12px;padding:2px 4px">
+      <span style="width:42px;height:42px;border-radius:21px;flex:none;background:var(--c-navy3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.84rem;font-weight:800">{{ meIni }}</span>
+      <span style="min-width:0">
+        <span style="display:block;font-size:1rem;font-weight:800">{{ meUser }}</span>
+        <span style="display:block;font-size:.8rem;color:var(--c-sec2);margin-top:2px">{{ meRole }}</span>
+      </span>
+    </div>
+
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:14px 4px 8px">Apparence</div>
+    <div style="display:flex;gap:4px;background:var(--c-group2);border-radius:14px;padding:4px">
+      <sc-for list="{{ themes }}" as="th" hint-placeholder-count="3">
+        <button onClick="{{ th.onTap }}" aria-pressed="{{ th.on }}" style="flex:1;border:0;border-radius:11px;padding:9px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.8rem;font-weight:700;transition:background .2s ease,color .2s ease;background: {{ th.menuBg }};color: {{ th.menuFg }}">
+          <sc-if value="{{ th.isLight }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{ th.isDark }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></sc-if><sc-if value="{{ th.isAuto }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor"></path></svg></sc-if>
+          <span>{{ th.label }}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ hasPeople }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:14px 4px 8px">Se connecter en tant que</div>
+      <div style="display:flex;flex-direction:column;gap:2px;max-height:240px;overflow-y:auto">
+        <sc-for list="{{ people }}" as="p" hint-placeholder-count="4">
+          <button onClick="{{ p.onPickMenu }}" style="width:100%;border:0;border-radius:12px;padding:8px 8px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;color:var(--c-ink);background: {{ p.menuBg }}" style-hover="background:var(--c-group2)">
+            <span style="width:30px;height:30px;border-radius:15px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:800;background: {{ p.avBg }};color: {{ p.avColor }}">{{ p.ini }}</span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.88rem;font-weight:700">{{ p.nom }}</span>
+              <span style="display:block;font-size:.72rem;color:var(--c-sec2);margin-top:1px">{{ p.role }}</span>
+            </span>
+            <span style="color:var(--c-accent-text);font-size:.95rem;font-weight:800">{{ p.check }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div style="height:1px;background:var(--c-rule);margin:12px 0 4px"></div>
+    <button onClick="{{ onLogout }}" style="width:100%;border:0;background:none;border-radius:12px;padding:11px 8px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--c-sec2);font-size:.92rem;font-weight:600" style-hover="background:var(--c-group2)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 16l4-4-4-4"></path><path d="M18 12H9"></path></svg>
+      Se déconnecter
+    </button>
+  </div>
+</sc-if>
 
 <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
   <div data-sheetwrap>
@@ -2310,13 +2364,25 @@ class Component extends DCLogic {
     this.applyTheme(t);
     this._onKey = e => {
       if (e.key !== "Escape") return;
-      if (this.state.sheet) this.setState({ sheet: null });
+      if (this.state.menuOpen) this.setState({ menuOpen: false });
+      else if (this.state.sheet) this.setState({ sheet: null });
       else if (this.state.zoom) this.setState({ zoom: false });
       else if (this.state.assignFor !== null && this.state.assignFor !== undefined) this.setState({ assignFor: null });
     };
     window.addEventListener("keydown", this._onKey);
   }
   applyTheme(t) {
+    if (!this._mqDark && window.matchMedia) {
+      this._mqDark = window.matchMedia("(prefers-color-scheme: dark)");
+      const f = () => { if ((this.state.theme || "light") === "auto") this.applyTheme("auto"); };
+      if (this._mqDark.addEventListener) this._mqDark.addEventListener("change", f); else this._mqDark.addListener(f);
+    }
+    if (t === "auto") {
+      document.documentElement.setAttribute("data-theme", this._mqDark && this._mqDark.matches ? "dark" : "light");
+      try { localStorage.setItem("rm_theme", t); } catch (e) {}
+      this.setState({ theme: t });
+      return;
+    }
     document.documentElement.setAttribute("data-theme", t);
     try { localStorage.setItem("rm_theme", t); } catch (e) {}
     this.setState({ theme: t });
@@ -2940,6 +3006,7 @@ class Component extends DCLogic {
     const cv0 = this.contactVendeur(l);
     const vm = {
       dr: {
+        pipe: !!dr.pipe, pipeChev: dr.pipe ? "rotate(180deg)" : "none", onPipe: drTog("pipe"),
         score: !!dr.score, scoreChev: dr.score ? "rotate(180deg)" : "none", scoreClamp: dr.score ? "unset" : "2", onScore: drTog("score"),
         adr: !!dr.adr, prix: !!dr.prix, vend: !!dr.vend, brut: !!dr.brut,
         adrChev: dr.adr ? "rotate(180deg)" : "none", prixChev: dr.prix ? "rotate(180deg)" : "none",
@@ -3356,6 +3423,13 @@ class Component extends DCLogic {
       meIni: dir ? this.ini(this.DIR) : this.ini(this.state.role),
       meName: dir ? this.DIR : this.state.role,
       goQui: () => this.go("qui"),
+      menuOpen: !!this.state.menuOpen,
+      menuRing: this.state.menuOpen ? "0 0 0 3px var(--rm-accent,#3D67B1)" : "none",
+      onMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })),
+      onMenuClose: () => this.setState({ menuOpen: false }),
+      meUser: this.state.user || "",
+      meRole: this.estDirecteur() ? (dir ? "Direction" : "Direction · session de " + this.state.role) : "Négociateur",
+      hasPeople: this.estDirecteur(),
       meSub: this.estDirecteur() ? (dir ? "Changer de vue" : "Session de " + this.state.role) : "Mon compte",
       goRegles: () => this.go("regles"),
       layout: split ? "split" : "full",
@@ -3732,6 +3806,8 @@ class Component extends DCLogic {
           avBg: this.state.role === p.key ? a : "var(--c-card)",
           avColor: this.state.role === p.key ? "#fff" : "var(--c-ink)",
           check: this.state.role === p.key ? "✓" : "",
+          menuBg: this.state.role === p.key ? "color-mix(in srgb,var(--c-sky) 12%,var(--c-card))" : "transparent",
+          onPickMenu: () => this.setState({ role: p.key, screen: "jour", stack: [], selId: null, more: {}, ai: {}, person: null, filter: "__def", seeAll: false, menuOpen: false }),
           onPick: () => this.setState({ role: p.key, screen: "jour", stack: [], selId: null, more: {}, ai: {}, person: null, filter: "__def", seeAll: false })
         })),
       quiIntro: this.estDirecteur()
@@ -3778,10 +3854,12 @@ class Component extends DCLogic {
         onTap: () => this.tab(t.key)
       })),
 
-      themes: [["light", "Clair", "☀"], ["dark", "Sombre", "☾"]].map(t => {
+      themes: [["light", "Clair", "☀"], ["dark", "Sombre", "☾"], ["auto", "Auto", "◐"]].map(t => {
         const on = (this.state.theme || "light") === t[0];
         return {
-          label: t[1], icon: t[2],
+          label: t[1], icon: t[2], on,
+          isLight: t[0] === "light", isDark: t[0] === "dark", isAuto: t[0] === "auto",
+          menuBg: on ? "var(--rm-accent,#3D67B1)" : "transparent", menuFg: on ? "#fff" : "var(--c-sec2)",
           bg: on ? "var(--c-card)" : "transparent",
           color: on ? "var(--c-ink)" : "var(--c-sec)",
           shadow: on ? "var(--sh-tab)" : "none",
