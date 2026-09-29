@@ -281,7 +281,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </button>
         </sc-for>
       </div>
-        <button onClick="{{ onFiltToggle }}" aria-label="Filtres" aria-expanded="{{ filtOpen }}" title="Filtres" style="position:relative;flex:none;width:44px;height:44px;border:0;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-flat);transition:background .18s ease,color .18s ease;background: {{ filtBtnBg }};color: {{ filtBtnFg }}">
+        <button onClick="{{ onFiltToggle }}" aria-label="Filtres" title="Filtres" style="position:relative;flex:none;width:44px;height:44px;border:0;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-flat);transition:background .18s ease,color .18s ease;background: {{ filtBtnBg }};color: {{ filtBtnFg }}">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>
           <sc-if value="{{ filtOn }}" hint-placeholder-val="{{ false }}">
             <span style="position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#FF3B30;color:#fff;font-size:.66rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--c-bg)">{{ filtCount }}</span>
@@ -289,28 +289,14 @@ a:hover{color:var(--c-accent-text);opacity:.7}
         </button>
       </div>
 
-      <sc-if value="{{ filtOpen }}" hint-placeholder-val="{{ false }}">
-        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:14px 14px 12px;margin:0 0 14px;animation:rmFade .2s ease both">
-          <sc-for list="{{ homeF }}" as="g" hint-placeholder-count="5">
-            <div style="margin-bottom:12px">
-              <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 2px 7px">{{ g.titre }}</div>
-              <div style="display:flex;flex-wrap:wrap;gap:6px">
-                <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="4">
-                  <button onClick="{{ o.onTap }}" style="border:0;border-radius:10px;padding:7px 11px;cursor:pointer;font-size:.8rem;font-weight:700;white-space:nowrap;transition:background .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
-                </sc-for>
-              </div>
-            </div>
+      <sc-if value="{{ hHasActive }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px">
+          <button onClick="{{ onOpenH }}" style="border:0;border-radius:18px;background:var(--c-navy);color:#fff;font-size:.8rem;font-weight:700;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>{{ hActLabel }}
+          </button>
+          <sc-for list="{{ hActive }}" as="a" hint-placeholder-count="2">
+            <button onClick="{{ a.onRemove }}" aria-label="Retirer le filtre {{ a.label }}" style="border:0;border-radius:18px;background:color-mix(in srgb,var(--c-sky) 14%,var(--c-card));color:var(--c-accent-text);font-size:.8rem;font-weight:700;padding:8px 11px;cursor:pointer;display:flex;align-items:center;gap:6px">{{ a.label }} <span style="font-size:.9rem;line-height:1">×</span></button>
           </sc-for>
-          <div style="font-size:.72rem;color:var(--c-sec);margin:0 2px 10px;line-height:1.4">Chambres : déduit du titre et du texte de l'annonce (T3, 4 pièces, 3 chambres…). Les biens qui n'en disent rien sont écartés quand ce filtre est actif.</div>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--c-rule);padding-top:10px">
-            <span style="font-size:.8rem;font-weight:700;color:var(--c-sec2)">{{ filtResult }}</span>
-            <span style="display:flex;gap:6px">
-              <sc-if value="{{ filtOn }}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{ filtReset }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.8rem;font-weight:700;padding:8px 10px;cursor:pointer;border-radius:10px">Effacer</button>
-              </sc-if>
-              <button onClick="{{ onFiltToggle }}" style="border:0;border-radius:10px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.8rem;font-weight:700;padding:8px 14px;cursor:pointer">Voir la liste</button>
-            </span>
-          </div>
         </div>
       </sc-if>
 
@@ -545,17 +531,6 @@ a:hover{color:var(--c-accent-text);opacity:.7}
         </div>
         </sc-if>
 
-        <sc-if value="{{ sel.showConsent }}" hint-placeholder-val="{{ false }}">
-          <button onClick="{{ goRegles }}" style="width:100%;border:0;background:color-mix(in srgb,var(--c-sky) 12%,var(--c-card));border-radius:16px;padding:13px 15px;text-align:left;cursor:pointer;display:flex;gap:11px;align-items:flex-start;color:var(--c-ink)">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;color:var(--c-accent-text)"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
-            <span>
-              <span style="display:block;font-size:.86rem;font-weight:700;color:var(--c-accent-text)">Le téléphone n'est plus permis</span>
-              <span style="display:block;font-size:.78rem;color:var(--c-sec2);margin-top:3px;line-height:1.4">Pas d'appel sans l'accord du vendeur, depuis le 11 août 2026. L'entrée « Appel » précise que l'accord a été recueilli.</span>
-              <span style="display:block;font-size:.78rem;font-weight:700;color:var(--c-accent-text);margin-top:5px;text-decoration:underline">Lire la règle</span>
-            </span>
-          </button>
-        </sc-if>
-
         <div data-drw>
           <button data-drwbtn onClick="{{ sel.dr.onAdr }}" aria-expanded="{{ sel.dr.adr }}">
             <span style="width:32px;height:32px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
@@ -713,6 +688,17 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </div>
         </div>
 
+        <sc-if value="{{ sel.showConsent }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ goRegles }}" style="width:100%;border:0;background:color-mix(in srgb,var(--c-sky) 12%,var(--c-card));border-radius:16px;padding:13px 15px;text-align:left;cursor:pointer;display:flex;gap:11px;align-items:flex-start;color:var(--c-ink)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;color:var(--c-accent-text)"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
+            <span>
+              <span style="display:block;font-size:.86rem;font-weight:700;color:var(--c-accent-text)">Le téléphone n'est plus permis</span>
+              <span style="display:block;font-size:.78rem;color:var(--c-sec2);margin-top:3px;line-height:1.4">Pas d'appel sans l'accord du vendeur, depuis le 11 août 2026. L'entrée « Appel » précise que l'accord a été recueilli.</span>
+              <span style="display:block;font-size:.78rem;font-weight:700;color:var(--c-accent-text);margin-top:5px;text-decoration:underline">Lire la règle</span>
+            </span>
+          </button>
+        </sc-if>
+
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4px">
           <span style="font-size:.76rem;color:var(--c-sec2);font-variant-numeric:tabular-nums">Dossier <b style="color: {{ sel.dossierFg }}">{{ sel.dossierAff }}</b></span>
           <sc-if value="{{ sel.canSuppr }}" hint-placeholder-val="{{ false }}">
@@ -798,74 +784,70 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   </sc-if>
 
   <sc-if value="{{ isTous }}" hint-placeholder-val="{{ false }}">
-    <div>
-      <div style="font-size:1.15rem;font-weight:700;letter-spacing:-.02em;margin:14px 4px 6px">Tout ce qui est passé au radar</div>
-      <div style="font-size:.94rem;color:var(--c-sec);line-height:1.45;margin:0 4px 22px;text-wrap:pretty">Y compris les biens hors de vos critères. Si vous sentez un potentiel, confiez-le quand même.</div>
-
-      <div style="margin:0 0 18px">
-        <div style="font-size:.82rem;font-weight:600;color:var(--c-sec);margin:0 4px 9px">Type de bien</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <sc-for list="{{ tousF1 }}" as="o" hint-placeholder-count="4">
-            <button onClick="{{ o.onTap }}" style="border:0;border-radius:15px;padding:9px 14px;cursor:pointer;font-size:.9rem;font-weight:600;white-space:nowrap;transition:background .18s ease,transform .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
-          </sc-for>
+    <div style="padding-top:16px">
+      <div style="position:relative;margin:0 0 14px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--c-sec);pointer-events:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        <input type="search" value="{{ fQ }}" onInput="{{ onFQ }}" placeholder="Rechercher un bien, une rue…" aria-label="Rechercher un bien" style="width:100%;border:1px solid var(--c-rule);border-radius:14px;background:var(--c-card);box-shadow:var(--sh-flat);padding:13px 14px 13px 40px;font-size:.92rem;color:var(--c-ink)">
+      </div>
+      <div style="display:flex;gap:10px;margin:0 0 12px">
+        <div style="flex:1;min-width:0"><div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 7px">Type de bien</div>
+          <div style="display:flex"><button onClick="{{ onOpenF }}" style="flex:1;min-width:0;border:0;border-radius:16px;background:var(--c-card);box-shadow:var(--sh-card);padding:11px 12px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;color:var(--c-ink)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" style="flex:none;color:var(--c-accent-text)"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"></rect><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"></rect><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"></rect><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"></rect></svg>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.92rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ fTypeCard.val }}</span>
+              <span style="display:block;font-size:.74rem;color:var(--c-sec2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ fTypeCard.sub }}</span>
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-accent-text)"><path d="M6 9l6 6 6-6"></path></svg>
+          </button></div>
+        </div>
+        <div style="flex:1;min-width:0"><div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 7px">Commune</div>
+          <div style="display:flex"><button onClick="{{ onOpenF }}" style="flex:1;min-width:0;border:0;border-radius:16px;background:var(--c-card);box-shadow:var(--sh-card);padding:11px 12px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;color:var(--c-ink)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-accent-text)"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.92rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ fVilleCard.val }}</span>
+              <span style="display:block;font-size:.74rem;color:var(--c-sec2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ fVilleCard.sub }}</span>
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-accent-text)"><path d="M6 9l6 6 6-6"></path></svg>
+          </button></div>
         </div>
       </div>
-
-      <div style="margin:0 0 18px">
-        <div style="font-size:.82rem;font-weight:600;color:var(--c-sec);margin:0 4px 9px">Commune</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <sc-for list="{{ tousF2 }}" as="o" hint-placeholder-count="4">
-            <button onClick="{{ o.onTap }}" style="border:0;border-radius:15px;padding:9px 14px;cursor:pointer;font-size:.9rem;font-weight:600;white-space:nowrap;transition:background .18s ease,transform .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
+      <div style="display:flex;gap:8px;align-items:flex-start;margin:0 4px 14px;font-size:.78rem;color:var(--c-sec2);line-height:1.45">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px;color:var(--c-accent-text)"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <span>Y compris les biens hors de vos critères : si vous sentez un potentiel, confiez-le quand même.</span>
+      </div>
+      <sc-if value="{{ fHasActive }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px">
+          <button onClick="{{ onOpenF }}" style="border:0;border-radius:18px;background:var(--c-navy);color:#fff;font-size:.8rem;font-weight:700;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>{{ fActLabel }}
+          </button>
+          <sc-for list="{{ fActive }}" as="a" hint-placeholder-count="2">
+            <button onClick="{{ a.onRemove }}" aria-label="Retirer le filtre {{ a.label }}" style="border:0;border-radius:18px;background:color-mix(in srgb,var(--c-sky) 14%,var(--c-card));color:var(--c-accent-text);font-size:.8rem;font-weight:700;padding:8px 11px;cursor:pointer;display:flex;align-items:center;gap:6px">{{ a.label }} <span style="font-size:.9rem;line-height:1">×</span></button>
           </sc-for>
         </div>
-      </div>
+      </sc-if>
 
-      <div style="margin:0 0 18px">
-        <div style="font-size:.82rem;font-weight:600;color:var(--c-sec);margin:0 4px 9px">Budget</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <sc-for list="{{ tousF3 }}" as="o" hint-placeholder-count="4">
-            <button onClick="{{ o.onTap }}" style="border:0;border-radius:15px;padding:9px 14px;cursor:pointer;font-size:.9rem;font-weight:600;white-space:nowrap;transition:background .18s ease,transform .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
-          </sc-for>
-        </div>
-      </div>
-
-      <div style="margin:0 0 18px">
-        <div style="font-size:.82rem;font-weight:600;color:var(--c-sec);margin:0 4px 9px">En ligne depuis</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <sc-for list="{{ tousF4 }}" as="o" hint-placeholder-count="4">
-            <button onClick="{{ o.onTap }}" style="border:0;border-radius:15px;padding:9px 14px;cursor:pointer;font-size:.9rem;font-weight:600;white-space:nowrap;transition:background .18s ease,transform .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
-          </sc-for>
-        </div>
-      </div>
-
-      <div style="margin:0 0 18px">
-        <div style="font-size:.82rem;font-weight:600;color:var(--c-sec);margin:0 4px 9px">Qualification</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <sc-for list="{{ tousF6 }}" as="o" hint-placeholder-count="3">
-            <button onClick="{{ o.onTap }}" style="border:0;border-radius:15px;padding:9px 14px;cursor:pointer;font-size:.9rem;font-weight:600;white-space:nowrap;transition:background .18s ease,transform .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
-          </sc-for>
-        </div>
-      </div>
-
-      <div style="margin:0 0 18px">
-        <div style="font-size:.82rem;font-weight:600;color:var(--c-sec);margin:0 4px 9px">Critères de l'agence</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <sc-for list="{{ tousF5 }}" as="o" hint-placeholder-count="4">
-            <button onClick="{{ o.onTap }}" style="border:0;border-radius:15px;padding:9px 14px;cursor:pointer;font-size:.9rem;font-weight:600;white-space:nowrap;transition:background .18s ease,transform .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
-          </sc-for>
-        </div>
-      </div>
-
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 4px 14px">
-        <span style="font-size:.94rem;font-weight:600;color:var(--c-sec2)">{{ tousCount }}</span>
-        <sc-if value="{{ suppShow }}" hint-placeholder-val="{{ false }}">
-          <button onClick="{{ onSuppToggle }}" style="border:0;background:none;color:var(--c-sec);font-size:.88rem;font-weight:600;padding:8px 10px;cursor:pointer;border-radius:14px">{{ suppLabel }}</button>
+      <div style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 4px 10px">
+        <span style="font-size:1.08rem;font-weight:800;letter-spacing:-.02em">{{ tousCount }}</span>
+        <button onClick="{{ onSortToggle }}" aria-expanded="{{ sortOpen }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.84rem;font-weight:700;padding:6px 2px;cursor:pointer;display:flex;align-items:center;gap:4px">Trier : {{ fSortLabel }} <span style="font-size:.7rem">▾</span></button>
+        <sc-if value="{{ sortOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;right:0;top:34px;z-index:15;background:var(--c-card);border-radius:14px;box-shadow:var(--sh-card-hi);padding:6px;min-width:190px;animation:rmFade .15s ease both">
+            <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="4">
+              <button onClick="{{ o.onTap }}" style="width:100%;border:0;background:none;text-align:left;padding:10px 12px;border-radius:10px;font-size:.86rem;cursor:pointer;font-weight: {{ o.w }};color: {{ o.fg }}" style-hover="background:var(--c-group2)">{{ o.label }}</button>
+            </sc-for>
+          </div>
         </sc-if>
-        <button onClick="{{ tousReset }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.92rem;font-weight:600;padding:8px 10px;cursor:pointer;border-radius:14px;transition:background .18s ease" style-hover="background:var(--c-group)">Tout afficher</button>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:4px;margin:-6px 0 8px">
+        <sc-if value="{{ suppShow }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ onSuppToggle }}" style="border:0;background:none;color:var(--c-sec);font-size:.78rem;font-weight:600;padding:6px 8px;cursor:pointer;border-radius:10px">{{ suppLabel }}</button>
+        </sc-if>
+        <sc-if value="{{ fHasActive }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ tousReset }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.78rem;font-weight:700;padding:6px 8px;cursor:pointer;border-radius:10px">Tout afficher</button>
+        </sc-if>
       </div>
 
       <sc-if value="{{ tousAucun }}" hint-placeholder-val="{{ false }}">
-        <div style="padding:36px 20px;text-align:center;color:var(--c-sec);font-size:.98rem;line-height:1.5">Aucun bien ne correspond. Élargissez un filtre.</div>
+        <div style="padding:36px 20px;text-align:center;color:var(--c-sec);font-size:.92rem;line-height:1.5">Aucun bien ne correspond. Élargissez un filtre.</div>
       </sc-if>
 
       <div data-cards style="margin-bottom:30px">
@@ -1147,6 +1129,61 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   </div>
 </div>
 
+<sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-sheetwrap>
+    <div onClick="{{ sh.onClose }}" style="position:absolute;inset:0;background:rgba(15,20,40,.45);animation:rmFade .2s ease both"></div>
+    <div data-sheet role="dialog" aria-label="Filtres" style="position:relative;background:var(--c-card);box-shadow:0 -10px 40px rgba(0,0,0,.22);animation:rmUp .3s cubic-bezier(.32,.72,0,1) both;max-height:88vh;display:flex;flex-direction:column">
+      <div style="width:40px;height:5px;border-radius:3px;background:var(--c-track);margin:10px auto 0;flex:none"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px 6px;flex:none">
+        <span style="font-size:1.2rem;font-weight:800;letter-spacing:-.02em">Filtres</span>
+        <button onClick="{{ sh.onReset }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.9rem;font-weight:700;padding:6px 2px;cursor:pointer">Tout effacer</button>
+      </div>
+      <div style="overflow-y:auto;padding:6px 20px 12px;flex:1;min-height:0">
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:8px 0 8px">Type de bien</div>
+        <div style="display:flex;gap:4px;background:var(--c-group2);border-radius:16px;padding:4px;overflow-x:auto;scrollbar-width:none">
+          <sc-for list="{{ sh.types }}" as="t" hint-placeholder-count="5">
+            <button onClick="{{ t.onTap }}" style="flex:1 0 62px;border:0;border-radius:12px;padding:9px 4px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:background .18s ease;background: {{ t.bg }};color: {{ t.fg }};box-shadow: {{ t.shadow }}">
+              <sc-if value="{{ t.isAll }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"></rect><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"></rect><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"></rect><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"></rect></svg></sc-if><sc-if value="{{ t.isApp }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 7h6M9 11h6M9 15h6"></path></svg></sc-if><sc-if value="{{ t.isMai }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M10 20v-5h4v5"></path></svg></sc-if><sc-if value="{{ t.isCom }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1.5-5h13L20 9"></path><path d="M4 9h16v3a3 3 0 0 1-5.3 1.9A3 3 0 0 1 12 15a3 3 0 0 1-2.7-1.1A3 3 0 0 1 4 12z"></path><path d="M5 15v5h14v-5"></path></svg></sc-if><sc-if value="{{ t.isTer }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19l6-9 4 6 3-4 5 7z"></path></svg></sc-if><sc-if value="{{ t.isOther }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="7"></circle></svg></sc-if>
+              <span style="font-size:.74rem;font-weight:700;white-space:nowrap">{{ t.label }}</span>
+              <span style="font-size:.66rem;color:var(--c-sec);font-variant-numeric:tabular-nums">{{ t.count }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:18px 0 8px">{{ sh.villesTitre }}</div>
+        <div style="position:relative">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--c-sec);pointer-events:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+          <input type="search" value="{{ sh.villeQ }}" onInput="{{ sh.onVilleQ }}" placeholder="{{ sh.villePh }}" aria-label="Chercher une commune" style="width:100%;border:0;border-radius:12px;background:var(--c-group2);padding:11px 12px 11px 36px;font-size:.88rem;color:var(--c-ink)">
+        </div>
+        <div style="max-height:260px;overflow-y:auto;margin-top:4px">
+          <sc-for list="{{ sh.villes }}" as="v" hint-placeholder-count="6">
+            <button onClick="{{ v.onTap }}" aria-pressed="{{ v.on }}" style="width:100%;border:0;border-bottom:1px solid var(--c-rule);background:none;padding:11px 2px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--c-ink)">
+              <span style="width:20px;height:20px;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:800;background: {{ v.boxBg }};border:1.5px solid {{ v.boxBd }}">✓</span>
+              <span style="flex:1;min-width:0;font-size:.9rem;font-weight: {{ v.w }}">{{ v.nom }}</span>
+              <span style="font-size:.8rem;color:var(--c-sec2);font-variant-numeric:tabular-nums">{{ v.count }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <sc-for list="{{ sh.groups }}" as="g" hint-placeholder-count="4">
+          <div>
+            <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:18px 0 8px">{{ g.titre }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="4">
+                <button onClick="{{ o.onTap }}" style="border:0;border-radius:10px;padding:8px 12px;cursor:pointer;font-size:.82rem;font-weight:700;white-space:nowrap;transition:background .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+        <div style="font-size:.72rem;color:var(--c-sec);margin:12px 0 0;line-height:1.45">Chambres : déduit du titre et du texte de l'annonce (T3, 4 pièces, 3 chambres…). Les biens qui n'en disent rien sont écartés quand ce filtre est actif.</div>
+      </div>
+      <div style="padding:10px 20px max(16px,env(safe-area-inset-bottom));border-top:1px solid var(--c-rule);flex:none">
+        <button onClick="{{ sh.onClose }}" style="width:100%;border:0;border-radius:14px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:1rem;font-weight:800;padding:15px;cursor:pointer;box-shadow:0 6px 16px rgba(47,111,228,.28)">{{ sh.voir }}</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
 <sc-if value="{{ assignOpen }}" hint-placeholder-val="{{ false }}">
   <div data-sheetwrap>
     <div onClick="{{ onAssignClose }}" style="position:absolute;inset:0;background:rgba(0,0,0,.42);animation:rmFade .2s ease both"></div>
@@ -1214,7 +1251,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 class Component extends DCLogic {
   state = { user: null, loginFor: null, pin: "", pinErr: false, pinBusy: false, screen: "jour", stack: [], selId: null, role: "__dir", more: {}, ai: {}, toast: null, assignFor: null,
             party: null, repIdx: 0, tick: 0, filter: "__def",
-            fType: "", fVille: "", fPrix: "", fAge: "", fCible: "", fQuali: "", tousAll: false };
+            fType: "", fVilles: [], fCh: "", fPrix: "", fAge: "", fCible: "", fQuali: "", fQ: "", fSort: "prio", tousAll: false,
+            hType: "", hVilles: [], hCh: "", hPrix: "", hAge: "", hQuali: "", sheet: null, villeQ: "" };
 
   constructor(props) {
     super(props);
@@ -2175,7 +2213,8 @@ class Component extends DCLogic {
     this.applyTheme(t);
     this._onKey = e => {
       if (e.key !== "Escape") return;
-      if (this.state.zoom) this.setState({ zoom: false });
+      if (this.state.sheet) this.setState({ sheet: null });
+      else if (this.state.zoom) this.setState({ zoom: false });
       else if (this.state.assignFor !== null && this.state.assignFor !== undefined) this.setState({ assignFor: null });
     };
     window.addEventListener("keydown", this._onKey);
@@ -2400,47 +2439,72 @@ class Component extends DCLogic {
     return this.isDir() ? this.L : this.L.filter(l => l.assign === this.state.role);
   }
 
-  /* filtres de l'écran « Tous les biens » */
-  tousDefs() {
-    const A = a => [...new Set(this.tous().map(a))].sort();
+  /* ---------- filtres (écran « Biens » = préfixe f, liste d'accueil = préfixe h) ---------- */
+  fKeys(p) {
+    return ["Type", "Villes", "Ch", "Prix", "Age", "Cible", "Quali"].map(k => p + k);
+  }
+  fBase(p) {
+    if (p === "f") return this.tous();
+    const s = this.scope();
+    return this.isDir() && this.state.person ? s.filter(l => l.assign === this.state.person) : s;
+  }
+  fNorm(t) { return String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+  fBand(p) { return p < 100000 ? "a" : p < 200000 ? "b" : p <= 300000 ? "c" : "d"; }
+  fAgeBand(j) { return j < 7 ? "a" : j < 28 ? "b" : j < 90 ? "c" : "d"; }
+  fGroups(p) {
     return [
-      ["fType",  "Type de bien", A(l => l.type).map(v => [v, v])],
-      ["fVille", "Commune",      A(l => l.secteur).map(v => [v, v])],
-      ["fPrix",  "Budget",       [["a", "moins de 100 000 €"], ["b", "100 à 200 000 €"],
-                                  ["c", "200 à 300 000 €"], ["d", "plus de 300 000 €"]]],
-      ["fAge",   "En ligne depuis", [["a", "moins d'une semaine"], ["b", "1 à 4 semaines"],
-                                  ["c", "1 à 3 mois"], ["d", "plus de 3 mois"]]],
-      ["fCible", "Critères",     [["oui", "dans la cible"], ["non", "hors critères"]]],
-      ["fQuali", "Qualification", [["part", "Particulier seul"], ["ag", "Déjà en agence"]]]
+      ["Ch",    "Chambres",        [["1", "1"], ["2", "2"], ["3", "3"], ["4", "4 et +"]]],
+      ["Prix",  "Budget",          [["a", "moins de 100 000 €"], ["b", "100 à 200 000 €"],
+                                    ["c", "200 à 300 000 €"], ["d", "plus de 300 000 €"]]],
+      ["Age",   "En ligne depuis", [["a", "moins d'une semaine"], ["b", "1 à 4 semaines"],
+                                    ["c", "1 à 3 mois"], ["d", "plus de 3 mois"]]],
+      ...(p === "f" ? [["Cible", "Critères", [["oui", "dans la cible"], ["non", "hors critères"]]]] : []),
+      ["Quali", "Qualification",   [["part", "Particulier seul"], ["ag", "Déjà en agence"]]]
     ];
   }
-  tousOpts(key) {
-    const d = this.tousDefs().find(x => x[0] === key);
-    if (!d) return [];
-    return [["", "Tous"]].concat(d[2]).map(o => {
-      const on = (this.state[key] || "") === o[0];
-      const patch = {}; patch[key] = o[0]; patch.tousAll = false;
-      return {
-        label: o[1],
-        bg: on ? (this.props.accent || "#2F6FE4") : "var(--c-group)",
-        fg: on ? "#fff" : "var(--c-ink)",
-        onTap: () => this.setState(patch)
-      };
+  fMatch(l, p) {
+    const st = this.state, v = k => st[p + k];
+    const villes = v("Villes") || [];
+    if (v("Type") && l.type !== v("Type")) return false;
+    if (villes.length && villes.indexOf(l.secteur) < 0) return false;
+    if (v("Ch")) { const ch = this.chambres(l); if (ch === null || (v("Ch") === "4" ? ch < 4 : ch !== +v("Ch"))) return false; }
+    if (v("Prix") && this.fBand(l.prix) !== v("Prix")) return false;
+    if (v("Age") && this.fAgeBand(l.jours) !== v("Age")) return false;
+    if (p === "f" && v("Cible") && (v("Cible") === "oui") !== !!l.cible) return false;
+    if (v("Quali") && (v("Quali") === "part") === !!l.enAgence) return false;
+    if (p === "f" && (st.fQ || "").trim()) {
+      const q = this.fNorm(st.fQ).trim();
+      if (this.fNorm(l.titre + " " + l.secteur + " " + l.texte + " " + l.type).indexOf(q) < 0) return false;
+    }
+    return true;
+  }
+  fReset(p) {
+    const o = { seeAll: false, tousAll: false };
+    this.fKeys(p).forEach(k => { o[k] = k.endsWith("Villes") ? [] : ""; });
+    if (p === "f") o.fQ = "";
+    return o;
+  }
+  fActive(p) {
+    const st = this.state, out = [];
+    const drop = patch => () => this.setState(Object.assign({ seeAll: false, tousAll: false }, patch));
+    if (st[p + "Type"]) out.push({ label: st[p + "Type"], onRemove: drop({ [p + "Type"]: "" }) });
+    (st[p + "Villes"] || []).forEach(vl => out.push({ label: vl,
+      onRemove: () => this.setState(s2 => ({ [p + "Villes"]: (s2[p + "Villes"] || []).filter(x => x !== vl), seeAll: false, tousAll: false })) }));
+    this.fGroups(p).forEach(g => {
+      const val = st[p + g[0]];
+      if (!val) return;
+      const o = g[2].find(x => x[0] === val);
+      out.push({ label: (g[0] === "Ch" ? "Chambres : " : "") + (o ? o[1] : val), onRemove: drop({ [p + g[0]]: "" }) });
     });
+    return out;
   }
 
   tousList() {
-    const st = this.state;
-    const band = p => p < 100000 ? "a" : p < 200000 ? "b" : p <= 300000 ? "c" : "d";
-    const age  = j => j < 7 ? "a" : j < 28 ? "b" : j < 90 ? "c" : "d";
-    return this.tous().filter(l =>
-      (!st.fType  || l.type === st.fType) &&
-      (!st.fVille || l.secteur === st.fVille) &&
-      (!st.fPrix  || band(l.prix) === st.fPrix) &&
-      (!st.fAge   || age(l.jours) === st.fAge) &&
-      (!st.fCible || (st.fCible === "oui") === !!l.cible) &&
-      (!st.fQuali || (st.fQuali === "part") === !l.enAgence)
-    );
+    const li = this.tous().filter(l => this.fMatch(l, "f"));
+    const k = this.state.fSort || "prio";
+    const cmp = { prio: (a, b) => b.score - a.score, prixA: (a, b) => a.prix - b.prix,
+                  prixD: (a, b) => b.prix - a.prix, recent: (a, b) => a.jours - b.jours }[k];
+    return li.slice().sort(cmp);
   }
   who() { return this.state.user || (this.isDir() ? this.DIR : this.state.role); }
   sel() { return (this._L || []).find(l => l.id === this.state.selId); }
@@ -2635,7 +2699,7 @@ class Component extends DCLogic {
   listScope() {
     const s = this.scope();
     return (this.isDir() && this.state.person ? s.filter(l => l.assign === this.state.person) : s)
-      .filter(l => this.homeMatch(l));
+      .filter(l => this.fMatch(l, "h"));
   }
 
   /* nombre de chambres, déduit du titre et du texte de l'annonce (null si rien n'est dit) */
@@ -2650,31 +2714,6 @@ class Component extends DCLogic {
     else if (/\bstudio\b/i.test(t)) n = 0;
     l._ch = n;
     return n;
-  }
-
-  /* filtres de la liste d'accueil */
-  homeDefs() {
-    const types = [...new Set(this.scope().map(l => l.type))].sort();
-    return [
-      ["hType",  "Type de bien", types.map(v => [v, v])],
-      ["hCh",    "Chambres",     [["1", "1"], ["2", "2"], ["3", "3"], ["4", "4 et +"]]],
-      ["hPrix",  "Budget",       [["a", "moins de 100 000 €"], ["b", "100 à 200 000 €"],
-                                  ["c", "200 à 300 000 €"], ["d", "plus de 300 000 €"]]],
-      ["hAge",   "En ligne depuis", [["a", "moins d'une semaine"], ["b", "1 à 4 semaines"],
-                                  ["c", "1 à 3 mois"], ["d", "plus de 3 mois"]]],
-      ["hQuali", "Qualification", [["part", "Particulier seul"], ["ag", "Déjà en agence"]]]
-    ];
-  }
-  homeMatch(l) {
-    const st = this.state;
-    const band = p => p < 100000 ? "a" : p < 200000 ? "b" : p <= 300000 ? "c" : "d";
-    const age  = j => j < 7 ? "a" : j < 28 ? "b" : j < 90 ? "c" : "d";
-    const ch = st.hCh ? this.chambres(l) : null;
-    return (!st.hType || l.type === st.hType) &&
-      (!st.hCh || (ch !== null && (st.hCh === "4" ? ch >= 4 : ch === +st.hCh))) &&
-      (!st.hPrix || band(l.prix) === st.hPrix) &&
-      (!st.hAge || age(l.jours) === st.hAge) &&
-      (!st.hQuali || (st.hQuali === "part") === !l.enAgence);
   }
 
   /* filtre à l'arrivée : « À confier » pour la direction, « À contacter » pour un négociateur */
@@ -3115,7 +3154,7 @@ class Component extends DCLogic {
     const dir = this.isDir(), sc = this.scope(), a = this.props.accent || "#2F6FE4";
     const scr = this.state.screen;
     const l = this.sel();
-    const titles = { notifs: "Notifications", jour: dir ? "Aujourd'hui" : "Mes biens", tous: "Tous les biens", bien: "Le bien", equipe: "L'équipe",
+    const titles = { notifs: "Notifications", jour: dir ? "Aujourd'hui" : "Mes biens", tous: "Biens", bien: "Le bien", equipe: "L'équipe",
                      resultats: dir ? "Résultats" : "Mes résultats", qui: "Qui êtes-vous ?",
                      repartir: "Répartir", attribuer: "Confier ce bien", regles: "Les règles" };
     const load = n => this.L.filter(x => x.assign === n && x.statut !== "mandat" && x.statut !== "sansSuite").length;
@@ -3146,7 +3185,8 @@ class Component extends DCLogic {
     return {
       headerTitle: (wide ? titles[base] : titles[scr]) || "",
       headerSub: base === "jour" && (wide || scr === "jour") ? (dir ? "Laborie Immobilier · Béziers" : this.state.role)
-               : scr === "bien" && l ? l.secteur + (l.ref ? " · réf. " + l.ref : "") : "",
+               : scr === "bien" && l ? l.secteur + (l.ref ? " · réf. " + l.ref : "")
+               : scr === "tous" ? "Tout ce qui est passé au radar" : "",
       showBack: ["bien", "qui", "repartir", "attribuer", "regles", "notifs"].includes(scr),
       onBack: () => this.back(),
       screenRef: this.screenRef,
@@ -3252,51 +3292,105 @@ class Component extends DCLogic {
       })(),
       moreLabel: this.state.seeAll ? "Réduire la liste" : "Voir tous les biens",
       ...(() => {
-        const defs = this.homeDefs(), st = this.state;
-        const nb = defs.filter(d => st[d[0]]).length;
-        const reset = { hType: "", hCh: "", hPrix: "", hAge: "", hQuali: "", seeAll: false };
-        const n = this.listScope().length;
+        const st = this.state;
+        const act = p => this.fActive(p).map(x => ({ label: x.label, onRemove: x.onRemove }));
+        const hAct = act("h"), fAct = act("f");
+        const open = p => () => this.setState({ sheet: p, villeQ: "" });
+        const nH = this.listScope().length;
         return {
-          filtOpen: !!st.filtOpen,
-          onFiltToggle: () => this.setState(s2 => ({ filtOpen: !s2.filtOpen })),
-          filtOn: nb > 0,
-          filtCount: String(nb),
-          filtBtnBg: st.filtOpen || nb ? "var(--rm-accent,#2F6FE4)" : "var(--c-card)",
-          filtBtnFg: st.filtOpen || nb ? "#fff" : "var(--c-ink)",
-          filtResult: n + (n > 1 ? " biens correspondent" : " bien correspond"),
-          filtReset: () => this.setState(reset),
-          homeF: defs.map(d => ({
-            titre: d[1],
-            opts: [["", "Tous"]].concat(d[2]).map(o => {
-              const on = (st[d[0]] || "") === o[0];
-              return {
-                label: o[1],
-                bg: on ? "var(--rm-accent,#2F6FE4)" : "var(--c-group2)",
-                fg: on ? "#fff" : "var(--c-ink)",
-                onTap: () => this.setState({ [d[0]]: o[0], seeAll: false })
-              };
-            })
-          }))
+          onFiltToggle: open("h"),
+          filtOn: hAct.length > 0,
+          filtCount: String(hAct.length),
+          filtBtnBg: hAct.length ? "var(--rm-accent,#2F6FE4)" : "var(--c-card)",
+          filtBtnFg: hAct.length ? "#fff" : "var(--c-ink)",
+          hActive: hAct, hHasActive: hAct.length > 0,
+          hActLabel: "Filtres · " + hAct.length,
+          fActive: fAct, fHasActive: fAct.length > 0,
+          fActLabel: "Filtres · " + fAct.length,
+          onOpenF: open("f"), onOpenH: open("h"),
+          fQ: st.fQ || "",
+          onFQ: e => this.setState({ fQ: e && e.target ? e.target.value : "", tousAll: false }),
+          fTypeCard: (() => {
+            const t = st.fType, base = this.tous();
+            return { val: t || "Tous", sub: (t ? base.filter(l => l.type === t).length : base.length) + " biens" };
+          })(),
+          fVilleCard: (() => {
+            const v = st.fVilles || [], base = this.tous();
+            const nbC = new Set(base.map(l => l.secteur)).size;
+            if (!v.length) return { val: "Toutes", sub: nbC + " communes" };
+            if (v.length === 1) return { val: v[0], sub: base.filter(l => l.secteur === v[0]).length + " biens" };
+            return { val: v.length + " communes", sub: v.join(", ") };
+          })(),
+          fSortLabel: { prio: "priorité", prixA: "prix croissant", prixD: "prix décroissant", recent: "plus récents" }[st.fSort || "prio"],
+          sortOpen: !!st.sortOpen,
+          onSortToggle: () => this.setState(s2 => ({ sortOpen: !s2.sortOpen })),
+          sortOpts: [["prio", "Priorité"], ["prixA", "Prix croissant"], ["prixD", "Prix décroissant"], ["recent", "Plus récents"]].map(o => ({
+            label: o[1], w: (st.fSort || "prio") === o[0] ? 800 : 500,
+            fg: (st.fSort || "prio") === o[0] ? "var(--c-accent-text)" : "var(--c-ink)",
+            onTap: () => this.setState({ fSort: o[0], sortOpen: false, tousAll: false })
+          })),
+          sheetOpen: !!st.sheet,
+          sh: (() => {
+            const p = st.sheet || "f";
+            const base = this.fBase(p);
+            const cnt = f => base.filter(f).length;
+            const types = [...new Set(base.map(l => l.type))].sort();
+            const nRes = p === "f" ? this.tousList().length : nH;
+            const villesSel = st[p + "Villes"] || [];
+            const allV = [...new Set(base.map(l => l.secteur))]
+              .map(v => [v, cnt(l => l.secteur === v)]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+            const q = this.fNorm(st.villeQ).trim();
+            const tile = (key, label, n) => {
+              const on = (st[p + "Type"] || "") === key;
+              return { label, count: String(n),
+                isAll: key === "", isApp: key === "Appartement", isMai: key === "Maison", isCom: key === "Commerce", isTer: key === "Terrain",
+                isOther: ["", "Appartement", "Maison", "Commerce", "Terrain"].indexOf(key) < 0,
+                bg: on ? "var(--c-card)" : "transparent", fg: on ? "var(--c-accent-text)" : "var(--c-sec2)",
+                shadow: on ? "var(--sh-tab)" : "none",
+                onTap: () => this.setState({ [p + "Type"]: key, seeAll: false, tousAll: false }) };
+            };
+            return {
+              types: [tile("", "Tous", base.length)].concat(types.map(t => tile(t, t === "Appartement" ? "Appart." : t, cnt(l => l.type === t)))),
+              villesTitre: "Communes" + (villesSel.length ? " · " + villesSel.length + (villesSel.length > 1 ? " choisies" : " choisie") : ""),
+              villeQ: st.villeQ || "",
+              villePh: "Chercher parmi " + allV.length + " communes",
+              onVilleQ: e => this.setState({ villeQ: e && e.target ? e.target.value : "" }),
+              villes: allV.filter(v => !q || this.fNorm(v[0]).indexOf(q) >= 0).map(v => {
+                const on = villesSel.indexOf(v[0]) >= 0;
+                return { nom: v[0], count: String(v[1]), on, w: on ? 700 : 500,
+                  boxBg: on ? "var(--rm-accent,#2F6FE4)" : "var(--c-card)", boxBd: on ? "var(--rm-accent,#2F6FE4)" : "var(--c-faint)",
+                  onTap: () => this.setState(s2 => {
+                    const cur = s2[p + "Villes"] || [];
+                    return { [p + "Villes"]: on ? cur.filter(x => x !== v[0]) : cur.concat([v[0]]), seeAll: false, tousAll: false };
+                  }) };
+              }),
+              groups: this.fGroups(p).map(g => ({
+                titre: g[1],
+                opts: [["", "Tous"]].concat(g[2]).map(o => {
+                  const on = (st[p + g[0]] || "") === o[0];
+                  return { label: o[1], bg: on ? "var(--rm-accent,#2F6FE4)" : "var(--c-group2)", fg: on ? "#fff" : "var(--c-ink)",
+                    onTap: () => this.setState({ [p + g[0]]: o[0], seeAll: false, tousAll: false }) };
+                })
+              })),
+              voir: "Voir " + nRes + (nRes > 1 ? " biens" : " bien"),
+              onReset: () => this.setState(this.fReset(p)),
+              onClose: () => this.setState({ sheet: null })
+            };
+          })()
         };
       })(),
       onMore: () => this.setState(s => ({ seeAll: !s.seeAll })),
 
-      tousF1: this.tousOpts("fType"),
-      tousF2: this.tousOpts("fVille"),
-      tousF3: this.tousOpts("fPrix"),
-      tousF4: this.tousOpts("fAge"),
-      tousF5: this.tousOpts("fCible"),
-      tousF6: this.tousOpts("fQuali"),
       tousCount: (() => {
         const n = this.tousList().length;
-        return n + (n > 1 ? " biens" : " bien") + " sur " + this.tous().length;
+        return n + (n > 1 ? " biens" : " bien");
       })(),
       tousAucun: this.tousList().length === 0,
       suppShow: this.isDir() && ((this._L || []).some(l => l.supprime) || !!this.state.voirSuppr),
       suppLabel: this.state.voirSuppr ? "← Revenir aux biens affichés"
         : "Voir les biens supprimés (" + (this._L || []).filter(l => l.supprime).length + ")",
-      onSuppToggle: () => this.setState(st => ({ voirSuppr: !st.voirSuppr, fType: "", fVille: "", fPrix: "", fAge: "", fCible: "", fQuali: "", tousAll: false })),
-      tousReset: () => this.setState({ fType: "", fVille: "", fPrix: "", fAge: "", fCible: "", fQuali: "", tousAll: false }),
+      onSuppToggle: () => this.setState(st => Object.assign(this.fReset("f"), { voirSuppr: !st.voirSuppr })),
+      tousReset: () => this.setState(this.fReset("f")),
       tousCards: (() => {
         const li = this.tousList();
         return (this.state.tousAll ? li : li.slice(0, 8)).map(x => this.cardVM(x));
@@ -3471,7 +3565,7 @@ class Component extends DCLogic {
 
       tabs: [
         { label: dir ? "Aujourd'hui" : "Mes biens", icon: "◉", key: "jour" },
-        ...(dir ? [{ label: "Tous les biens", icon: "▤", key: "tous" }] : []),
+        ...(dir ? [{ label: "Biens", icon: "▤", key: "tous" }] : []),
         ...(dir ? [{ label: "L'équipe", icon: "◍", key: "equipe" }] : []),
         { label: dir ? "Résultats" : "Mes résultats", icon: "◒", key: "resultats" }
       ].map(t => ({
