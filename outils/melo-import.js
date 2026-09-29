@@ -70,7 +70,7 @@ function versLigne(p) {
   const nom = (portails.find(a => a.contact && a.contact.name) || {}).contact;
   const texte = p.description || principal.description || '';
   const r = [];
-  r[C.titre] = (p.title || principal.title || '').slice(0, 70);
+  r[C.titre] = String(p.title || principal.title || '').replace(/\s+/g, ' ').trim().slice(0, 70).trimEnd();
   r[C.type] = TYPES[p.propertyType] || 'Maison';
   r[C.commune] = (p.city && p.city.name) || '';
   r[C.surface] = Math.round(p.surface || 0);
