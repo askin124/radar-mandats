@@ -272,22 +272,35 @@ a:hover{color:var(--c-accent-text);opacity:.7}
     <div>
       <div style="font-size:1.08rem;font-weight:800;letter-spacing:-.02em;margin:4px 4px 12px">{{ listTitle }}</div>
 
-      <div style="display:flex;gap:8px;align-items:center;margin:0 0 12px">
-      <div data-seg style="flex:1;min-width:0">
-        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="5">
-          <button onClick="{{ c.onTap }}" style="flex:none;border:0;border-radius:11px;padding:9px 13px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:.84rem;font-weight:700;white-space:nowrap;transition:background .18s ease,box-shadow .18s ease;background: {{ c.bg }};color: {{ c.fg }};box-shadow: {{ c.shadow }}">
-            <span>{{ c.label }}</span>
-            <span style="font-size:.76rem;font-weight:700;font-variant-numeric:tabular-nums;color: {{ c.countFg }}">{{ c.count }}</span>
-          </button>
-        </sc-for>
-      </div>
-        <button onClick="{{ onFiltToggle }}" aria-label="Filtres" title="Filtres" style="position:relative;flex:none;width:44px;height:44px;border:0;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-flat);transition:background .18s ease,color .18s ease;background: {{ filtBtnBg }};color: {{ filtBtnFg }}">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 7px">Afficher</div>
+      <div style="display:flex;gap:8px;align-items:center;margin:0 0 8px">
+        <button onClick="{{ onChipsToggle }}" aria-expanded="{{ chipsOpen }}" style="flex:1;min-width:0;border-radius:16px;background:var(--c-card);box-shadow:var(--sh-flat);padding:0 14px;height:48px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;color:var(--c-ink);transition:border-color .2s ease;border:1.5px solid {{ chipsBorder }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-accent-text)"><path d="M4 7h16M4 12h10M4 17h6"></path></svg>
+          <span style="flex:1;min-width:0;font-size:.96rem;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ chipCur.label }}</span>
+          <span style="font-size:.96rem;font-weight:800;color:var(--c-accent-text);font-variant-numeric:tabular-nums">{{ chipCur.count }}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-accent-text);transition:transform .2s ease;transform: {{ chipsChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <button onClick="{{ onFiltToggle }}" aria-label="Filtres" title="Filtres" style="position:relative;flex:none;width:48px;height:48px;border:0;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-flat);transition:background .18s ease,color .18s ease;background: {{ filtBtnBg }};color: {{ filtBtnFg }}">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>
           <sc-if value="{{ filtOn }}" hint-placeholder-val="{{ false }}">
             <span style="position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#FF3B30;color:#fff;font-size:.66rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--c-bg)">{{ filtCount }}</span>
           </sc-if>
         </button>
       </div>
+      <sc-if value="{{ chipsOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="background:var(--c-card);border-radius:16px;box-shadow:var(--sh-card);overflow:hidden;margin:0 0 12px;border:1.5px solid var(--rm-accent,#3D67B1);animation:rmFade .2s ease both">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.onTap }}" style="width:100%;border:0;border-bottom:1px solid var(--c-rule);padding:13px 14px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--c-ink);background: {{ c.rowBg }}">
+              <span style="width:20px;height:20px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;border:1.5px solid {{ c.radio }}">
+                <span style="width:11px;height:11px;border-radius:6px;background: {{ c.dotOn }}"></span>
+              </span>
+              <span style="flex:1;min-width:0;font-size:.94rem;font-weight: {{ c.w }}">{{ c.label }}</span>
+              <span style="font-size:.86rem;color:var(--c-sec2);font-variant-numeric:tabular-nums">{{ c.count }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <div style="height:4px"></div>
 
       <sc-if value="{{ hHasActive }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px">
@@ -3259,12 +3272,21 @@ class Component extends DCLogic {
           const on = (defs.some(x => x[0] === cur) ? cur : "__all") === d[0];
           return {
             label: d[1], count: d[3].length,
-            bg: on ? "var(--c-card)" : "transparent", fg: on ? "var(--c-ink)" : "var(--c-sec2)",
-            shadow: on ? "var(--sh-tab)" : "none",
-            countFg: on ? "var(--c-accent-text)" : "var(--c-sec)",
-            onTap: () => this.setState({ filter: d[0] === "__all" ? null : d[0], seeAll: false })
+            on, w: on ? 800 : 500,
+            rowBg: on ? "color-mix(in srgb,var(--c-sky) 12%,var(--c-card))" : "var(--c-card)",
+            radio: on ? "var(--rm-accent,#3D67B1)" : "var(--c-faint)", dotOn: on ? "var(--rm-accent,#3D67B1)" : "transparent",
+            onTap: () => this.setState({ filter: d[0] === "__all" ? null : d[0], seeAll: false, chipsOpen: false })
           };
         });
+      })(),
+      chipsOpen: !!this.state.chipsOpen,
+      chipsBorder: this.state.chipsOpen ? "var(--rm-accent,#3D67B1)" : "transparent",
+      chipsChev: this.state.chipsOpen ? "rotate(180deg)" : "none",
+      onChipsToggle: () => this.setState(st => ({ chipsOpen: !st.chipsOpen })),
+      chipCur: (() => {
+        const defs = this.groupDefs(), cur = this.curFilter();
+        const d = defs.find(x => x[0] === cur);
+        return d ? { label: d[1], count: String(d[3].length) } : { label: "Tous", count: String(this.listScope().length) };
       })(),
       showVenti: dir && base === "jour" && scr === "jour",
       assignOpen: this.state.assignFor !== null && this.state.assignFor !== undefined,
