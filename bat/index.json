@@ -1,0 +1,583 @@
+[
+ {
+  "slug": "abeilhan",
+  "commune": "Abeilhan",
+  "adresses": 835,
+  "parcelles": 831,
+  "octets": 79835
+ },
+ {
+  "slug": "agel",
+  "commune": "Agel",
+  "adresses": 182,
+  "parcelles": 190,
+  "octets": 16562
+ },
+ {
+  "slug": "aigne",
+  "commune": "Aigne",
+  "adresses": 215,
+  "parcelles": 220,
+  "octets": 19241
+ },
+ {
+  "slug": "aigues-vives",
+  "commune": "Aigues-Vives",
+  "adresses": 749,
+  "parcelles": 766,
+  "octets": 68211
+ },
+ {
+  "slug": "argeliers",
+  "commune": "Argeliers",
+  "adresses": 1118,
+  "parcelles": 1204,
+  "octets": 109984
+ },
+ {
+  "slug": "argens-minervois",
+  "commune": "Argens-Minervois",
+  "adresses": 269,
+  "parcelles": 267,
+  "octets": 25072
+ },
+ {
+  "slug": "armissan",
+  "commune": "Armissan",
+  "adresses": 762,
+  "parcelles": 770,
+  "octets": 71395
+ },
+ {
+  "slug": "azillanet",
+  "commune": "Azillanet",
+  "adresses": 314,
+  "parcelles": 329,
+  "octets": 28701
+ },
+ {
+  "slug": "azille",
+  "commune": "Azille",
+  "adresses": 792,
+  "parcelles": 827,
+  "octets": 75708
+ },
+ {
+  "slug": "bassan",
+  "commune": "Bassan",
+  "adresses": 1167,
+  "parcelles": 1170,
+  "octets": 109048
+ },
+ {
+  "slug": "beaufort",
+  "commune": "Beaufort",
+  "adresses": 163,
+  "parcelles": 164,
+  "octets": 15716
+ },
+ {
+  "slug": "beziers",
+  "commune": "Béziers",
+  "adresses": 19934,
+  "parcelles": 20213,
+  "octets": 1952398
+ },
+ {
+  "slug": "bize-minervois",
+  "commune": "Bize-Minervois",
+  "adresses": 827,
+  "parcelles": 856,
+  "octets": 78373
+ },
+ {
+  "slug": "boujan-sur-libron",
+  "commune": "Boujan-sur-Libron",
+  "adresses": 1252,
+  "parcelles": 1264,
+  "octets": 116896
+ },
+ {
+  "slug": "boutenac",
+  "commune": "Boutenac",
+  "adresses": 478,
+  "parcelles": 488,
+  "octets": 44377
+ },
+ {
+  "slug": "canet",
+  "commune": "Canet",
+  "adresses": 2459,
+  "parcelles": 2491,
+  "octets": 252441
+ },
+ {
+  "slug": "capestang",
+  "commune": "Capestang",
+  "adresses": 1864,
+  "parcelles": 1898,
+  "octets": 169716
+ },
+ {
+  "slug": "castelnau-d-aude",
+  "commune": "Castelnau-d'Aude",
+  "adresses": 350,
+  "parcelles": 341,
+  "octets": 31903
+ },
+ {
+  "slug": "caunette",
+  "commune": "La Caunette",
+  "adresses": 271,
+  "parcelles": 293,
+  "octets": 25015
+ },
+ {
+  "slug": "cazouls-les-beziers",
+  "commune": "Cazouls-lès-Béziers",
+  "adresses": 2203,
+  "parcelles": 2178,
+  "octets": 206459
+ },
+ {
+  "slug": "cers",
+  "commune": "Cers",
+  "adresses": 1039,
+  "parcelles": 1079,
+  "octets": 97641
+ },
+ {
+  "slug": "cessenon-sur-orb",
+  "commune": "Cessenon-sur-Orb",
+  "adresses": 1415,
+  "parcelles": 1419,
+  "octets": 136400
+ },
+ {
+  "slug": "cesseras",
+  "commune": "Cesseras",
+  "adresses": 344,
+  "parcelles": 351,
+  "octets": 32259
+ },
+ {
+  "slug": "colombiers",
+  "commune": "Colombiers",
+  "adresses": 1220,
+  "parcelles": 1200,
+  "octets": 110961
+ },
+ {
+  "slug": "corneilhan",
+  "commune": "Corneilhan",
+  "adresses": 735,
+  "parcelles": 763,
+  "octets": 70324
+ },
+ {
+  "slug": "coursan",
+  "commune": "Coursan",
+  "adresses": 2690,
+  "parcelles": 2725,
+  "octets": 252722
+ },
+ {
+  "slug": "cuxac-d-aude",
+  "commune": "Cuxac-d'Aude",
+  "adresses": 1992,
+  "parcelles": 2022,
+  "octets": 190443
+ },
+ {
+  "slug": "escales",
+  "commune": "Escales",
+  "adresses": 318,
+  "parcelles": 334,
+  "octets": 29644
+ },
+ {
+  "slug": "felines-minervois",
+  "commune": "Félines-Minervois",
+  "adresses": 355,
+  "parcelles": 382,
+  "octets": 37082
+ },
+ {
+  "slug": "fleury",
+  "commune": "Fleury",
+  "adresses": 3217,
+  "parcelles": 3171,
+  "octets": 301941
+ },
+ {
+  "slug": "ginestas",
+  "commune": "Ginestas",
+  "adresses": 897,
+  "parcelles": 909,
+  "octets": 82936
+ },
+ {
+  "slug": "gruissan",
+  "commune": "Gruissan",
+  "adresses": 2792,
+  "parcelles": 2755,
+  "octets": 260264
+ },
+ {
+  "slug": "homps",
+  "commune": "Homps",
+  "adresses": 352,
+  "parcelles": 364,
+  "octets": 32152
+ },
+ {
+  "slug": "lespignan",
+  "commune": "Lespignan",
+  "adresses": 1787,
+  "parcelles": 1782,
+  "octets": 161375
+ },
+ {
+  "slug": "lezignan-corbieres",
+  "commune": "Lézignan-Corbières",
+  "adresses": 4417,
+  "parcelles": 4501,
+  "octets": 414055
+ },
+ {
+  "slug": "lieuran-les-beziers",
+  "commune": "Lieuran-lès-Béziers",
+  "adresses": 778,
+  "parcelles": 788,
+  "octets": 70748
+ },
+ {
+  "slug": "lignan-sur-orb",
+  "commune": "Lignan-sur-Orb",
+  "adresses": 1454,
+  "parcelles": 1482,
+  "octets": 140507
+ },
+ {
+  "slug": "liviniere",
+  "commune": "La Livinière",
+  "adresses": 444,
+  "parcelles": 464,
+  "octets": 43948
+ },
+ {
+  "slug": "magalas",
+  "commune": "Magalas",
+  "adresses": 1709,
+  "parcelles": 1709,
+  "octets": 161010
+ },
+ {
+  "slug": "maraussan",
+  "commune": "Maraussan",
+  "adresses": 1910,
+  "parcelles": 1921,
+  "octets": 183506
+ },
+ {
+  "slug": "marcorignan",
+  "commune": "Marcorignan",
+  "adresses": 651,
+  "parcelles": 669,
+  "octets": 59737
+ },
+ {
+  "slug": "maureilhan",
+  "commune": "Maureilhan",
+  "adresses": 1074,
+  "parcelles": 1072,
+  "octets": 99709
+ },
+ {
+  "slug": "minerve",
+  "commune": "Minerve",
+  "adresses": 83,
+  "parcelles": 79,
+  "octets": 6804
+ },
+ {
+  "slug": "montady",
+  "commune": "Montady",
+  "adresses": 1713,
+  "parcelles": 1713,
+  "octets": 157024
+ },
+ {
+  "slug": "montbrun-des-corbieres",
+  "commune": "Montbrun-des-Corbières",
+  "adresses": 275,
+  "parcelles": 280,
+  "octets": 26356
+ },
+ {
+  "slug": "montredon-des-corbieres",
+  "commune": "Montredon-des-Corbières",
+  "adresses": 720,
+  "parcelles": 737,
+  "octets": 67800
+ },
+ {
+  "slug": "moussan",
+  "commune": "Moussan",
+  "adresses": 965,
+  "parcelles": 989,
+  "octets": 94337
+ },
+ {
+  "slug": "murviel-les-beziers",
+  "commune": "Murviel-lès-Béziers",
+  "adresses": 1446,
+  "parcelles": 1464,
+  "octets": 139053
+ },
+ {
+  "slug": "narbonne",
+  "commune": "Narbonne",
+  "adresses": 15919,
+  "parcelles": 16290,
+  "octets": 1496028
+ },
+ {
+  "slug": "nevian",
+  "commune": "Névian",
+  "adresses": 631,
+  "parcelles": 648,
+  "octets": 59089
+ },
+ {
+  "slug": "nissan-lez-enserune",
+  "commune": "Nissan-lez-Enserune",
+  "adresses": 2091,
+  "parcelles": 2080,
+  "octets": 193706
+ },
+ {
+  "slug": "olonzac",
+  "commune": "Olonzac",
+  "adresses": 1095,
+  "parcelles": 1096,
+  "octets": 101537
+ },
+ {
+  "slug": "oupia",
+  "commune": "Oupia",
+  "adresses": 223,
+  "parcelles": 212,
+  "octets": 19698
+ },
+ {
+  "slug": "pailhes",
+  "commune": "Pailhès",
+  "adresses": 324,
+  "parcelles": 333,
+  "octets": 31623
+ },
+ {
+  "slug": "paraza",
+  "commune": "Paraza",
+  "adresses": 442,
+  "parcelles": 480,
+  "octets": 43330
+ },
+ {
+  "slug": "pepieux",
+  "commune": "Pépieux",
+  "adresses": 672,
+  "parcelles": 673,
+  "octets": 62049
+ },
+ {
+  "slug": "poilhes",
+  "commune": "Poilhes",
+  "adresses": 303,
+  "parcelles": 295,
+  "octets": 28224
+ },
+ {
+  "slug": "portiragnes",
+  "commune": "Portiragnes",
+  "adresses": 2011,
+  "parcelles": 2126,
+  "octets": 201575
+ },
+ {
+  "slug": "pouzols-minervois",
+  "commune": "Pouzols-Minervois",
+  "adresses": 394,
+  "parcelles": 435,
+  "octets": 38914
+ },
+ {
+  "slug": "puicheric",
+  "commune": "Puichéric",
+  "adresses": 631,
+  "parcelles": 649,
+  "octets": 59301
+ },
+ {
+  "slug": "puimisson",
+  "commune": "Puimisson",
+  "adresses": 600,
+  "parcelles": 585,
+  "octets": 52994
+ },
+ {
+  "slug": "puissalicon",
+  "commune": "Puissalicon",
+  "adresses": 726,
+  "parcelles": 690,
+  "octets": 68266
+ },
+ {
+  "slug": "raissac-d-aude",
+  "commune": "Raissac-d'Aude",
+  "adresses": 162,
+  "parcelles": 179,
+  "octets": 15029
+ },
+ {
+  "slug": "redorte",
+  "commune": "La Redorte",
+  "adresses": 732,
+  "parcelles": 742,
+  "octets": 67713
+ },
+ {
+  "slug": "rieux-minervois",
+  "commune": "Rieux-Minervois",
+  "adresses": 1096,
+  "parcelles": 1122,
+  "octets": 100770
+ },
+ {
+  "slug": "roubia",
+  "commune": "Roubia",
+  "adresses": 343,
+  "parcelles": 338,
+  "octets": 31836
+ },
+ {
+  "slug": "saint-andre-de-roquelongue",
+  "commune": "Saint-André-de-Roquelongue",
+  "adresses": 865,
+  "parcelles": 897,
+  "octets": 81386
+ },
+ {
+  "slug": "saint-jean-de-minervois",
+  "commune": "Saint-Jean-de-Minervois",
+  "adresses": 188,
+  "parcelles": 161,
+  "octets": 15466
+ },
+ {
+  "slug": "saint-marcel-sur-aude",
+  "commune": "Saint-Marcel-sur-Aude",
+  "adresses": 918,
+  "parcelles": 936,
+  "octets": 87484
+ },
+ {
+  "slug": "saint-nazaire-d-aude",
+  "commune": "Saint-Nazaire-d'Aude",
+  "adresses": 1014,
+  "parcelles": 1043,
+  "octets": 99544
+ },
+ {
+  "slug": "sainte-valiere",
+  "commune": "Sainte-Valière",
+  "adresses": 364,
+  "parcelles": 381,
+  "octets": 34058
+ },
+ {
+  "slug": "salles-d-aude",
+  "commune": "Salles-d'Aude",
+  "adresses": 1771,
+  "parcelles": 1825,
+  "octets": 166254
+ },
+ {
+  "slug": "sauvian",
+  "commune": "Sauvian",
+  "adresses": 2440,
+  "parcelles": 2481,
+  "octets": 228531
+ },
+ {
+  "slug": "serignan",
+  "commune": "Sérignan",
+  "adresses": 4355,
+  "parcelles": 4294,
+  "octets": 408753
+ },
+ {
+  "slug": "servian",
+  "commune": "Servian",
+  "adresses": 2369,
+  "parcelles": 2370,
+  "octets": 217056
+ },
+ {
+  "slug": "siran",
+  "commune": "Siran",
+  "adresses": 556,
+  "parcelles": 570,
+  "octets": 52242
+ },
+ {
+  "slug": "thezan-les-beziers",
+  "commune": "Thézan-lès-Béziers",
+  "adresses": 1398,
+  "parcelles": 1423,
+  "octets": 133523
+ },
+ {
+  "slug": "tourouzelle",
+  "commune": "Tourouzelle",
+  "adresses": 376,
+  "parcelles": 385,
+  "octets": 34540
+ },
+ {
+  "slug": "valras-plage",
+  "commune": "Valras-Plage",
+  "adresses": 2742,
+  "parcelles": 2766,
+  "octets": 263018
+ },
+ {
+  "slug": "vendres",
+  "commune": "Vendres",
+  "adresses": 1403,
+  "parcelles": 1421,
+  "octets": 130788
+ },
+ {
+  "slug": "vias",
+  "commune": "Vias",
+  "adresses": 3041,
+  "parcelles": 3361,
+  "octets": 302298
+ },
+ {
+  "slug": "villeneuve-les-beziers",
+  "commune": "Villeneuve-lès-Béziers",
+  "adresses": 2048,
+  "parcelles": 2099,
+  "octets": 191910
+ },
+ {
+  "slug": "vinassan",
+  "commune": "Vinassan",
+  "adresses": 1160,
+  "parcelles": 1174,
+  "octets": 109137
+ }
+]
