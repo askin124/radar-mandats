@@ -34,7 +34,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 [data-side]{display:none}
 [data-main]{display:block}
 [data-list],[data-detail]{min-width:0}
-[data-fiche]{display:flex;flex-direction:column;gap:34px}
+[data-fiche]{display:flex;flex-direction:column;gap:30px}
 [data-cards]{display:flex;flex-direction:column;gap:10px}
 [data-row]{transition:box-shadow .18s ease,transform .18s ease;position:relative;display:grid;grid-template-columns:88px minmax(0,1fr) 14px;grid-template-areas:"thumb idn chev" "thumb prix chev" "thumb geste chev";gap:8px 14px;align-items:center}
 [data-rowbtn]{position:absolute;inset:0;border:0;background:none;padding:0;margin:0;cursor:pointer;border-radius:20px;z-index:0;transition:background .18s ease}
@@ -53,7 +53,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 [data-sheetwrap]{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center}
 [data-sheet]{width:100%;max-width:560px;border-radius:28px 28px 0 0;padding-bottom:6px}
 [data-crit]{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px 20px}
-[data-photo]{position:relative;width:75%;aspect-ratio:4 / 3}
+[data-photo]{position:relative;width:100%;aspect-ratio:16 / 10}
 [data-photo][data-fs="on"]{position:fixed;inset:20px;z-index:62;width:auto;aspect-ratio:auto}
 [data-zoom]{position:absolute;right:12px;bottom:12px;display:none;align-items:center;justify-content:center;width:40px;height:40px;border-radius:20px;border:0;background:rgba(255,255,255,.92);box-shadow:0 2px 8px rgba(0,0,0,.18);font-size:1rem;cursor:zoom-in;color:var(--c-ink)}
 [data-zoomarea]{position:absolute;inset:54px 0 0 0;display:none;border:0;background:none;cursor:zoom-in;padding:0}
@@ -76,12 +76,12 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 
   [data-main][data-layout="split"] [data-detail]{grid-column:1;grid-row:2;padding-right:28px}
   [data-main][data-layout="full"] [data-detail]{max-width:820px}
-  [data-row]{grid-template-columns:104px minmax(0,1fr) 150px 200px 14px;grid-template-areas:"thumb idn prix geste chev";gap:18px;padding:14px 18px 14px 14px}
+  [data-row]{grid-template-columns:104px minmax(0,1fr) 150px 170px 14px;grid-template-areas:"thumb idn prix geste chev";gap:18px;padding:14px 18px 14px 14px}
   [data-prix]{text-align:right}
   [data-ind]{grid-template-columns:1fr 1fr;gap:12px}
   [data-sheetwrap]{align-items:center}
   [data-sheet]{max-width:480px;border-radius:26px}
-  [data-gtxt]{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  [data-gtxt]{white-space:nowrap}
   [data-herocard]{display:flex;align-items:center;gap:24px;margin:6px 0 26px;padding:22px 26px}
   [data-heronum]{flex:none}
   [data-heroline]{flex:1;min-width:0;margin-top:0;max-width:none}
@@ -189,6 +189,12 @@ a:hover{color:var(--c-accent-text);opacity:.7}
       <div style="font-size:1.4rem;font-weight:700;letter-spacing:-.02em;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ headerTitle }}</div>
       <div style="font-size:.82rem;color:var(--c-sec);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ headerSub }}</div>
     </div>
+    <button onClick="{{ goNotifs }}" aria-label="{{ bellLabel }}" style="position:relative;border:0;background:var(--c-group);width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;transition:transform .18s ease,background .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-ink)"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+      <sc-if value="{{ bellHas }}" hint-placeholder-val="{{ false }}">
+        <span style="position:absolute;top:-4px;right:-4px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:#FF3B30;color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px var(--c-bg);animation:rmPop .35s cubic-bezier(.32,.72,0,1) both">{{ bellCount }}</span>
+      </sc-if>
+    </button>
     <button data-headav onClick="{{ goQui }}" style="border:0;padding:0;background:none;cursor:pointer;flex:none;display:flex;align-items:center;gap:8px;transition:transform .18s ease" style-active="transform:scale(.94)">
       <span style="width:44px;height:44px;border-radius:22px;background:var(--rm-accent,#0071E3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;letter-spacing:.01em">{{ meIni }}</span>
     </button>
@@ -197,25 +203,6 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   <div data-main data-layout="{{ layout }}" ref="{{ screenRef }}">
 
   <div data-hero>
-  <sc-if value="{{ nouvShow }}" hint-placeholder-val="{{ true }}">
-    <div style="background:var(--c-card);border-radius:24px;padding:20px 22px;box-shadow:var(--sh-card);margin:0 0 18px;animation:rmUp .34s cubic-bezier(.32,.72,0,1) both">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-        <div style="display:flex;align-items:center;gap:11px;min-width:0">
-          <span style="width:30px;height:30px;border-radius:15px;flex:none;background:var(--rm-accent,#0071E3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.86rem;font-weight:700">{{ nouvCount }}</span>
-          <span style="font-size:1rem;font-weight:600;line-height:1.3">{{ nouvLabel }}</span>
-        </div>
-        <button onClick="{{ onNouvVu }}" style="flex:none;border:0;background:none;color:var(--c-accent-text);font-size:.9rem;font-weight:600;padding:8px 10px;cursor:pointer;border-radius:14px">Tout marquer comme lu</button>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
-        <sc-for list="{{ nouvListe }}" as="n" hint-placeholder-count="3">
-          <button onClick="{{ n.onOpen }}" style="text-align:left;width:100%;border:0;background:var(--c-group);border-radius:16px;padding:12px 14px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-hover)">
-            <span style="display:block;font-size:.95rem;line-height:1.4">{{ n.txt }}</span>
-            <span style="display:block;font-size:.8rem;color:var(--c-sec);margin-top:4px">{{ n.bien }} · {{ n.qui }} · {{ n.quand }}</span>
-          </button>
-        </sc-for>
-      </div>
-    </div>
-  </sc-if>
   <sc-if value="{{ showHero }}" hint-placeholder-val="{{ true }}">
     <div>
       <sc-if value="{{ heroBusy }}" hint-placeholder-val="{{ true }}">
@@ -335,16 +322,17 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 
   <sc-if value="{{ isBien }}" hint-placeholder-val="{{ false }}">
     <div>
-      <div style="display:flex;gap:6px;background:var(--c-group);border-radius:17px;padding:4px;margin:16px 0 24px">
-        <sc-for list="{{ sel.tabs }}" as="ft" hint-placeholder-count="2">
-          <button onClick="{{ ft.onTap }}" style="flex:1;border:0;border-radius:14px;padding:12px 10px;font-size:.96rem;font-weight:600;cursor:pointer;transition:background .22s ease,box-shadow .22s ease;background: {{ ft.bg }};color: {{ ft.color }};box-shadow: {{ ft.shadow }}">{{ ft.label }}</button>
-        </sc-for>
-      </div>
-
-      <sc-if value="{{ sel.tabFiche }}" hint-placeholder-val="{{ true }}">
       <div data-fiche>
 
-        <div>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:10px;background:var(--c-card);border-radius:20px;padding:14px 18px;box-shadow:var(--sh-card)">
+          <span style="width:40px;height:40px;border-radius:12px;flex:none;background:var(--c-tint);color:var(--c-accent-text);display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700">N°</span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2)">Dossier</span>
+            <span style="display:block;font-size:1.45rem;font-weight:700;letter-spacing:.02em;line-height:1.15;margin-top:2px;font-variant-numeric:tabular-nums;color: {{ sel.dossierFg }}">{{ sel.dossierAff }}</span>
+          </span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
           <div style="background:var(--c-group);border-radius:22px;padding:20px;display:flex;align-items:center;gap:22px;flex-wrap:wrap">
             <div style="flex:none;width:96px;height:96px;border-radius:48px;display:flex;align-items:center;justify-content:center;background: {{ sel.gauge }}">
               <div style="width:74px;height:74px;border-radius:37px;background:var(--c-group);display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color: {{ sel.scoreColor }}">{{ sel.score }}</div>
@@ -369,25 +357,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
               </sc-for>
             </div>
           </sc-if>
-
-        </div>
-
-        <sc-if value="{{ sel.brutShow }}" hint-placeholder-val="{{ false }}">
-          <div>
-            <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Toutes les données reçues</div>
-            <div style="background:var(--c-card);border-radius:24px;padding:10px 8px;box-shadow:var(--sh-card)">
-              <sc-for list="{{ sel.brut }}" as="d" hint-placeholder-count="6">
-                <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 14px;border-bottom:1px solid var(--c-rule);font-size:.9rem">
-                  <span style="color:var(--c-sec);flex:none">{{ d.cle }}</span>
-                  <span style="text-align:right;word-break:break-word;min-width:0">{{ d.val }}</span>
-                </div>
-              </sc-for>
-              <div style="font-size:.78rem;color:var(--c-faint);padding:12px 14px 6px;line-height:1.45">Visible par la direction seule. Données telles que renvoyées par l'API de pige, sans retouche.</div>
-            </div>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ true }}">
+          <div data-prixag style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;align-items:start">
+            <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ true }}">
           <div>
             <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Le prix a bougé</div>
             <div style="background:var(--c-card);border-radius:24px;padding:22px;box-shadow:var(--sh-card)">
@@ -406,6 +377,202 @@ a:hover{color:var(--c-accent-text);opacity:.7}
             </div>
           </div>
         </sc-if>
+            <div style="display:flex;flex-direction:column">
+              <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Qui vend</div>
+              <div style="flex:1;background:var(--c-card);border-radius:24px;padding:22px;box-shadow:var(--sh-card);display:flex;align-items:center;gap:12px">
+                <span style="width:40px;height:40px;border-radius:20px;flex:none;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;background: {{ sel.agenceBg }};color: {{ sel.agenceFg }}">{{ sel.agenceIcon }}</span>
+                <span style="min-width:0">
+                  <span style="display:block;font-size:1.1rem;font-weight:700;letter-spacing:-.01em;line-height:1.25;color: {{ sel.agenceFg }}">{{ sel.agenceTitre }}</span>
+                  <span style="display:block;font-size:.88rem;color:var(--c-sec2);margin-top:3px;line-height:1.4;text-wrap:pretty">{{ sel.agenceSub }}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div data-photo data-fs="{{ sel.fs }}">
+            <div style="width:100%;height:100%;border-radius:22px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
+              <img src="{{ sel.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;display: {{ sel.photoShow }}">
+              <span style="font-size:.9rem;color:var(--c-faint);display: {{ sel.photoNone }}">Cette annonce n'a aucune photo</span>
+            </div>
+            <button data-zoomarea onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand"></button>
+            <button data-zoom onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand">⤢</button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-top:14px">
+            <button onClick="{{ sel.onPrev }}" aria-label="Photo précédente" style="width:48px;height:48px;border-radius:24px;border:0;background:var(--c-group);cursor:pointer;font-size:1.3rem;line-height:1;color:var(--c-ink);display:flex;align-items:center;justify-content:center;transition:background .18s ease,transform .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">‹</button>
+            <span style="font-size:.94rem;color:var(--c-sec2);font-variant-numeric:tabular-nums;min-width:58px;text-align:center">{{ sel.photoLabel }}</span>
+            <button onClick="{{ sel.onNext }}" aria-label="Photo suivante" style="width:48px;height:48px;border-radius:24px;border:0;background:var(--c-group);cursor:pointer;font-size:1.3rem;line-height:1;color:var(--c-ink);display:flex;align-items:center;justify-content:center;transition:background .18s ease,transform .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">›</button>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;margin-top:18px">
+            <div style="flex:1;min-width:0">
+              <div style="font-size:1.45rem;font-weight:700;letter-spacing:-.02em;line-height:1.2;text-wrap:pretty">{{ sel.titre }}</div>
+              <div style="font-size:.94rem;color:var(--c-sec2);margin-top:6px;line-height:1.4">{{ sel.sub }}</div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Où c'est</div>
+          <div style="background:var(--c-card);border-radius:24px;padding:18px;box-shadow:var(--sh-card)">
+            <div style="display:flex;align-items:center;gap:13px">
+              <span style="width:36px;height:36px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;background: {{ sel.adr.iconBg }};color: {{ sel.adr.iconFg }};border: {{ sel.adr.iconBorder }}">{{ sel.adr.icon }}</span>
+              <div style="min-width:0;flex:1">
+                <div style="font-size:1.2rem;font-weight:700;letter-spacing:-.01em;line-height:1.25;text-wrap:pretty">{{ sel.adr.titre }}</div>
+                <div style="font-size:.9rem;color:var(--c-sec2);margin-top:3px">{{ sel.adr.sous }}</div>
+              </div>
+            </div>
+            <div style="font-size:.9rem;line-height:1.45;margin-top:12px;text-wrap:pretty;color: {{ sel.adr.sourceFg }};font-weight: {{ sel.adr.sourceW }}">{{ sel.adr.source }}</div>
+
+            <sc-if value="{{ sel.adr.hasRues }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+                <sc-for list="{{ sel.adr.rues }}" as="r" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:10px;background:var(--c-group);border-radius:18px;padding:10px 10px 10px 15px">
+                    <a href="{{ r.lien }}" target="_blank" rel="noopener noreferrer" style="flex:1;min-width:0;color:var(--c-ink);text-decoration:none">
+                      <span style="display:block;font-size:1rem;font-weight:600;line-height:1.3;text-wrap:pretty">{{ r.nom }}</span>
+                      <span style="display:block;font-size:.82rem;margin-top:3px;line-height:1.35;color: {{ r.raisonFg }};font-weight: {{ r.raisonW }}">{{ r.raison }}</span>
+                    </a>
+                    <a href="{{ r.sv }}" target="_blank" rel="noopener noreferrer" style="flex:none;display:flex;align-items:center;gap:6px;white-space:nowrap;background:var(--c-card);color:var(--c-accent-text);border-radius:14px;padding:11px 13px;font-size:.88rem;font-weight:600;text-decoration:none;box-shadow:var(--sh-flat)"><span style="font-size:.95rem">◎</span>Street View</a>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sel.adr.ok }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
+                <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:15px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.96rem;font-weight:600;padding:14px 10px;text-decoration:none">Itinéraire ↗</a>
+                <a href="{{ sel.adr.sv }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:6px;border-radius:15px;background:var(--c-tint);color:var(--c-accent-text);font-size:.96rem;font-weight:600;padding:14px 10px;text-decoration:none;white-space:nowrap"><span>◎</span>Street View</a>
+              </div>
+              <button onClick="{{ sel.adr.onDevant }}" style="margin-top:8px;border:0;background:none;color:var(--c-accent-text);font-size:.88rem;font-weight:600;padding:8px 4px;cursor:pointer">{{ sel.adr.devantLabel }}</button>
+            </sc-if>
+            <sc-if value="{{ sel.adr.pistes }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+                <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:15px;background:var(--c-group);color:var(--c-ink);font-size:.96rem;font-weight:600;padding:14px 10px;text-decoration:none">Itinéraire ↗</a>
+                <button onClick="{{ sel.adr.onDevant }}" style="border:0;border-radius:15px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.96rem;font-weight:600;padding:14px 10px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.97)">{{ sel.adr.devantLabel }}</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ sel.adr.hasPin }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ sel.adr.onEffacer }}" style="margin-top:4px;border:0;background:none;color:var(--c-sec2);font-size:.84rem;padding:6px 4px;cursor:pointer">Effacer la position relevée</button>
+            </sc-if>
+
+            <div style="margin-top:14px">
+            <sc-if value="{{ sel.cad.show }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 4px 0;border-top:1px solid var(--c-rule)">
+                <span style="font-size:1.05rem;line-height:1.35;flex:none">▦</span>
+                <div style="min-width:0;flex:1">
+                  <div style="font-size:1rem;font-weight:600;line-height:1.35">Parcelle {{ sel.cad.ref }}</div>
+                  <div style="font-size:.82rem;color:var(--c-sec);margin-top:4px;line-height:1.45;text-wrap:pretty">{{ sel.cad.detail }}</div>
+                </div>
+              </div>
+            </sc-if>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">À quel prix</div>
+          <div style="padding:0 4px">
+            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+              <span style="font-size:2.6rem;font-weight:700;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;flex:none">{{ sel.prix }}</span>
+              <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ false }}">
+                <span style="background:color-mix(in srgb,#C0392B 12%,var(--c-card));color:#A8321F;font-size:.86rem;font-weight:700;border-radius:11px;padding:5px 10px;white-space:nowrap">{{ sel.baisseChip }}</span>
+              </sc-if>
+            </div>
+            <div style="font-size:.94rem;color:var(--c-sec2);margin-top:9px;line-height:1.4">{{ sel.prixM2 }} · {{ sel.ecart }}</div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Le bien</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+              
+              <div style="background:var(--c-card);border-radius:24px;padding:18px;box-shadow:var(--sh-card);padding:20px">
+                <div style="font-size:.8rem;color:var(--c-sec2);letter-spacing:.01em">{{ sel.sourceLine }}</div>
+                <div style="font-size:1rem;line-height:1.6;margin-top:10px;text-wrap:pretty">{{ sel.texte }}</div>
+                <a href="{{ sel.url }}" target="_blank" rel="noopener noreferrer" style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:16px;background:var(--c-group);color:var(--c-ink);font-size:.98rem;font-weight:600;padding:14px 18px;text-decoration:none">Voir l'annonce d'origine <span style="color:var(--c-sec2)">↗</span></a>
+              </div>
+              <sc-if value="{{ sel.brutShow }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Toutes les données reçues</div>
+            <div style="background:var(--c-card);border-radius:24px;padding:10px 8px;box-shadow:var(--sh-card)">
+              <sc-for list="{{ sel.brut }}" as="d" hint-placeholder-count="6">
+                <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 14px;border-bottom:1px solid var(--c-rule);font-size:.9rem">
+                  <span style="color:var(--c-sec);flex:none">{{ d.cle }}</span>
+                  <span style="text-align:right;word-break:break-word;min-width:0">{{ d.val }}</span>
+                </div>
+              </sc-for>
+              <div style="font-size:.78rem;color:var(--c-faint);padding:12px 14px 6px;line-height:1.45">Visible par la direction seule. Données telles que renvoyées par l'API de pige, sans retouche.</div>
+            </div>
+          </div>
+        </sc-if>
+              <div>
+              
+          <sc-if value="{{ sel.canSuppr }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onSuppr }}" style="width:100%;margin-top:12px;border:0;border-radius:18px;font-size:.98rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease,color .18s ease;background: {{ sel.supprBg }};color: {{ sel.supprFg }}">{{ sel.supprLabel }}</button>
+          </sc-if>
+          <sc-if value="{{ sel.isSuppr }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;background:var(--c-group);border-radius:18px;padding:15px 18px;font-size:.94rem;color:var(--c-sec2);line-height:1.45">{{ sel.supprInfo }}</div>
+          </sc-if>
+          <sc-if value="{{ sel.canRestore }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onRestore }}" style="width:100%;margin-top:10px;border:0;border-radius:18px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.98rem;font-weight:600;padding:15px;cursor:pointer">Remettre ce bien dans l'affichage</button>
+          </sc-if>
+              </div>
+            </div>
+        </div>
+
+        <div>
+          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Quoi faire maintenant</div>
+          <div style="background:var(--c-card);border-radius:24px;padding:18px;box-shadow:var(--sh-card)">
+            <div data-steps>
+            <sc-for list="{{ sel.pipe }}" as="p" hint-placeholder-count="5">
+              <div>
+                <div style="position:relative;height:38px;display:flex;align-items:center;justify-content:center">
+                  <span style="position:absolute;left:0;right:50%;height:3px;border-radius:2px;background: {{ p.barL }}"></span>
+                  <span style="position:absolute;left:50%;right:0;height:3px;border-radius:2px;background: {{ p.barR }}"></span>
+                  <span style="position:relative;width:34px;height:34px;border-radius:17px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;background: {{ p.bg }};color:#fff;border: {{ p.ring }};box-shadow: {{ p.shadow }};animation: {{ p.anim }}">{{ p.glyph }}</span>
+                </div>
+                <div style="font-size:.86rem;font-weight:600;line-height:1.3;margin-top:10px;padding:0 3px;min-height:2.6em;text-wrap:pretty;color: {{ p.labelFg }}">{{ p.label }}</div>
+                <div style="font-size:.76rem;color:var(--c-sec);margin-top:5px;line-height:1.3;padding:0 3px">{{ p.quand }}</div>
+              </div>
+            </sc-for>
+          </div>
+            <sc-if value="{{ sel.canRecule }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onRecule }}" style="width:100%;margin-top:14px;border:0;border-radius:18px;background:var(--c-group);color:var(--c-ink);font-size:.98rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-hover)">{{ sel.reculeLabel }}</button>
+          </sc-if>
+            <div style="font-size:1.2rem;font-weight:700;letter-spacing:-.01em;margin-top:18px">{{ sel.nextLabel }}</div>
+            <div style="font-size:.9rem;color:var(--c-sec2);margin-top:4px;line-height:1.4">{{ sel.nextSub }}</div>
+            
+            <div style="font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c-sec2);margin:20px 4px 8px">Noter ce que vous avez fait</div>
+            <div style="position:relative">
+            <select value="{{ sel.step }}" onChange="{{ sel.onStep }}" style="appearance:none;-webkit-appearance:none;width:100%;border:0;border-radius:20px;background:var(--c-group);font-size:1.02rem;font-weight:500;padding:19px 52px 19px 20px;cursor:pointer;color:var(--c-ink);line-height:1.3">
+              <sc-for list="{{ sel.options }}" as="o" hint-placeholder-count="5">
+                <option value="{{ o.v }}">{{ o.v }}</option>
+              </sc-for>
+            </select>
+            <span style="position:absolute;right:22px;top:50%;transform:translateY(-58%);pointer-events:none;color:var(--c-sec);font-size:1.05rem;line-height:1">⌄</span>
+          </div>
+          <button onClick="{{ sel.onSave }}" style="width:100%;margin-top:10px;border:0;border-radius:20px;background:var(--rm-accent,#0071E3);color:#fff;font-size:1.1rem;font-weight:600;padding:19px 20px;cursor:pointer;box-shadow:0 6px 18px rgba(0,113,227,.28);transition:transform .18s cubic-bezier(.32,.72,0,1)" style-active="transform:scale(.975)">Enregistrer</button>
+          <sc-if value="{{ sel.canDrop }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onDrop }}" style="width:100%;margin-top:8px;border:0;border-radius:20px;background:none;color:var(--c-sec2);font-size:.98rem;font-weight:500;padding:16px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-group)">Ce bien ne donnera rien</button>
+          </sc-if>
+          <sc-if value="{{ sel.isDropped }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:12px;background:var(--c-group);border-radius:18px;padding:15px 18px;font-size:.94rem;color:var(--c-sec2);line-height:1.45">Ce bien est mis de côté. Enregistrez une action pour le remettre en route.</div>
+          </sc-if>
+            <sc-if value="{{ sel.showConsent }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ goRegles }}" style="width:100%;margin-top:10px;border:0;background:var(--c-warnbg);color:var(--c-warnink);border-radius:15px;padding:12px 14px;font-size:.86rem;font-weight:600;line-height:1.4;cursor:pointer;text-align:left">Pas d'appel sans l'accord du vendeur, depuis le 11 août 2026. L'entrée « Appel » précise que l'accord a été recueilli. ›</button>
+            </sc-if>
+            <sc-if value="{{ sel.canAssign }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onAssign }}" style="width:100%;margin-top:14px;border:0;border-radius:20px;background:var(--c-card);box-shadow:var(--sh-card);padding:18px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:transform .18s ease" style-active="transform:scale(.985)">
+              <span style="flex:1">
+                <span style="display:block;font-size:.98rem;font-weight:600">{{ sel.assignTitle }}</span>
+                <span style="display:block;font-size:.86rem;color:var(--c-sec);margin-top:3px">{{ sel.assignSub }}</span>
+              </span>
+              <span style="color:var(--c-faint);font-size:1.3rem;line-height:1">›</span>
+            </button>
+          </sc-if>
+          </div>
+        </div>
 
         <div>
           <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Commentaires de l'équipe</div>
@@ -434,224 +601,17 @@ a:hover{color:var(--c-accent-text);opacity:.7}
         </div>
 
         <div>
-          <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">L'annonce du vendeur</div>
-          <div style="background:var(--c-card);border-radius:24px;padding:22px;box-shadow:var(--sh-card)">
-            <div style="margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--c-rule)">
-              <span style="display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.02em;padding:5px 10px;border-radius:10px;background: {{ sel.adr.niveauBg }};color: {{ sel.adr.niveauFg }}">{{ sel.adr.niveau }}</span>
-              <div style="display:flex;align-items:flex-start;gap:12px;margin-top:12px">
-                <span style="font-size:1.15rem;line-height:1.3;flex:none">📍</span>
-                <div style="min-width:0;flex:1">
-                  <div style="font-size:1.12rem;font-weight:600;line-height:1.35;text-wrap:pretty">{{ sel.adr.ligne }}</div>
-                  <div style="font-size:.84rem;color:var(--c-sec);margin-top:5px;line-height:1.45;text-wrap:pretty">{{ sel.adr.precision }}</div>
-                </div>
-              </div>
-              <sc-if value="{{ sel.adr.hasCands }}" hint-placeholder-val="{{ false }}">
-                <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
-                  <sc-for list="{{ sel.adr.cands }}" as="c" hint-placeholder-count="3">
-                    <a href="{{ c.lien }}" target="_blank" rel="noopener noreferrer" style="display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 13px;border-radius:14px;background:var(--c-group);color:var(--c-ink);text-decoration:none;font-size:.9rem;transition:background .18s ease" style-hover="background:var(--c-hover)">
-                      <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.adresse }}</span>
-                      <span style="flex:none;color:var(--c-sec);font-size:.82rem;font-variant-numeric:tabular-nums">{{ c.dist }} ↗</span>
-                    </a>
-                  </sc-for>
-                </div>
-              </sc-if>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
-                <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:15px;background:var(--c-group);color:var(--c-ink);font-size:.94rem;font-weight:600;padding:13px 10px;text-decoration:none;transition:background .18s ease" style-hover="background:var(--c-hover)">Itinéraire ↗</a>
-                <button onClick="{{ sel.adr.onDevant }}" style="border:0;border-radius:15px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.94rem;font-weight:600;padding:13px 10px;cursor:pointer;transition:transform .18s ease,opacity .18s ease" style-active="transform:scale(.97)">{{ sel.adr.devantLabel }}</button>
-              </div>
-              <sc-if value="{{ sel.adr.hasPin }}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{ sel.adr.onEffacer }}" style="margin-top:8px;border:0;background:none;color:var(--c-sec);font-size:.84rem;padding:6px 4px;cursor:pointer">Effacer la position relevée</button>
-              </sc-if>
-            </div>
-            <sc-if value="{{ sel.cad.show }}" hint-placeholder-val="{{ true }}">
-              <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--c-rule)">
-                <span style="font-size:1.05rem;line-height:1.35;flex:none">▦</span>
-                <div style="min-width:0;flex:1">
-                  <div style="font-size:1rem;font-weight:600;line-height:1.35">Parcelle {{ sel.cad.ref }}</div>
-                  <div style="font-size:.82rem;color:var(--c-sec);margin-top:4px;line-height:1.45;text-wrap:pretty">{{ sel.cad.detail }}</div>
-                </div>
-              </div>
-            </sc-if>
-            <div style="font-size:.8rem;color:var(--c-sec);letter-spacing:.01em">{{ sel.sourceLine }}</div>
-            <div style="font-size:1.02rem;line-height:1.6;margin-top:10px;text-wrap:pretty">{{ sel.texte }}</div>
-            <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--c-rule)">
-              <div style="font-size:.82rem;font-weight:600;color:var(--c-sec);margin-bottom:12px">Ce que le vendeur a laissé dans son annonce</div>
-              <div style="display:grid;grid-template-columns:auto 1fr;gap:9px 16px;font-size:.94rem;align-items:baseline">
-                <span style="color:var(--c-sec)">Annonceur</span>
-                <span style="font-weight:600;color: {{ sel.cv.nomColor }}">{{ sel.cv.nom }} <span style="font-weight:400;color:var(--c-sec);font-size:.86rem">{{ sel.cv.nomLabel }} — {{ sel.cv.nomUtil }}</span></span>
-                <span style="color:var(--c-sec)">Téléphone</span>
-                <span style="color: {{ sel.cv.telColor }}">{{ sel.cv.tel }}</span>
-                <span style="color:var(--c-sec)">E-mail</span>
-                <span style="color: {{ sel.cv.mailColor }}">{{ sel.cv.mail }}</span>
-              </div>
-              <sc-if value="{{ sel.cv.hasDispo }}" hint-placeholder-val="{{ true }}">
-                <div style="margin-top:12px;padding:11px 13px;border-radius:14px;background:var(--c-group);font-size:.9rem;line-height:1.45;color:var(--c-sec2);text-wrap:pretty">{{ sel.cv.dispo }}</div>
-              </sc-if>
-            </div>
-            <a href="{{ sel.url }}" target="_blank" rel="noopener noreferrer" style="margin-top:18px;display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border-radius:18px;background:var(--c-group);color:var(--c-ink);font-size:1rem;font-weight:600;padding:15px 18px;text-decoration:none;transition:background .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.98)">
-              <span>Voir l'annonce d'origine</span>
-              <span style="font-size:.92rem;color:var(--c-sec)">↗</span>
-            </a>
-            <div style="font-size:.82rem;color:var(--c-sec);margin-top:10px;line-height:1.45;text-wrap:pretty">{{ sel.canalNote }}</div>
-          </div>
-        </div>
-
-        <div>
-          <div style="font-size:1.9rem;font-weight:700;letter-spacing:-.03em;line-height:1.12;text-wrap:pretty">{{ sel.titre }}</div>
-          <div style="font-size:.98rem;color:var(--c-sec);margin-top:8px">{{ sel.sub }}</div>
-
-          <div style="display:flex;align-items:flex-end;gap:14px;margin:20px 0 26px">
-            <div style="font-size:2.9rem;font-weight:700;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums">{{ sel.prix }}</div>
-            <div style="font-size:.86rem;color:var(--c-sec);line-height:1.35;padding-bottom:6px">{{ sel.prixM2 }}<br>{{ sel.ecart }}</div>
-          </div>
-
-          <div data-photo data-fs="{{ sel.fs }}">
-            <div style="width:100%;height:100%;border-radius:22px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
-              <img src="{{ sel.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;display: {{ sel.photoShow }}">
-              <span style="font-size:.9rem;color:var(--c-faint);display: {{ sel.photoNone }}">Cette annonce n'a aucune photo</span>
-            </div>
-            <button data-zoomarea onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand"></button>
-            <button data-zoom onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand">⤢</button>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-top:14px">
-            <button onClick="{{ sel.onPrev }}" aria-label="Photo précédente" style="width:48px;height:48px;border-radius:24px;border:0;background:var(--c-group);cursor:pointer;font-size:1.3rem;line-height:1;color:var(--c-ink);display:flex;align-items:center;justify-content:center;transition:background .18s ease,transform .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">‹</button>
-            <span style="font-size:.94rem;color:var(--c-sec2);font-variant-numeric:tabular-nums;min-width:58px;text-align:center">{{ sel.photoLabel }}</span>
-            <button onClick="{{ sel.onNext }}" aria-label="Photo suivante" style="width:48px;height:48px;border-radius:24px;border:0;background:var(--c-group);cursor:pointer;font-size:1.3rem;line-height:1;color:var(--c-ink);display:flex;align-items:center;justify-content:center;transition:background .18s ease,transform .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">›</button>
-          </div>
-        </div>
-
-        <div>
-          <div style="font-size:1.02rem;font-weight:600;margin:0 4px 22px">Où en est ce bien ?</div>
-
-          <div data-steps>
-            <sc-for list="{{ sel.pipe }}" as="p" hint-placeholder-count="5">
-              <div>
-                <div style="position:relative;height:38px;display:flex;align-items:center;justify-content:center">
-                  <span style="position:absolute;left:0;right:50%;height:3px;border-radius:2px;background: {{ p.barL }}"></span>
-                  <span style="position:absolute;left:50%;right:0;height:3px;border-radius:2px;background: {{ p.barR }}"></span>
-                  <span style="position:relative;width:34px;height:34px;border-radius:17px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;background: {{ p.bg }};color:#fff;border: {{ p.ring }};box-shadow: {{ p.shadow }};animation: {{ p.anim }}">{{ p.glyph }}</span>
-                </div>
-                <div style="font-size:.86rem;font-weight:600;line-height:1.3;margin-top:10px;padding:0 3px;min-height:2.6em;text-wrap:pretty;color: {{ p.labelFg }}">{{ p.label }}</div>
-                <div style="font-size:.76rem;color:var(--c-sec);margin-top:5px;line-height:1.3;padding:0 3px">{{ p.quand }}</div>
-              </div>
+          <div style="display:flex;gap:4px;background:var(--c-group);border-radius:16px;padding:4px;margin-bottom:18px">
+            <sc-for list="{{ sel.tabs }}" as="ft" hint-placeholder-count="2">
+              <button onClick="{{ ft.onTap }}" style="flex:1;border:0;border-radius:13px;padding:11px 6px;font-size:.94rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .22s ease,box-shadow .22s ease;background: {{ ft.bg }};color: {{ ft.color }};box-shadow: {{ ft.shadow }}">{{ ft.label }}</button>
             </sc-for>
           </div>
 
-          <div style="font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--c-sec2);margin:30px 4px 10px">Noter ce que vous avez fait</div>
-          <div style="position:relative">
-            <select value="{{ sel.step }}" onChange="{{ sel.onStep }}" style="appearance:none;-webkit-appearance:none;width:100%;border:0;border-radius:20px;background:var(--c-group);font-size:1.02rem;font-weight:500;padding:19px 52px 19px 20px;cursor:pointer;color:var(--c-ink);line-height:1.3">
-              <sc-for list="{{ sel.options }}" as="o" hint-placeholder-count="5">
-                <option value="{{ o.v }}">{{ o.v }}</option>
-              </sc-for>
-            </select>
-            <span style="position:absolute;right:22px;top:50%;transform:translateY(-58%);pointer-events:none;color:var(--c-sec);font-size:1.05rem;line-height:1">⌄</span>
-          </div>
-          <button onClick="{{ sel.onSave }}" style="width:100%;margin-top:10px;border:0;border-radius:20px;background:var(--rm-accent,#0071E3);color:#fff;font-size:1.1rem;font-weight:600;padding:19px 20px;cursor:pointer;box-shadow:0 6px 18px rgba(0,113,227,.28);transition:transform .18s cubic-bezier(.32,.72,0,1)" style-active="transform:scale(.975)">Enregistrer</button>
-          <sc-if value="{{ sel.canDrop }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onDrop }}" style="width:100%;margin-top:8px;border:0;border-radius:20px;background:none;color:var(--c-sec2);font-size:.98rem;font-weight:500;padding:16px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-group)">Ce bien ne donnera rien</button>
-          </sc-if>
-          <sc-if value="{{ sel.isDropped }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:12px;background:var(--c-group);border-radius:18px;padding:15px 18px;font-size:.94rem;color:var(--c-sec2);line-height:1.45">Ce bien est mis de côté. Enregistrez une action pour le remettre en route.</div>
-          </sc-if>
-
-          <sc-if value="{{ sel.showConsent }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:14px;background:var(--c-warnbg);border-radius:18px;padding:16px 18px">
-              <div style="font-size:.92rem;font-weight:600;color:var(--c-warnink)">Le téléphone n'est plus permis</div>
-              <div style="font-size:.86rem;color:var(--c-warnink);line-height:1.45;margin-top:5px;text-wrap:pretty">Depuis le 11 août 2026, on ne peut plus appeler un particulier qui n'a pas donné son accord. L'entrée « Appel » ne s'enregistre que si le vendeur a dit oui, et cet accord est daté et conservé.</div>
-              <button onClick="{{ goRegles }}" style="margin-top:10px;border:0;background:none;padding:0;font-size:.9rem;font-weight:600;color:var(--c-warnink);cursor:pointer;text-decoration:underline">Lire la règle en entier</button>
-            </div>
-          </sc-if>
-
-          <div style="margin-top:34px">
-            <div style="display:flex;align-items:baseline;gap:10px;margin:0 4px 12px">
-              <span style="font-size:1.02rem;font-weight:600;white-space:nowrap;flex:none">Avant d'y aller</span>
-              <span style="font-size:.82rem;color:var(--c-sec);line-height:1.3">préparé pour vous</span>
-            </div>
-            <div style="background:var(--c-group);border-radius:24px;padding:18px">
-              <sc-if value="{{ ai.busy }}" hint-placeholder-val="{{ true }}">
-                <div>
-                  <div style="display:flex;align-items:center;gap:10px;font-size:.92rem;font-weight:500;color:var(--c-sec2);padding:2px 4px 14px">
-                    <span style="width:16px;height:16px;border-radius:8px;border:2px solid var(--c-dot-off);border-top-color:var(--rm-accent,#0071E3);animation:rmSpin .7s linear infinite;flex:none"></span>
-                    <span>{{ ai.phase }}</span>
-                  </div>
-                  <div data-ind>
-                    <div style="background:var(--c-card);border-radius:18px;padding:15px 16px">
-                      <span style="display:block;height:9px;width:44%;border-radius:5px;background:linear-gradient(90deg,var(--c-shim1) 0%,var(--c-shim2) 50%,var(--c-shim1) 100%);background-size:200% 100%;animation:rmShim 1.4s ease-in-out infinite"></span>
-                      <span style="display:block;height:12px;width:78%;border-radius:6px;margin-top:11px;background:linear-gradient(90deg,var(--c-shim1) 0%,var(--c-shim2) 50%,var(--c-shim1) 100%);background-size:200% 100%;animation:rmShim 1.4s ease-in-out infinite"></span>
-                    </div>
-                    <div style="background:var(--c-card);border-radius:18px;padding:15px 16px">
-                      <span style="display:block;height:9px;width:38%;border-radius:5px;background:linear-gradient(90deg,var(--c-shim1) 0%,var(--c-shim2) 50%,var(--c-shim1) 100%);background-size:200% 100%;animation:rmShim 1.4s ease-in-out infinite"></span>
-                      <span style="display:block;height:12px;width:66%;border-radius:6px;margin-top:11px;background:linear-gradient(90deg,var(--c-shim1) 0%,var(--c-shim2) 50%,var(--c-shim1) 100%);background-size:200% 100%;animation:rmShim 1.4s ease-in-out infinite"></span>
-                    </div>
-                    <div style="background:var(--c-card);border-radius:18px;padding:15px 16px">
-                      <span style="display:block;height:9px;width:52%;border-radius:5px;background:linear-gradient(90deg,var(--c-shim1) 0%,var(--c-shim2) 50%,var(--c-shim1) 100%);background-size:200% 100%;animation:rmShim 1.4s ease-in-out infinite"></span>
-                      <span style="display:block;height:12px;width:72%;border-radius:6px;margin-top:11px;background:linear-gradient(90deg,var(--c-shim1) 0%,var(--c-shim2) 50%,var(--c-shim1) 100%);background-size:200% 100%;animation:rmShim 1.4s ease-in-out infinite"></span>
-                    </div>
-                    <div style="background:var(--c-card);border-radius:18px;padding:15px 16px">
-                      <span style="display:block;height:9px;width:40%;border-radius:5px;background:linear-gradient(90deg,var(--c-shim1) 0%,var(--c-shim2) 50%,var(--c-shim1) 100%);background-size:200% 100%;animation:rmShim 1.4s ease-in-out infinite"></span>
-                      <span style="display:block;height:12px;width:80%;border-radius:6px;margin-top:11px;background:linear-gradient(90deg,var(--c-shim1) 0%,var(--c-shim2) 50%,var(--c-shim1) 100%);background-size:200% 100%;animation:rmShim 1.4s ease-in-out infinite"></span>
-                    </div>
-                  </div>
-                </div>
-              </sc-if>
-              <sc-if value="{{ ai.hasData }}" hint-placeholder-val="{{ false }}">
-                <div>
-                  <div data-ind>
-                    <sc-for list="{{ ai.items }}" as="i" hint-placeholder-count="4">
-                      <div style="background:var(--c-card);border-radius:18px;padding:15px 16px;box-shadow:var(--sh-flat);animation:rmUp .3s cubic-bezier(.32,.72,0,1) both">
-                        <div style="font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--c-sec2)">{{ i.label }}</div>
-                        <div style="font-size:1.02rem;font-weight:600;line-height:1.35;margin-top:7px;text-wrap:pretty">{{ i.value }}</div>
-                      </div>
-                    </sc-for>
-                  </div>
-                  <sc-if value="{{ ai.done }}" hint-placeholder-val="{{ false }}">
-                    <button onClick="{{ ai.onGo }}" style="margin-top:14px;border:0;background:none;padding:0 4px;color:var(--c-accent-text);font-size:.92rem;font-weight:600;cursor:pointer;text-align:left;white-space:nowrap">Refaire la préparation</button>
-                  </sc-if>
-                </div>
-              </sc-if>
-              <sc-if value="{{ ai.error }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:4px">
-                  <span style="font-size:.94rem;line-height:1.45;color:var(--c-sec2);flex:1;min-width:200px">{{ ai.errorMsg }}</span>
-                  <button onClick="{{ ai.onGo }}" style="border:0;border-radius:15px;background:var(--c-card);color:var(--c-accent-text);font-size:.94rem;font-weight:600;padding:11px 18px;cursor:pointer;box-shadow:var(--sh-flat)">Réessayer</button>
-                </div>
-              </sc-if>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <sc-if value="{{ sel.canAssign }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onAssign }}" style="width:100%;margin-top:14px;border:0;border-radius:20px;background:var(--c-card);box-shadow:var(--sh-card);padding:18px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:transform .18s ease" style-active="transform:scale(.985)">
-              <span style="flex:1">
-                <span style="display:block;font-size:.98rem;font-weight:600">{{ sel.assignTitle }}</span>
-                <span style="display:block;font-size:.86rem;color:var(--c-sec);margin-top:3px">{{ sel.assignSub }}</span>
-              </span>
-              <span style="color:var(--c-faint);font-size:1.3rem;line-height:1">›</span>
-            </button>
-          </sc-if>
-          <sc-if value="{{ sel.canRecule }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onRecule }}" style="width:100%;margin-top:12px;border:0;border-radius:18px;background:var(--c-group);color:var(--c-ink);font-size:.98rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-hover)">{{ sel.reculeLabel }}</button>
-          </sc-if>
-          <div style="text-align:center;font-size:.8rem;color:var(--c-faint);margin-top:14px;letter-spacing:.04em">Dossier {{ sel.dossier }}</div>
-          <sc-if value="{{ sel.canSuppr }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onSuppr }}" style="width:100%;margin-top:12px;border:0;border-radius:18px;font-size:.98rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease,color .18s ease;background: {{ sel.supprBg }};color: {{ sel.supprFg }}">{{ sel.supprLabel }}</button>
-          </sc-if>
-          <sc-if value="{{ sel.isSuppr }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:14px;background:var(--c-group);border-radius:18px;padding:15px 18px;font-size:.94rem;color:var(--c-sec2);line-height:1.45">{{ sel.supprInfo }}</div>
-          </sc-if>
-          <sc-if value="{{ sel.canRestore }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onRestore }}" style="width:100%;margin-top:10px;border:0;border-radius:18px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.98rem;font-weight:600;padding:15px;cursor:pointer">Remettre ce bien dans l'affichage</button>
-          </sc-if>
-        </div>
-
-      </div>
-      </sc-if>
-
-      <sc-if value="{{ sel.tabHisto }}" hint-placeholder-val="{{ false }}">
-        <div>
-          <div style="font-size:1.5rem;font-weight:700;letter-spacing:-.02em;line-height:1.2;text-wrap:pretty">{{ sel.titre }}</div>
-          <div style="font-size:.94rem;color:var(--c-sec);margin:8px 0 26px">Chaque geste, à son heure, au nom de qui l'a fait.</div>
-          <sc-if value="{{ sel.noHisto }}" hint-placeholder-val="{{ false }}">
+          <sc-if value="{{ sel.tabSuivi }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:22px;animation:rmFade .25s ease both">
+              <div>
+                <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Ce qui a été fait</div>
+                <sc-if value="{{ sel.noHisto }}" hint-placeholder-val="{{ false }}">
             <div style="font-size:.98rem;color:var(--c-sec);line-height:1.5;padding:0 4px">Rien encore. Ce bien est sorti dans la liste de ce matin.</div>
           </sc-if>
           <div style="display:flex;flex-direction:column;gap:2px">
@@ -665,8 +625,38 @@ a:hover{color:var(--c-accent-text);opacity:.7}
               </div>
             </sc-for>
           </div>
+              </div>
+              
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ sel.tabVendeur }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:14px;animation:rmFade .25s ease both">
+              <div style="background:var(--c-card);border-radius:24px;padding:18px;box-shadow:var(--sh-card);padding:20px">
+                <div style="display:grid;grid-template-columns:auto 1fr;gap:11px 16px;font-size:.96rem;align-items:baseline">
+                  <span style="color:var(--c-sec2)">Annonceur</span>
+                  <span style="font-weight:600;color: {{ sel.cv.nomColor }}">{{ sel.cv.nom }} <span style="font-weight:400;color:var(--c-sec2);font-size:.86rem">{{ sel.cv.nomLabel }} — {{ sel.cv.nomUtil }}</span></span>
+                  <span style="color:var(--c-sec2)">Téléphone</span>
+                  <span style="color: {{ sel.cv.telColor }}">{{ sel.cv.tel }}</span>
+                  <span style="color:var(--c-sec2)">E-mail</span>
+                  <span style="color: {{ sel.cv.mailColor }}">{{ sel.cv.mail }}</span>
+                </div>
+                <sc-if value="{{ sel.cv.hasDispo }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:14px;padding:11px 13px;border-radius:14px;background:var(--c-group);font-size:.9rem;line-height:1.45;color:var(--c-sec2);text-wrap:pretty">{{ sel.cv.dispo }}</div>
+                </sc-if>
+                <div style="font-size:.84rem;color:var(--c-sec2);margin-top:12px;line-height:1.45;text-wrap:pretty">{{ sel.canalNote }}</div>
+                <a href="{{ sel.url }}" target="_blank" rel="noopener noreferrer" style="margin-top:14px;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:16px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.98rem;font-weight:600;padding:15px 18px;text-decoration:none">Écrire par la messagerie de l'annonce ↗</a>
+              </div>
+              <div style="background:var(--c-warnbg);border-radius:20px;padding:18px">
+                <div style="font-size:.96rem;font-weight:700;color:var(--c-warnink)">Pas d'appel sans accord</div>
+                <div style="font-size:.88rem;color:var(--c-warnink);line-height:1.5;margin-top:6px;text-wrap:pretty">Depuis le 11 août 2026, on ne peut plus appeler un particulier qui n'a pas donné son accord. L'entrée « Appel » ne s'enregistre que si le vendeur a dit oui, et cet accord est daté et conservé.</div>
+                <button onClick="{{ goRegles }}" style="margin-top:10px;border:0;background:none;padding:0;font-size:.9rem;font-weight:600;color:var(--c-warnink);cursor:pointer;text-decoration:underline">Lire la règle en entier</button>
+              </div>
+            </div>
+          </sc-if>
         </div>
-      </sc-if>
+
+      </div>
     </div>
   </sc-if>
 
@@ -954,6 +944,60 @@ a:hover{color:var(--c-accent-text);opacity:.7}
     </div>
   </sc-if>
 
+  <sc-if value="{{ isNotifs }}" hint-placeholder-val="{{ false }}">
+    <div data-detail style="padding:14px 0 30px;max-width:720px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 4px 18px">
+        <span style="font-size:.98rem;color:var(--c-sec2);line-height:1.45">{{ notifIntro }}</span>
+        <sc-if value="{{ notifHasNew }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ onNotifLu }}" style="flex:none;border:0;border-radius:14px;background:var(--c-tint);color:var(--c-accent-text);font-size:.9rem;font-weight:600;padding:10px 14px;cursor:pointer;white-space:nowrap">Tout marquer comme lu</button>
+        </sc-if>
+      </div>
+      <sc-if value="{{ notifHasNew }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-bottom:26px">
+          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Nouvelles</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ notifNew }}" as="n" hint-placeholder-count="4">
+            <button onClick="{{ n.onOpen }}" style="width:100%;text-align:left;border:0;background:var(--c-card);border-radius:20px;padding:15px 16px;display:flex;gap:13px;align-items:flex-start;cursor:pointer;box-shadow:var(--sh-flat);transition:transform .18s ease,box-shadow .18s ease" style-hover="box-shadow:var(--sh-card-hi)" style-active="transform:scale(.99)">
+              <span style="width:36px;height:36px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#fff;background: {{ n.color }}">{{ n.glyph }}</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font-size:.98rem;font-weight: {{ n.w }};line-height:1.4;text-wrap:pretty">{{ n.txt }}</span>
+                <span style="display:block;font-size:.86rem;color:var(--c-sec2);margin-top:4px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ n.bien }}</span>
+                <span style="display:block;font-size:.8rem;color:var(--c-sec2);margin-top:4px">{{ n.qui }} · {{ n.quand }}</span>
+              </span>
+              <span style="width:10px;height:10px;border-radius:5px;flex:none;margin-top:6px;background: {{ n.dot }}"></span>
+            </button>
+          </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notifHasOld }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Plus tôt</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ notifOld }}" as="n" hint-placeholder-count="4">
+            <button onClick="{{ n.onOpen }}" style="width:100%;text-align:left;border:0;background:var(--c-card);border-radius:20px;padding:15px 16px;display:flex;gap:13px;align-items:flex-start;cursor:pointer;box-shadow:var(--sh-flat);transition:transform .18s ease,box-shadow .18s ease" style-hover="box-shadow:var(--sh-card-hi)" style-active="transform:scale(.99)">
+              <span style="width:36px;height:36px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#fff;background: {{ n.color }}">{{ n.glyph }}</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font-size:.98rem;font-weight: {{ n.w }};line-height:1.4;text-wrap:pretty">{{ n.txt }}</span>
+                <span style="display:block;font-size:.86rem;color:var(--c-sec2);margin-top:4px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ n.bien }}</span>
+                <span style="display:block;font-size:.8rem;color:var(--c-sec2);margin-top:4px">{{ n.qui }} · {{ n.quand }}</span>
+              </span>
+              <span style="width:10px;height:10px;border-radius:5px;flex:none;margin-top:6px;background: {{ n.dot }}"></span>
+            </button>
+          </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notifEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:60px 20px">
+          <div style="width:64px;height:64px;border-radius:32px;background:var(--c-group);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--c-sec2)">✓</div>
+          <div style="font-size:1.15rem;font-weight:700">Rien de neuf</div>
+          <div style="font-size:.95rem;color:var(--c-sec2);margin-top:6px;line-height:1.45">Ce que l'équipe fait sur vos biens apparaîtra ici.</div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ isRegles }}" hint-placeholder-val="{{ false }}">
     <div style="padding-bottom:20px">
       <div style="background:var(--c-warnbg);border-radius:24px;padding:24px;margin-top:16px">
@@ -1070,7 +1114,6 @@ class Component extends DCLogic {
     this.screenRef = React.createRef();
     /* Adresse de l'application web Google Apps Script (Déployer > Application web).
        Laisser vide pour travailler sans synchronisation. */
-    /* VERSION DE TRAVAIL — volontairement déconnectée de la feuille de Ribas. */
     this.SYNC_URL = "";
     /* Secteurs des négociateurs : une simple suggestion affichée à Jonathan.
        L'attribution reste toujours manuelle. */
@@ -1995,7 +2038,7 @@ class Component extends DCLogic {
     this._lastScreen = this.state.screen;
     const l = this.sel();
     const key = this.state.screen === "bien" && l ? l.id : null;
-    if (key !== null && key !== this._aiKey && !(this.state.ai && this.state.ai.id === key)) {
+    if (false && key !== null && key !== this._aiKey && !(this.state.ai && this.state.ai.id === key)) { /* bloc « Avant d'y aller » retiré de la fiche : plus d'appel automatique */
       this._aiKey = key;
       this.runAI(l);
     }
@@ -2155,6 +2198,19 @@ class Component extends DCLogic {
   marquerVu() {
     try { localStorage.setItem("radar_vu_" + (this.state.user || ""), String(Date.now())); } catch (e) {}
     this.setState(st => ({ tick: (st.tick || 0) + 1 }));
+  }
+  notifHisto() {
+    if (!this.state.user) return [];
+    const moi = this.state.user, dir = this.estDirecteur();
+    const limite = Date.now() - 45 * 86400000;
+    const out = [];
+    (this._L || []).forEach(l => {
+      if (l.supprime) return;
+      if (!(dir || l.assign === moi)) return;
+      (l.histo || []).forEach(e => { if (e.t > limite && e.qui !== moi) out.push({ t: e.t, l, txt: e.quoi, qui: e.qui, et: e.et }); });
+      (l.comms || []).forEach(c => { if (c.t > limite && c.qui !== moi) out.push({ t: c.t, l, txt: "« " + c.txt + " »", qui: c.qui, et: "comm" }); });
+    });
+    return out.sort((a, b) => b.t - a.t).slice(0, 80);
   }
   nouveautes() {
     const depuis = this.derniereVisite();
@@ -2454,13 +2510,12 @@ class Component extends DCLogic {
       canAssign: this.isDir() && !l.assign,
       showGeste: !(this.isDir() && !l.assign),
       onAssignOpen: () => this.setState({ assignFor: l.id }),
-      geste: l.histo.length
-        ? [...l.histo].sort((x, y) => y.t - x.t)[0].quoi + " · " + this.depuis(l)
-        : "Personne dessus",
+      geste: l.statut === "sansSuite" ? "Mis de côté"
+        : ["Repéré", "Confié", "Premier contact", "Rendez-vous", "Mandat signé"][Math.max(0, Math.min(4, l.reached || 0))],
       score: l.score,
       gauge: this.gauge(l),
       scoreFg: l.score >= 70 ? "var(--c-scorehi)" : l.score >= 50 ? "var(--c-warnink)" : "var(--c-sec2)",
-      onOpen: () => { this.setState({ selId: l.id, fTab: "fiche", step: null, photoIdx: 0, zoom: false, showParts: false }); this.chercherRue(l); this.chercherDPE(l); this.chercherBAN(l).then(() => { this.chercherCadastre(l); this.croiserDpeBan(l); }); this.go("bien"); }
+      onOpen: () => { this.setState({ selId: l.id, fTab: "bien", step: null, photoIdx: 0, zoom: false, showParts: false }); this.chercherRue(l); this.chercherDPE(l); this.chercherBAN(l).then(() => { this.chercherCadastre(l); this.croiserDpeBan(l); }); this.go("bien"); }
     };
   }
 
@@ -2587,7 +2642,7 @@ class Component extends DCLogic {
       opts = ["Estimation remise au vendeur", "Relance"];
     }
     const step = opts.indexOf(this.state.step) >= 0 ? this.state.step : opts[0];
-    const tab = this.state.fTab === "histo" ? "histo" : "fiche";
+    const tab = this.state.fTab === "vendeur" ? "vendeur" : "suivi";
     const a = this.props.accent || "#0071E3";
     return {
       titre: l.titre,
@@ -2619,10 +2674,32 @@ class Component extends DCLogic {
             shadow: st === 1 ? "0 4px 14px rgba(0,113,227,.3)" : "none",
             anim: st === 1 ? "rmPop .4s cubic-bezier(.32,.72,0,1) both" : "none",
             labelFg: st ? "var(--c-ink)" : "var(--c-sec)",
+            seg: st === 2 ? G : st === 1 ? a : off,
             barL: i === 0 ? "transparent" : (st >= 1 ? G : off),
             barR: i === rows.length - 1 ? "transparent" : (st === 2 ? G : off)
           };
         });
+      })(),
+      nextLabel: l.statut === "sansSuite" ? "Mis de côté"
+        : l.reached >= 4 ? "Mandat signé"
+        : ["Confier le bien", "Premier contact", "Obtenir le rendez-vous", "Signer le mandat"][Math.max(0, l.reached || 0)],
+      nextSub: (l.assign ? l.assign + " s'en occupe" : "Personne ne s'en occupe encore")
+        + (l.histo.length ? " · dernier geste " + this.depuis(l) : ""),
+      hasConseil: !!(this.state.ai && this.state.ai.id === l.id && this.state.ai.data && this.state.ai.data.geste),
+      conseil: (this.state.ai && this.state.ai.id === l.id && this.state.ai.data) ? this.state.ai.data.geste : "",
+      onScore: () => this.setState({ showParts: true }),
+      agenceTitre: l.enAgence ? "Bien en agence" : "Bien géré par un particulier",
+      agenceSub: l.enAgence ? (l.agence ? l.agence : "Agence non nommée") + (l.dateAgence ? " · repéré le " + l.dateAgence.split("-").reverse().join("/") : "")
+        : "Aucune agence repérée sur ce bien.",
+      agenceIcon: l.enAgence ? "⌂" : "✓",
+      agenceTxt: l.enAgence ? "Déjà en agence" + (l.agence ? " : " + l.agence : "") + (l.dateAgence ? ", repéré le " + l.dateAgence.split("-").reverse().join("/") : "")
+        : "Pas encore en agence : particulier seul.",
+      agenceBg: l.enAgence ? "color-mix(in srgb,#B0561A 14%,var(--c-card))" : "color-mix(in srgb,#0A8F5B 14%,var(--c-card))",
+      agenceFg: l.enAgence ? "#9A4A12" : "#0A7A4E",
+      baisseChip: (() => {
+        const h = l.histoPrix || [];
+        if (!h.length) return "";
+        return "↓ " + Math.round((1 - l.prix / h[0][2]) * 100) + " % · " + (h.length > 1 ? h.length + " baisses" : "1 baisse");
       })(),
       comms: (l.comms || []).slice().sort((x, y) => y.t - x.t).map(c => ({
         txt: c.txt, qui: c.qui,
@@ -2638,6 +2715,8 @@ class Component extends DCLogic {
       onCommKey: (e) => { if (e && e.key === "Enter") { this.noterBrouillon(l, e.target.value); this.ajouterCommentaire(l); } },
       onCommAdd: () => this.ajouterCommentaire(l),
       dossier: l.dossier || "—",
+      dossierAff: l.dossier || "Attribué au premier geste",
+      dossierFg: l.dossier ? "var(--c-ink)" : "var(--c-sec2)",
       brut: this.isDir() ? [
         ["Identifiant interne", this.cleBien(l)],
         ["Numéro de dossier", l.dossier || "non attribué"],
@@ -2711,10 +2790,10 @@ class Component extends DCLogic {
       step,
       onStep: e => this.setState({ step: e.target.value }),
       onSave: () => { this.record(l, step); this.setState({ step: null }); },
-      tabFiche: tab === "fiche", tabHisto: tab === "histo",
+      tabBien: tab === "bien", tabSuivi: tab === "suivi", tabVendeur: tab === "vendeur",
       tabs: [
-        { key: "fiche", label: "La fiche" },
-        { key: "histo", label: "Ce qui a été fait" + (l.histo.length ? " · " + l.histo.length : "") }
+        { key: "suivi", label: "Le suivi" + (l.histo.length ? " · " + l.histo.length : "") },
+        { key: "vendeur", label: "Le vendeur" }
       ].map(t => ({
         label: t.label,
         bg: tab === t.key ? "var(--c-card)" : "transparent",
@@ -2744,78 +2823,66 @@ class Component extends DCLogic {
         const ban = (this._ban || {})[k] || {};
         const ecrite = this.adresseTexte(l);
         const itin = q => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(q);
-        const vert = ["color-mix(in srgb,#0A8F5B 14%,var(--c-card))", "#0A7A4E"];
-        const bleu = ["var(--c-tint)", "var(--c-accent-text)"];
-        const orange = ["color-mix(in srgb,#B0561A 14%,var(--c-card))", "#9A4A12"];
-        const gris = ["var(--c-group)", "var(--c-sec)"];
-        const base = { cands: [], hasCands: false, hasPin: !!pin, busy: !!this.state.pinBusy,
+        const pano = (la, lo) => "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + la + "," + lo;
+        const cherche = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+        const svVoie = label => {
+          const n = this.normCommune(label);
+          const c = (ban.cands || []).find(x => this.normCommune(x.voie) === n);
+          return c ? pano(c.lat, c.lon) : cherche(label + " " + l.secteur);
+        };
+        const base = { hasPin: !!pin, rues: [], hasRues: false,
           devantLabel: this.state.pinBusy ? "Localisation en cours…" : (pin ? "Relever à nouveau" : "Je suis devant"),
           onDevant: () => this.jeSuisDevant(l), onEffacer: () => this.effacerPin(l) };
-        const R = (o) => Object.assign({}, base, o, { niveauBg: o.c[0], niveauFg: o.c[1] });
-        const listeVoies = (arr) => arr.map(x => ({ adresse: x.label + ", " + l.secteur,
-          dist: x.d + " m · " + x.conf + " %", lien: itin(x.label + " " + l.secteur) }));
+        const OK = o => Object.assign({}, base, { ok: true, pistes: false, icon: "✓", iconBg: "#34C759", iconFg: "#fff",
+          iconBorder: "0", sourceFg: "#0A7A4E", sourceW: 600, sous: l.secteur }, o);
+        const rue = (nom, raison, fort, sv, lien) => ({ nom, raison, sv, lien,
+          raisonFg: fort ? "#0A7A4E" : "var(--c-sec2)", raisonW: fort ? 600 : 400 });
 
-        if (pin) return R({ c: vert, niveau: "Relevé sur place",
-          ligne: (pin.adresse ? pin.adresse + ", " : "") + l.secteur,
-          precision: "Position exacte prise par " + pin.qui + " le " + new Date(pin.t).toLocaleDateString("fr-FR") + ", à " + pin.acc + " m près.",
-          carte: "https://www.google.com/maps/dir/?api=1&destination=" + pin.lat + "," + pin.lon });
+        if (pin) return OK({ titre: pin.adresse || "Position relevée devant le bien",
+          source: "Adresse confirmée · relevée sur place par " + pin.qui + " le " + new Date(pin.t).toLocaleDateString("fr-FR", { day: "numeric", month: "long" }),
+          carte: "https://www.google.com/maps/dir/?api=1&destination=" + pin.lat + "," + pin.lon, sv: pano(pin.lat, pin.lon) });
 
-        if (ecrite) return R({ c: vert, niveau: "Écrite par le vendeur",
-          ligne: ecrite + ", " + l.secteur,
-          precision: "Le vendeur l'indique lui-même dans son annonce.",
-          carte: itin(ecrite + " " + l.secteur) });
+        if (ecrite) return OK({ titre: ecrite, source: "Adresse confirmée · écrite par le vendeur dans son annonce",
+          carte: itin(ecrite + " " + l.secteur), sv: cherche(ecrite + " " + l.secteur) });
 
         if (ban.etat === "ok" && ban.croise) {
-          const v = ban.voie, n = ban.numero, cr = ban.croise;
-          const dit = cr === "cadastre+dpe" ? "la parcelle cadastrale et le diagnostic énergétique concordent tous les deux"
-                    : cr === "cadastre" ? "la surface de terrain annoncée correspond à la contenance de la parcelle cadastrale"
-                    : "le diagnostic énergétique de l'ADEME désigne la même rue";
-          return R({ c: vert, niveau: "Adresse recoupée · " + (v ? v.conf : n.conf) + " %",
-            ligne: (n ? n.label : v.label) + ", " + l.secteur,
-            precision: "Deux sources indépendantes se rejoignent : " + dit + ". C'est l'adresse la plus sûre dont on dispose sans être passé devant.",
-            cands: listeVoies(ban.autres || []), hasCands: !!(ban.autres || []).length,
-            carte: itin((n ? n.label : v.label) + " " + l.secteur) });
+          const lab = ban.numero ? ban.numero.label : ban.voie.label;
+          const cr = ban.croise;
+          const src = cr === "cadastre+dpe" ? "le cadastre et le diagnostic énergétique"
+                    : cr === "cadastre" ? "le cadastre et la surface du terrain" : "le diagnostic énergétique et la position";
+          return OK({ titre: lab, source: "Adresse confirmée · recoupée par " + src,
+            carte: itin(lab + " " + l.secteur), sv: ban.pt ? pano(ban.pt.lat, ban.pt.lon) : cherche(lab + " " + l.secteur) });
         }
 
+        const rues = [], vus = {};
+        const add = r => { const kk = this.normCommune(r.nom); if (!kk || vus[kk]) return; vus[kk] = 1; rues.push(r); };
         if (dpe.etat === "ok" && dpe.total === 1) {
           const c0 = dpe.candidats[0];
-          return R({ c: vert, niveau: "Retrouvée par le DPE",
-            ligne: c0.adresse,
-            precision: "Un seul logement de cette surface et de cette étiquette énergie est enregistré à l'ADEME" +
-              (c0.dist !== null ? ", à " + c0.dist + " m du point du portail." : ".") + " À vérifier au premier passage.",
-            carte: itin(c0.adresse) });
+          add(rue(c0.adresse, "Seul logement de cette surface au diagnostic énergétique" + (c0.dist !== null ? " · à " + c0.dist + " m" : ""), true, cherche(c0.adresse), itin(c0.adresse)));
         }
-
-        if (ban.etat === "ok") {
-          const v = ban.voie, n = ban.numero;
-          const rueSure = v && (v.citee || v.conf >= 70);
-          const ligne = (rueSure && n && n.conf >= 55 ? n.label : (v ? v.label : n.label)) + ", " + l.secteur;
-          const explique = v && v.citee
-            ? "Cette rue est citée dans le texte de l'annonce et se trouve à " + v.d + " m du point du portail."
-            : "Adresse la plus probable à " + (v ? v.d : n.d) + " m du point fourni par le portail, sur " + ban.total + " adresses examinées.";
-          return R({ c: rueSure ? bleu : orange,
-            niveau: rueSure ? "Rue identifiée · " + (v ? v.conf : n.conf) + " %" : "Adresse probable · " + (v ? v.conf : n.conf) + " %",
-            ligne: ligne,
-            precision: explique + (n && n.conf < 70 ? " Le numéro reste à confirmer sur place." : ""),
-            cands: listeVoies(ban.autres || []), hasCands: !!(ban.autres || []).length,
-            carte: itin(ligne) });
+        if (ban.etat === "ok" && ban.voie) {
+          const v = ban.voie;
+          add(rue(v.label, v.citee ? "Citée dans l'annonce · à " + v.d + " m du point du portail" : "La plus proche du point du portail · à " + v.d + " m", !!v.citee, svVoie(v.label), itin(v.label + " " + l.secteur)));
         }
+        if (ban.etat === "ok") (ban.autres || []).forEach(x => add(rue(x.label, "À " + x.d + " m du point du portail", false, svVoie(x.label), itin(x.label + " " + l.secteur))));
+        if (dpe.etat === "ok" && dpe.total > 1) dpe.candidats.forEach(x => add(rue(x.adresse, "Même surface au diagnostic énergétique" + (x.dist !== null ? " · à " + x.dist + " m" : ""), false, cherche(x.adresse), itin(x.adresse))));
+        const proche = this._ruesCache ? this._ruesCache[l.id] : undefined;
+        if (!rues.length && proche) add(rue(proche, "La plus proche du point du portail", false, cherche(proche + " " + l.secteur), itin(proche + " " + l.secteur)));
 
-        if (dpe.etat === "ok" && dpe.total > 1) return R({ c: orange,
-          niveau: dpe.total + " adresses possibles",
-          ligne: l.secteur,
-          precision: "Plusieurs logements correspondent à l'ADEME. Le plus proche du point du portail est en tête.",
-          cands: dpe.candidats.map(x => ({ adresse: x.adresse, dist: x.dist !== null ? x.dist + " m" : "", lien: itin(x.adresse) })),
-          hasCands: true,
-          carte: itin(dpe.candidats[0].adresse) });
-
-        const enCours = ban.etat === "recherche" || dpe.etat === "recherche";
-        const rue = this._ruesCache ? this._ruesCache[l.id] : undefined;
-        return R({ c: gris, niveau: enCours ? "Recherche en cours…" : "Zone approximative",
-          ligne: (rue ? rue + ", " : "") + l.secteur,
-          precision: enCours ? "Recherche de l'adresse dans la base officielle…"
-            : "Aucune adresse ne ressort nettement autour du point du portail, qui est volontairement flouté. Relevez la porte au premier passage.",
-          carte: l.lat ? "https://www.google.com/maps/search/?api=1&query=" + l.lat + "," + l.lon : itin(l.secteur) });
+        const liste = rues.slice(0, 4);
+        const enCours = !liste.length && (ban.etat === "recherche" || dpe.etat === "recherche");
+        return Object.assign({}, base, {
+          ok: false, pistes: true, rues: liste, hasRues: liste.length > 0,
+          icon: enCours ? "…" : liste.length ? String(liste.length) : "?",
+          iconBg: "transparent", iconFg: "var(--c-sec2)", iconBorder: "2px dashed #AEAEB2",
+          titre: enCours ? "Recherche de l'adresse…" : liste.length > 1 ? liste.length + " rues à vérifier" : liste.length ? "Une rue à vérifier" : "Adresse à relever sur place",
+          sous: l.secteur,
+          source: enCours ? "Interrogation de la base officielle des adresses."
+            : liste.length ? "Le portail brouille la position exprès. Comparez la façade des photos avec celle de chaque rue."
+            : "Aucune rue ne ressort autour du point du portail. Relevez la porte au premier passage.",
+          sourceFg: "var(--c-sec2)", sourceW: 400,
+          carte: liste.length ? liste[0].lien : (l.lat ? "https://www.google.com/maps/search/?api=1&query=" + l.lat + "," + l.lon : itin(l.secteur))
+        });
       })(),
       cv: (() => {
         const c = this.contactVendeur(l);
@@ -2857,7 +2924,7 @@ class Component extends DCLogic {
     const dir = this.isDir(), sc = this.scope(), a = this.props.accent || "#0071E3";
     const scr = this.state.screen;
     const l = this.sel();
-    const titles = { jour: dir ? "Aujourd'hui" : "Mes biens", tous: "Tous les biens", bien: "Le bien", equipe: "L'équipe",
+    const titles = { notifs: "Notifications", jour: dir ? "Aujourd'hui" : "Mes biens", tous: "Tous les biens", bien: "Le bien", equipe: "L'équipe",
                      resultats: dir ? "Résultats" : "Mes résultats", qui: "Qui êtes-vous ?",
                      repartir: "Répartir", attribuer: "Confier ce bien", regles: "Les règles" };
     const load = n => this.L.filter(x => x.assign === n && x.statut !== "mandat" && x.statut !== "sansSuite").length;
@@ -2889,7 +2956,7 @@ class Component extends DCLogic {
       headerTitle: (wide ? titles[base] : titles[scr]) || "",
       headerSub: base === "jour" && (wide || scr === "jour") ? (dir ? "Laborie Immobilier · Béziers" : this.state.role)
                : scr === "bien" && l ? l.secteur : "",
-      showBack: ["bien", "qui", "repartir", "attribuer", "regles"].includes(scr),
+      showBack: ["bien", "qui", "repartir", "attribuer", "regles", "notifs"].includes(scr),
       onBack: () => this.back(),
       screenRef: this.screenRef,
       meIni: dir ? this.ini(this.DIR) : this.ini(this.state.role),
@@ -2905,7 +2972,7 @@ class Component extends DCLogic {
 
       isJour: scr === "jour", isBien: scr === "bien", isEquipe: scr === "equipe",
       isResultats: scr === "resultats", isTous: scr === "tous", isQui: scr === "qui", isRepartir: scr === "repartir",
-      isAttribuer: scr === "attribuer", isRegles: scr === "regles",
+      isAttribuer: scr === "attribuer", isRegles: scr === "regles", isNotifs: scr === "notifs",
 
       heroBusy: dir ? unassigned.length > 0 : aTraiter > 0,
       heroIdle: dir ? unassigned.length === 0 : aTraiter === 0,
@@ -2919,7 +2986,7 @@ class Component extends DCLogic {
         if (dir) { this.setState({ repIdx: 0 }); this.go("repartir"); }
         else {
           const first = sc.filter(x => x.reached <= 1 && x.statut !== "sansSuite")[0] || sc[0];
-          if (first) { this.setState({ selId: first.id, fTab: "fiche", step: null, photoIdx: 0, zoom: false, showParts: false }); this.go("bien"); }
+          if (first) { this.setState({ selId: first.id, fTab: "bien", step: null, photoIdx: 0, zoom: false, showParts: false }); this.go("bien"); }
         }
       },
       chips: (() => {
@@ -3014,6 +3081,33 @@ class Component extends DCLogic {
       tousMoreLabel: this.state.tousAll ? "Réduire la liste" : "Voir les " + this.tousList().length + " biens",
       onTousMore: () => this.setState(st => ({ tousAll: !st.tousAll })),
 
+      ...(() => {
+        const vu = this.derniereVisite() || (Date.now() - 86400000);
+        const all = this.notifHisto();
+        const nb = all.filter(x => x.t > vu).length;
+        const col = { mandat: "#34C759", rdv: a, contacte: "#FF9F0A", attribue: "#5AC8FA", sansSuite: "var(--c-faint)", comm: "var(--c-sec2)" };
+        const gl = { mandat: "✓", rdv: "★", contacte: "↗", attribue: "→", sansSuite: "–", comm: "“" };
+        const vm = (x, neuf) => ({
+          txt: x.txt.length > 120 ? x.txt.slice(0, 118) + "…" : x.txt,
+          bien: x.l.titre + " · " + x.l.secteur,
+          qui: x.qui,
+          quand: new Date(x.t).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " à " +
+                 new Date(x.t).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
+          color: col[x.et] || "var(--c-faint)", glyph: gl[x.et] || "•",
+          w: neuf ? 600 : 400, dot: neuf ? a : "transparent",
+          onOpen: () => { this.setState({ selId: x.l.id, fTab: "suivi", step: null, photoIdx: 0 }); this.chercherBAN(x.l); this.go("bien"); }
+        });
+        const nw = all.filter(x => x.t > vu), old = all.filter(x => x.t <= vu);
+        return {
+          bellCount: nb > 99 ? "99+" : String(nb), bellHas: nb > 0,
+          bellLabel: nb ? nb + " notification" + (nb > 1 ? "s" : "") + " non lue" + (nb > 1 ? "s" : "") : "Notifications",
+          goNotifs: () => this.go("notifs"),
+          notifNew: nw.map(x => vm(x, true)), notifOld: old.map(x => vm(x, false)),
+          notifHasNew: nw.length > 0, notifHasOld: old.length > 0, notifEmpty: !all.length,
+          notifIntro: nw.length ? nw.length + (nw.length > 1 ? " nouveautés" : " nouveauté") + " depuis votre dernière visite." : "Tout est lu. Voici les 45 derniers jours.",
+          onNotifLu: () => { this.marquerVu(); this.toast("Tout est lu"); }
+        };
+      })(),
       nouvCount: this.nouveautes().length,
       nouvShow: this.nouveautes().length > 0,
       nouvLabel: (() => { const n = this.nouveautes().length;
@@ -3022,7 +3116,7 @@ class Component extends DCLogic {
         txt: x.txt.slice(0, 90), qui: x.qui, bien: x.l.titre.slice(0, 40),
         quand: new Date(x.t).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " " +
                new Date(x.t).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
-        onOpen: () => { this.setState({ selId: x.l.id, fTab: "fiche", step: null, photoIdx: 0 }); this.chercherBAN(x.l); this.go("bien"); }
+        onOpen: () => { this.setState({ selId: x.l.id, fTab: "bien", step: null, photoIdx: 0 }); this.chercherBAN(x.l); this.go("bien"); }
       })),
       onNouvVu: () => this.marquerVu(),
       needLogin: !this.state.user,
@@ -3173,7 +3267,7 @@ class Component extends DCLogic {
           onTap: () => this.applyTheme(t[0])
         };
       }),
-      showLogo: !["bien", "qui", "repartir", "attribuer", "regles"].includes(scr),
+      showLogo: !["bien", "qui", "repartir", "attribuer", "regles", "notifs"].includes(scr),
       zoomed: !!this.state.zoom,
       onZoomClose: () => this.setState({ zoom: false }),
       toast: this.state.toast,
