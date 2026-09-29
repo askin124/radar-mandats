@@ -554,14 +554,53 @@ a:hover{color:var(--c-accent-text);opacity:.7}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.brutChev }}"><path d="M6 9l6 6 6-6"></path></svg>
           </button>
           <sc-if value="{{ sel.dr.brut }}" hint-placeholder-val="{{ false }}">
-          <div data-drwbody style="padding:0 8px 12px">
-            <sc-for list="{{ sel.brut }}" as="d" hint-placeholder-count="6">
-              <div style="display:flex;justify-content:space-between;gap:14px;padding:8px;border-bottom:1px solid var(--c-rule);font-size:.8rem">
-                <span style="color:var(--c-sec);flex:none">{{ d.cle }}</span>
-                <span style="text-align:right;word-break:break-word;min-width:0">{{ d.val }}</span>
-              </div>
-            </sc-for>
-            <div style="font-size:.72rem;color:var(--c-faint);padding:10px 8px 0;line-height:1.45">Visible par la direction seule. Données telles que renvoyées par l'API de pige, sans retouche.</div>
+          <div data-drwbody>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+              <sc-for list="{{ sel.bd.tiles }}" as="t" hint-placeholder-count="6">
+                <div style="background:var(--c-group2);border-radius:12px;padding:9px 11px;min-width:0">
+                  <div style="font-size:.7rem;color:var(--c-sec2)">{{ t.k }}</div>
+                  <div style="font-size:.92rem;font-weight:800;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-variant-numeric:tabular-nums">{{ t.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:var(--c-group2);border-radius:12px;padding:10px 12px;margin-top:8px">
+              <div style="font-size:.7rem;color:var(--c-sec2)">Titre de l'annonce</div>
+              <div style="font-size:.88rem;font-weight:700;margin-top:3px;line-height:1.35;text-wrap:pretty">{{ sel.bd.titre }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px;margin:14px 2px">
+              <sc-for list="{{ sel.bd.checks }}" as="c" hint-placeholder-count="4">
+                <div style="display:flex;align-items:flex-start;gap:10px;font-size:.86rem;line-height:1.4">
+                  <span style="width:20px;height:20px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;background: {{ c.bg }};color: {{ c.fg }}">{{ c.glyph }}</span>
+                  <span style="min-width:0;text-wrap:pretty">{{ c.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="border-top:1px solid var(--c-rule)">
+              <sc-for list="{{ sel.bd.rows }}" as="d" hint-placeholder-count="7">
+                <div style="display:flex;justify-content:space-between;gap:14px;padding:9px 2px;border-bottom:1px solid var(--c-rule);font-size:.82rem">
+                  <span style="color:var(--c-sec2);flex:none">{{ d.k }}</span>
+                  <span style="text-align:right;font-weight:700;word-break:break-word;min-width:0;font-variant-numeric:tabular-nums">{{ d.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+              <sc-for list="{{ sel.bd.links }}" as="u" hint-placeholder-count="2">
+                <div style="border:1px solid var(--c-rule);border-radius:12px;padding:9px 10px 9px 12px">
+                  <div style="font-size:.7rem;color:var(--c-sec2)">{{ u.k }}</div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+                    <span style="flex:1;min-width:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="{{ u.v }}">{{ u.court }}</span>
+                    <button onClick="{{ u.onCopy }}" aria-label="Copier" title="Copier" style="flex:none;width:34px;height:34px;border:0;border-radius:10px;background:var(--c-group2);color:var(--c-sec2);cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg></button>
+                    <sc-if value="{{ u.hasLien }}" hint-placeholder-val="{{ true }}">
+                      <a href="{{ u.v }}" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir" title="Ouvrir" style="flex:none;width:34px;height:34px;border-radius:10px;background:color-mix(in srgb,var(--c-sky) 16%,var(--c-card));color:var(--c-accent-text);display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"></path><path d="M20 4l-9 9"></path><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:.72rem;color:var(--c-sec);margin-top:12px;line-height:1.45">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+              <span>Visible par la direction seule. Données telles que renvoyées par l'API de pige, sans retouche.</span>
+            </div>
           </div>
           </sc-if>
         </div>
@@ -3036,6 +3075,47 @@ class Component extends DCLogic {
         ["Secteur suggéré", this.secteurDe(l.secteur) || "aucun"]
       ].map(x => ({ cle: x[0], val: String(x[1]) })) : [],
       brutShow: this.isDir(),
+      bd: (() => {
+        if (!this.isDir()) return { tiles: [], titre: "", checks: [], rows: [], links: [] };
+        const ok = (v, label) => ({ label, glyph: v ? "✓" : "✕",
+          bg: v ? "color-mix(in srgb,#2E9E5B 16%,var(--c-card))" : "var(--c-group2)", fg: v ? "#1E7A45" : "var(--c-sec2)" });
+        const copier = t => () => {
+          try { navigator.clipboard.writeText(t).then(() => this.toast("Copié"), () => this.toast("Copie impossible")); }
+          catch (e) { this.toast("Copie impossible"); }
+        };
+        const court = u => String(u || "—").replace(/^https?:\/\/(www\.)?/, "");
+        const k = this.cleBien(l);
+        return {
+          tiles: [
+            ["Prix", this.eur(l.prix)],
+            ["Au m²", l.surface ? this.eur(Math.round(l.prix / l.surface)) : "—"],
+            ["Surface", l.surface ? l.surface + " m²" : "—"],
+            ["Type", l.type === "Appartement" ? "Appart." : l.type],
+            ["DPE", l.dpe || "—"],
+            ["Photos", String((l.pics || []).length)]
+          ].map(x => ({ k: x[0], v: x[1] })),
+          titre: l.titre,
+          checks: [
+            ok(l.actif, l.actif ? "Annonce active" : "Annonce retirée"),
+            ok(l.refusAgence, "Refus d'agence dans le texte"),
+            ok(l.enAgence, "Publié aussi par un pro" + (l.enAgence && l.agence ? " — " + l.agence : "") + (l.enAgence && l.dateAgence ? ", repéré le " + l.dateAgence.split("-").reverse().join("/") : "")),
+            ok(hp.length, "Baisses de prix " + (hp.length ? "(" + hp.map(x => new Date(x[0]).toLocaleDateString("fr-FR") + " : " + String(x[1]).replace("-", "−").replace(".", ",") + " %").join(" · ") + ")" : "(aucune)"))
+          ],
+          rows: [
+            ["Commune", l.secteur + (this.CP[l.secteur] ? " (" + this.CP[l.secteur] + ")" : "")],
+            ["Annonceur", (l.nom || "anonyme") + (l.nomType ? " (" + l.nomType + ")" : "")],
+            ["Vu par Melo", l.vu ? l.vu.toLocaleDateString("fr-FR") + " · il y a " + l.jours + " j" : "—"],
+            ["Parutions Leboncoin", String(l.republi)],
+            ["Secteur suggéré", this.secteurDe(l.secteur) || "aucun"],
+            ["Numéro de dossier", l.dossier || "non attribué"],
+            ["Coordonnées", l.lat ? l.lat + ", " + l.lon : "absentes"]
+          ].map(x => ({ k: x[0], v: String(x[1]) })),
+          links: [
+            { k: "Identifiant interne", v: k, court: court(k), hasLien: /^https?:/.test(k), onCopy: copier(k) },
+            { k: "Lien de l'annonce", v: l.url || "", court: court(l.url), hasLien: !!l.url, onCopy: copier(l.url || "") }
+          ]
+        };
+      })(),
       cad: (() => {
         const c = (this._cad || {})[this.cleBien(l)] || {};
         if (c.etat === "ok") return { show: true,
