@@ -877,7 +877,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
       </div>
       <div data-cards style="margin-bottom:22px">
         <sc-for list="{{ team }}" as="m" hint-placeholder-count="8">
-          <button onClick="{{ m.onOpen }}" aria-label="Voir la session de {{ m.nom }}" style="width:100%;border:0;border-bottom:1px solid var(--c-rule);background:none;padding:11px 14px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--c-ink);transition:background .18s ease" style-hover="background:var(--c-group2)">
+          <div style="width:100%;border-bottom:1px solid var(--c-rule);padding:11px 14px;display:flex;align-items:center;gap:12px;color:var(--c-ink)">
             <span style="width:16px;flex:none;text-align:center;font-size:.84rem;font-weight:700;color:var(--c-sec2);font-variant-numeric:tabular-nums">{{ m.rang }}</span>
             <span style="width:34px;height:34px;border-radius:17px;flex:none;background:color-mix(in srgb,var(--c-sky) 16%,var(--c-card));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800">{{ m.ini }}</span>
             <span style="flex:1;min-width:0">
@@ -889,7 +889,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
               </span>
             </span>
             <span style="width:30px;flex:none;text-align:right;font-size:1rem;font-weight:800;font-variant-numeric:tabular-nums;color: {{ m.valFg }}">{{ m.val }}</span>
-          </button>
+          </div>
         </sc-for>
       </div>
       </div>
