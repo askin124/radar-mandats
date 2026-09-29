@@ -272,7 +272,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
     <div>
       <div style="font-size:1.08rem;font-weight:800;letter-spacing:-.02em;margin:4px 4px 12px">{{ listTitle }}</div>
 
-      <div data-seg style="margin:0 0 12px">
+      <div style="display:flex;gap:8px;align-items:center;margin:0 0 12px">
+      <div data-seg style="flex:1;min-width:0">
         <sc-for list="{{ chips }}" as="c" hint-placeholder-count="5">
           <button onClick="{{ c.onTap }}" style="flex:none;border:0;border-radius:11px;padding:9px 13px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:.84rem;font-weight:700;white-space:nowrap;transition:background .18s ease,box-shadow .18s ease;background: {{ c.bg }};color: {{ c.fg }};box-shadow: {{ c.shadow }}">
             <span>{{ c.label }}</span>
@@ -280,6 +281,38 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </button>
         </sc-for>
       </div>
+        <button onClick="{{ onFiltToggle }}" aria-label="Filtres" aria-expanded="{{ filtOpen }}" title="Filtres" style="position:relative;flex:none;width:44px;height:44px;border:0;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-flat);transition:background .18s ease,color .18s ease;background: {{ filtBtnBg }};color: {{ filtBtnFg }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>
+          <sc-if value="{{ filtOn }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#FF3B30;color:#fff;font-size:.66rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--c-bg)">{{ filtCount }}</span>
+          </sc-if>
+        </button>
+      </div>
+
+      <sc-if value="{{ filtOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:14px 14px 12px;margin:0 0 14px;animation:rmFade .2s ease both">
+          <sc-for list="{{ homeF }}" as="g" hint-placeholder-count="5">
+            <div style="margin-bottom:12px">
+              <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 2px 7px">{{ g.titre }}</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="4">
+                  <button onClick="{{ o.onTap }}" style="border:0;border-radius:10px;padding:7px 11px;cursor:pointer;font-size:.8rem;font-weight:700;white-space:nowrap;transition:background .18s ease;background: {{ o.bg }};color: {{ o.fg }}" style-active="transform:scale(.96)">{{ o.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <div style="font-size:.72rem;color:var(--c-sec);margin:0 2px 10px;line-height:1.4">Chambres : déduit du titre et du texte de l'annonce (T3, 4 pièces, 3 chambres…). Les biens qui n'en disent rien sont écartés quand ce filtre est actif.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--c-rule);padding-top:10px">
+            <span style="font-size:.8rem;font-weight:700;color:var(--c-sec2)">{{ filtResult }}</span>
+            <span style="display:flex;gap:6px">
+              <sc-if value="{{ filtOn }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ filtReset }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.8rem;font-weight:700;padding:8px 10px;cursor:pointer;border-radius:10px">Effacer</button>
+              </sc-if>
+              <button onClick="{{ onFiltToggle }}" style="border:0;border-radius:10px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.8rem;font-weight:700;padding:8px 14px;cursor:pointer">Voir la liste</button>
+            </span>
+          </div>
+        </div>
+      </sc-if>
 
       <div style="display:flex;align-items:center;gap:8px;margin:0 4px 12px;font-size:.78rem;color:var(--c-sec2);line-height:1.4">
         <span style="width:16px;height:16px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--rm-accent,#2F6FE4) 0 78%,var(--c-track) 78% 100%)">
@@ -2601,7 +2634,47 @@ class Component extends DCLogic {
 
   listScope() {
     const s = this.scope();
-    return this.isDir() && this.state.person ? s.filter(l => l.assign === this.state.person) : s;
+    return (this.isDir() && this.state.person ? s.filter(l => l.assign === this.state.person) : s)
+      .filter(l => this.homeMatch(l));
+  }
+
+  /* nombre de chambres, déduit du titre et du texte de l'annonce (null si rien n'est dit) */
+  chambres(l) {
+    if (l._ch !== undefined) return l._ch;
+    const t = (l.titre || "") + " " + (l.texte || "");
+    let n = null, m;
+    if (l.type === "Terrain") n = null;
+    else if ((m = t.match(/(\d{1,2})\s*chambres?\b/i))) n = +m[1];
+    else if ((m = t.match(/\b[TF]\s?(\d)\b/))) n = Math.max(0, +m[1] - 1);
+    else if ((m = t.match(/(\d{1,2})\s*pi[eè]ces?\b/i))) n = Math.max(0, +m[1] - 1);
+    else if (/\bstudio\b/i.test(t)) n = 0;
+    l._ch = n;
+    return n;
+  }
+
+  /* filtres de la liste d'accueil */
+  homeDefs() {
+    const types = [...new Set(this.scope().map(l => l.type))].sort();
+    return [
+      ["hType",  "Type de bien", types.map(v => [v, v])],
+      ["hCh",    "Chambres",     [["1", "1"], ["2", "2"], ["3", "3"], ["4", "4 et +"]]],
+      ["hPrix",  "Budget",       [["a", "moins de 100 000 €"], ["b", "100 à 200 000 €"],
+                                  ["c", "200 à 300 000 €"], ["d", "plus de 300 000 €"]]],
+      ["hAge",   "En ligne depuis", [["a", "moins d'une semaine"], ["b", "1 à 4 semaines"],
+                                  ["c", "1 à 3 mois"], ["d", "plus de 3 mois"]]],
+      ["hQuali", "Qualification", [["part", "Particulier seul"], ["ag", "Déjà en agence"]]]
+    ];
+  }
+  homeMatch(l) {
+    const st = this.state;
+    const band = p => p < 100000 ? "a" : p < 200000 ? "b" : p <= 300000 ? "c" : "d";
+    const age  = j => j < 7 ? "a" : j < 28 ? "b" : j < 90 ? "c" : "d";
+    const ch = st.hCh ? this.chambres(l) : null;
+    return (!st.hType || l.type === st.hType) &&
+      (!st.hCh || (ch !== null && (st.hCh === "4" ? ch >= 4 : ch === +st.hCh))) &&
+      (!st.hPrix || band(l.prix) === st.hPrix) &&
+      (!st.hAge || age(l.jours) === st.hAge) &&
+      (!st.hQuali || (st.hQuali === "part") === !l.enAgence);
   }
 
   /* filtre à l'arrivée : « À confier » pour la direction, « À contacter » pour un négociateur */
@@ -3178,6 +3251,34 @@ class Component extends DCLogic {
         return (d ? d[3].length : this.listScope().length) > 7;
       })(),
       moreLabel: this.state.seeAll ? "Réduire la liste" : "Voir tous les biens",
+      ...(() => {
+        const defs = this.homeDefs(), st = this.state;
+        const nb = defs.filter(d => st[d[0]]).length;
+        const reset = { hType: "", hCh: "", hPrix: "", hAge: "", hQuali: "", seeAll: false };
+        const n = this.listScope().length;
+        return {
+          filtOpen: !!st.filtOpen,
+          onFiltToggle: () => this.setState(s2 => ({ filtOpen: !s2.filtOpen })),
+          filtOn: nb > 0,
+          filtCount: String(nb),
+          filtBtnBg: st.filtOpen || nb ? "var(--rm-accent,#2F6FE4)" : "var(--c-card)",
+          filtBtnFg: st.filtOpen || nb ? "#fff" : "var(--c-ink)",
+          filtResult: n + (n > 1 ? " biens correspondent" : " bien correspond"),
+          filtReset: () => this.setState(reset),
+          homeF: defs.map(d => ({
+            titre: d[1],
+            opts: [["", "Tous"]].concat(d[2]).map(o => {
+              const on = (st[d[0]] || "") === o[0];
+              return {
+                label: o[1],
+                bg: on ? "var(--rm-accent,#2F6FE4)" : "var(--c-group2)",
+                fg: on ? "#fff" : "var(--c-ink)",
+                onTap: () => this.setState({ [d[0]]: o[0], seeAll: false })
+              };
+            })
+          }))
+        };
+      })(),
       onMore: () => this.setState(s => ({ seeAll: !s.seeAll })),
 
       tousF1: this.tousOpts("fType"),
