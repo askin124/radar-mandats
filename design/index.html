@@ -18,8 +18,8 @@
 @keyframes rmSpin{to{transform:rotate(360deg)}}
 @keyframes rmShim{to{background-position:-200% 0}}
 @keyframes rmBlink{50%{opacity:0}}
-:root{--c-bg:#F5F5F7;--c-card:#fff;--c-group:#EDEDF0;--c-group2:#F3F3F6;--c-hover:#E3E3E8;--c-track:#E3E3E8;--c-shim1:#E8E8EC;--c-shim2:#F7F7F9;--c-ink:#1D1D1F;--c-sec:#86868B;--c-sec2:#6E6E73;--c-faint:#C7C7CC;--c-dot-off:rgba(0,0,0,.08);--c-rule:rgba(0,0,0,.08);--c-tint:#F0F6FF;--c-warnbg:#FFF8EC;--c-warnink:#8A5A00;--c-scorehi:#0057B8;--c-err:#B3261E;--c-head:rgba(255,255,255,.86);--c-accent-text:#0057B8;--sh-card:0 0 0 1px rgba(0,0,0,.055),0 1px 2px rgba(0,0,0,.04),0 6px 18px rgba(0,0,0,.05);--sh-card-hi:0 0 0 1px rgba(0,0,0,.075),0 2px 6px rgba(0,0,0,.06),0 12px 30px rgba(0,0,0,.09);--sh-flat:0 0 0 1px rgba(0,0,0,.055),0 1px 2px rgba(0,0,0,.04);--sh-tab:0 1px 3px rgba(0,0,0,.1)}
-html[data-theme="dark"]{--c-bg:#000;--c-card:#1C1C1E;--c-group:#2C2C2E;--c-group2:#242426;--c-hover:#3A3A3C;--c-track:#48484A;--c-shim1:#2C2C2E;--c-shim2:#3A3A3C;--c-ink:#F5F5F7;--c-sec:#98989D;--c-sec2:#AEAEB2;--c-faint:#5A5A5F;--c-dot-off:rgba(255,255,255,.16);--c-rule:rgba(255,255,255,.12);--c-tint:rgba(10,132,255,.24);--c-warnbg:rgba(255,159,10,.16);--c-warnink:#FFCE8A;--c-scorehi:#7CB8FF;--c-err:#FF6B60;--c-head:rgba(0,0,0,.72);--c-accent-text:#7CB8FF;--sh-card:0 0 0 .5px rgba(255,255,255,.09);--sh-card-hi:0 0 0 .5px rgba(255,255,255,.18);--sh-flat:0 0 0 .5px rgba(255,255,255,.09);--sh-tab:0 0 0 .5px rgba(255,255,255,.18)}
+:root{--c-bg:#ECEEF3;--c-card:#fff;--c-group:#E2E5EC;--c-group2:#F4F5F8;--c-navy:#161E36;--c-navy2:#232C4A;--c-navy3:#323D63;--c-sky:#4A8AF4;--c-hover:#D6DAE3;--c-track:#E3E3E8;--c-shim1:#E8E8EC;--c-shim2:#F7F7F9;--c-ink:#1D1D1F;--c-sec:#86868B;--c-sec2:#6E6E73;--c-faint:#C7C7CC;--c-dot-off:rgba(0,0,0,.08);--c-rule:rgba(0,0,0,.08);--c-tint:#F0F6FF;--c-warnbg:#FFF8EC;--c-warnink:#8A5A00;--c-scorehi:#0057B8;--c-err:#B3261E;--c-head:rgba(255,255,255,.86);--c-accent-text:#0057B8;--sh-card:0 0 0 1px rgba(0,0,0,.055),0 1px 2px rgba(0,0,0,.04),0 6px 18px rgba(0,0,0,.05);--sh-card-hi:0 0 0 1px rgba(0,0,0,.075),0 2px 6px rgba(0,0,0,.06),0 12px 30px rgba(0,0,0,.09);--sh-flat:0 0 0 1px rgba(0,0,0,.055),0 1px 2px rgba(0,0,0,.04);--sh-tab:0 1px 3px rgba(0,0,0,.1)}
+html[data-theme="dark"]{--c-bg:#0A0D16;--c-card:#171B27;--c-navy:#111729;--c-navy2:#1E2640;--c-navy3:#2C3657;--c-sky:#7AAEFF;--c-group:#2C2C2E;--c-group2:#242426;--c-hover:#3A3A3C;--c-track:#48484A;--c-shim1:#2C2C2E;--c-shim2:#3A3A3C;--c-ink:#F5F5F7;--c-sec:#98989D;--c-sec2:#AEAEB2;--c-faint:#5A5A5F;--c-dot-off:rgba(255,255,255,.16);--c-rule:rgba(255,255,255,.12);--c-tint:rgba(10,132,255,.24);--c-warnbg:rgba(255,159,10,.16);--c-warnink:#FFCE8A;--c-scorehi:#7CB8FF;--c-err:#FF6B60;--c-head:rgba(0,0,0,.72);--c-accent-text:#7CB8FF;--sh-card:0 0 0 .5px rgba(255,255,255,.09);--sh-card-hi:0 0 0 .5px rgba(255,255,255,.18);--sh-flat:0 0 0 .5px rgba(255,255,255,.09);--sh-tab:0 0 0 .5px rgba(255,255,255,.18)}
 html{font-size:16px;background:var(--c-bg)}
 html,body{transition:background .25s ease}
 body{margin:0;background:var(--c-bg);color:var(--c-ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -30,23 +30,21 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 ::selection{background:rgba(0,113,227,.18)}
 :focus-visible{outline:2px solid var(--rm-accent,#0071E3);outline-offset:3px;border-radius:12px}
 [data-wrap]{max-width:520px;margin:0 auto;padding:0 20px 120px}
-[data-head]{margin:0 -20px;padding:14px 20px 12px}
+[data-head]{margin:0 -20px;padding:14px 20px 14px;border-radius:0 0 22px 22px}
 [data-side]{display:none}
 [data-main]{display:block}
 [data-list],[data-detail]{min-width:0}
-[data-fiche]{display:flex;flex-direction:column;gap:30px}
-[data-cards]{display:flex;flex-direction:column;gap:10px}
-[data-row]{transition:box-shadow .18s ease,transform .18s ease;position:relative;display:grid;grid-template-columns:88px minmax(0,1fr) 14px;grid-template-areas:"thumb idn chev" "thumb prix chev" "thumb geste chev";gap:8px 14px;align-items:center}
-[data-rowbtn]{position:absolute;inset:0;border:0;background:none;padding:0;margin:0;cursor:pointer;border-radius:20px;z-index:0;transition:background .18s ease}
+[data-fiche]{display:flex;flex-direction:column;gap:14px;padding-top:14px}
+[data-cards]{display:flex;flex-direction:column;background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);overflow:hidden}
+[data-row]{position:relative;display:grid;grid-template-columns:38px 54px minmax(0,1fr) 32px;grid-template-areas:"ring thumb txt act";gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--c-rule);animation:rmUp .34s cubic-bezier(.32,.72,0,1) both}
+[data-row]:last-of-type{border-bottom:0}
+[data-rowbtn]{position:absolute;inset:0;border:0;background:none;padding:0;margin:0;cursor:pointer;border-radius:0;z-index:0;transition:background .18s ease}
 [data-rowbtn]:hover{background:var(--c-dot-off)}
-[data-row]:has([data-rowbtn]:hover){box-shadow:var(--sh-card-hi)!important}
 [data-row] > *:not([data-rowbtn]){position:relative;z-index:1;pointer-events:none}
-[data-thumb]{grid-area:thumb;width:100%;aspect-ratio:4 / 3;pointer-events:auto}
-[data-idn]{grid-area:idn}
-[data-prix]{grid-area:prix}
-[data-geste]{grid-area:geste}
-[data-chev]{grid-area:chev;align-self:center;text-align:right}
-[data-gtxt]{display:block}
+[data-thumb]{grid-area:thumb;width:54px;height:54px}
+[data-ring]{grid-area:ring}
+[data-txt]{grid-area:txt;min-width:0}
+[data-act]{grid-area:act;display:flex;justify-content:flex-end}
 [data-ind]{display:grid;grid-template-columns:1fr;gap:10px}
 [data-steps]{display:flex;align-items:flex-start;gap:0}
 [data-steps] > div{flex:1;min-width:0;text-align:center}
@@ -60,9 +58,14 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 [data-photo] [data-zoom]{display:flex}
 [data-photo] [data-zoomarea]{display:block}
 [data-photo][data-fs="on"] [data-zoom],[data-photo][data-fs="on"] [data-zoomarea]{display:none!important}
-[data-herocard]{margin:14px 0 26px;padding:24px}
-[data-heroline]{margin-top:14px}
-[data-herobtn]{margin-top:20px;width:100%;padding:17px 20px}
+[data-herocard]{margin:16px 0 22px;padding:16px 18px;display:flex;align-items:center;gap:14px}
+[data-heroline]{flex:1;min-width:0}
+[data-drw]{background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);overflow:hidden}
+[data-drwbtn]{width:100%;border:0;background:none;padding:14px 16px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--c-ink)}
+[data-drwbody]{padding:0 16px 16px;animation:rmFade .22s ease both}
+[data-pill]{display:inline-flex;align-items:center;gap:4px;border-radius:9px;padding:5px 9px;font-size:.76rem;font-weight:600;white-space:nowrap}
+[data-seg]{display:flex;gap:4px;background:color-mix(in srgb,var(--c-navy) 8%,var(--c-bg));border-radius:14px;padding:4px;overflow-x:auto;scrollbar-width:none}
+[data-seg]::-webkit-scrollbar{display:none}
 [data-fiche] select:focus-visible{outline:2px solid var(--rm-accent,#0071E3);outline-offset:2px}
 @media (min-width:1024px){
   [data-shell]{display:grid;grid-template-columns:244px minmax(0,1fr);min-height:100vh}
@@ -76,16 +79,12 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 
   [data-main][data-layout="split"] [data-detail]{grid-column:1;grid-row:2;padding-right:28px}
   [data-main][data-layout="full"] [data-detail]{max-width:820px}
-  [data-row]{grid-template-columns:104px minmax(0,1fr) 150px 170px 14px;grid-template-areas:"thumb idn prix geste chev";gap:18px;padding:14px 18px 14px 14px}
-  [data-prix]{text-align:right}
+  [data-row]{grid-template-columns:42px 64px minmax(0,1fr) 36px;padding:14px 18px}
+  [data-thumb]{width:64px;height:64px}
   [data-ind]{grid-template-columns:1fr 1fr;gap:12px}
   [data-sheetwrap]{align-items:center}
   [data-sheet]{max-width:480px;border-radius:26px}
-  [data-gtxt]{white-space:nowrap}
-  [data-herocard]{display:flex;align-items:center;gap:24px;margin:6px 0 26px;padding:22px 26px}
-  [data-heronum]{flex:none}
-  [data-heroline]{flex:1;min-width:0;margin-top:0;max-width:none}
-  [data-herobtn]{flex:none;margin-top:0;width:auto;padding:15px 26px}
+  [data-herocard]{margin:22px 0 26px;padding:20px 24px}
 
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -154,7 +153,10 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   <div style="display:flex;flex-direction:column;gap:4px">
     <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
       <button onClick="{{ t.onTap }}" style="border:0;padding:12px 14px;border-radius:14px;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;font-size:1rem;font-weight:600;transition:background .18s ease;background: {{ t.bg }};color: {{ t.color }}">
-        <span style="font-size:1.1rem;line-height:1">{{ t.icon }}</span>
+        <sc-if value="{{ t.isJour }}" hint-placeholder-val="{{ true }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3.2" fill="currentColor"></circle></svg></sc-if>
+        <sc-if value="{{ t.isTous }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></sc-if>
+        <sc-if value="{{ t.isEquipe }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"></path><path d="M16 4.7a3.5 3.5 0 0 1 0 6.6M18 14.8c1.9.7 3.1 2.4 3.5 5.2"></path></svg></sc-if>
+        <sc-if value="{{ t.isRes }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h16M7 16v-5M12 16V6M17 16v-8"></path></svg></sc-if>
         <span>{{ t.label }}</span>
       </button>
     </sc-for>
@@ -176,28 +178,39 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 
 <div data-wrap>
 
-  <div data-head style="position:sticky;top:0;z-index:20;background:var(--c-head);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);display:flex;align-items:center;gap:12px;min-height:64px">
+  <div data-head style="position:sticky;top:0;z-index:20;background:var(--c-navy);color:#fff;box-shadow:0 8px 24px rgba(15,20,40,.18)">
+    <div style="display:flex;align-items:center;gap:12px;min-height:44px">
     <sc-if value="{{ showLogo }}" hint-placeholder-val="{{ true }}">
-      <img data-headlogo src="logo.png" alt="Laborie Immobilier" style="width:38px;height:38px;border-radius:10px;object-fit:contain;flex:none">
+      <span data-headlogo style="width:38px;height:38px;border-radius:11px;flex:none;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center">
+        <img src="logo.png" alt="Laborie Immobilier" style="width:30px;height:30px;object-fit:contain">
+      </span>
     </sc-if>
     <sc-if value="{{ showBack }}" hint-placeholder-val="{{ false }}">
-      <button onClick="{{ onBack }}" style="border:0;background:var(--c-group);width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;transition:transform .18s ease,background .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">
-        <span style="font-size:1.35rem;line-height:1;margin-top:-2px;color:var(--c-ink)">‹</span>
+      <button onClick="{{ onBack }}" aria-label="Retour" style="border:0;background:rgba(255,255,255,.1);width:38px;height:38px;border-radius:19px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;color:#fff;transition:transform .18s ease,background .18s ease" style-hover="background:rgba(255,255,255,.18)" style-active="transform:scale(.92)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
       </button>
     </sc-if>
     <div style="flex:1;min-width:0">
-      <div style="font-size:1.4rem;font-weight:700;letter-spacing:-.02em;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ headerTitle }}</div>
-      <div style="font-size:.82rem;color:var(--c-sec);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ headerSub }}</div>
+      <div style="font-size:1.3rem;font-weight:700;letter-spacing:-.02em;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ headerTitle }}</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.66);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ headerSub }}</div>
     </div>
-    <button onClick="{{ goNotifs }}" aria-label="{{ bellLabel }}" style="position:relative;border:0;background:var(--c-group);width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;transition:transform .18s ease,background .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-ink)"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+    <button onClick="{{ goNotifs }}" aria-label="{{ bellLabel }}" style="position:relative;border:0;background:rgba(255,255,255,.1);width:38px;height:38px;border-radius:19px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;color:#fff;transition:transform .18s ease,background .18s ease" style-hover="background:rgba(255,255,255,.18)" style-active="transform:scale(.92)">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
       <sc-if value="{{ bellHas }}" hint-placeholder-val="{{ false }}">
-        <span style="position:absolute;top:-4px;right:-4px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:#FF3B30;color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px var(--c-bg);animation:rmPop .35s cubic-bezier(.32,.72,0,1) both">{{ bellCount }}</span>
+        <span style="position:absolute;top:-4px;right:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:#FF3B30;color:#fff;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px var(--c-navy);animation:rmPop .35s cubic-bezier(.32,.72,0,1) both">{{ bellCount }}</span>
       </sc-if>
     </button>
-    <button data-headav onClick="{{ goQui }}" style="border:0;padding:0;background:none;cursor:pointer;flex:none;display:flex;align-items:center;gap:8px;transition:transform .18s ease" style-active="transform:scale(.94)">
-      <span style="width:44px;height:44px;border-radius:22px;background:var(--rm-accent,#0071E3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;letter-spacing:.01em">{{ meIni }}</span>
+    <button data-headav onClick="{{ goQui }}" aria-label="{{ meName }}" style="border:0;padding:0;background:none;cursor:pointer;flex:none;display:flex;align-items:center;transition:transform .18s ease" style-active="transform:scale(.94)">
+      <span style="width:38px;height:38px;border-radius:19px;background:var(--c-navy3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;letter-spacing:.02em">{{ meIni }}</span>
     </button>
+    </div>
+    <sc-if value="{{ isBien }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:4px;background:var(--c-navy2);border-radius:14px;padding:4px;margin-top:14px">
+        <sc-for list="{{ sel.tabs }}" as="ft" hint-placeholder-count="2">
+          <button onClick="{{ ft.onTap }}" style="flex:1;border:0;border-radius:11px;padding:10px 6px;font-size:.86rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .22s ease,color .22s ease;background: {{ ft.bg }};color: {{ ft.color }}">{{ ft.label }}</button>
+        </sc-for>
+      </div>
+    </sc-if>
   </div>
 
   <div data-main data-layout="{{ layout }}" ref="{{ screenRef }}">
@@ -206,33 +219,49 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   <sc-if value="{{ showHero }}" hint-placeholder-val="{{ true }}">
     <div>
       <sc-if value="{{ heroBusy }}" hint-placeholder-val="{{ true }}">
-        <div data-herocard style="border-radius:24px;background:var(--rm-accent,#0071E3);box-shadow:0 10px 30px rgba(0,113,227,.25)">
-          <div data-heronum style="font-size:3rem;font-weight:700;letter-spacing:-.04em;line-height:1;color:#fff">{{ heroNum }}</div>
+        <div data-herocard style="border-radius:18px;background:var(--c-card);box-shadow:var(--sh-card)">
+          <div data-heronum style="flex:none;font-size:2.3rem;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--c-sky);font-variant-numeric:tabular-nums">{{ heroNum }}</div>
           <div data-heroline>
-            <div style="font-size:1.15rem;font-weight:600;color:#fff;line-height:1.3">{{ heroTitle }}</div>
-            <div style="font-size:.96rem;color:rgba(255,255,255,.84);margin-top:5px;line-height:1.35;text-wrap:pretty">{{ heroSub }}</div>
+            <div style="font-size:.98rem;font-weight:700;line-height:1.3">{{ heroTitle }}</div>
+            <div style="font-size:.8rem;color:var(--c-sec2);margin-top:3px;line-height:1.35;text-wrap:pretty">{{ heroSub }}</div>
           </div>
         </div>
       </sc-if>
       <sc-if value="{{ heroIdle }}" hint-placeholder-val="{{ false }}">
-        <div style="display:flex;align-items:center;gap:12px;padding:18px 4px 20px">
-          <span style="width:26px;height:26px;border-radius:13px;flex:none;background:#34C759;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700">✓</span>
-          <span style="font-size:1.02rem;color:var(--c-sec2);line-height:1.4;text-wrap:pretty">{{ heroCalm }}</span>
+        <div data-herocard style="border-radius:18px;background:var(--c-card);box-shadow:var(--sh-card)">
+          <span style="width:30px;height:30px;border-radius:15px;flex:none;background:#34C759;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.86rem;font-weight:700">✓</span>
+          <span style="font-size:.96rem;color:var(--c-sec2);line-height:1.4;text-wrap:pretty">{{ heroCalm }}</span>
         </div>
       </sc-if>
     </div>
   </sc-if>
   <sc-if value="{{ showVenti }}" hint-placeholder-val="{{ false }}">
-    <div style="margin:0 0 26px">
-      <div style="font-size:.86rem;font-weight:600;color:var(--c-sec);margin:0 4px 10px">Ce que chacun a en portefeuille</div>
-      <div style="display:flex;flex-wrap:wrap;gap:16px 14px;margin-top:8px">
-        <sc-for list="{{ venti }}" as="v" hint-placeholder-count="9">
-          <button onClick="{{ v.onTap }}" style="position:relative;border:0;border-radius:16px;padding:9px 15px 9px 11px;cursor:pointer;display:flex;align-items:center;gap:9px;transition:background .18s ease,transform .18s ease;background: {{ v.bg }};color: {{ v.fg }}" style-active="transform:scale(.96)">
-            <span style="width:26px;height:26px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;background: {{ v.avBg }};color: {{ v.avFg }}">{{ v.ini }}</span>
-            <span style="font-size:.94rem;font-weight:600;white-space:nowrap">{{ v.nom }}</span>
-            <span style="position:absolute;top:-8px;right:-8px;min-width:22px;height:22px;padding:0 6px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:700;font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px var(--c-bg);background: {{ v.bubbleBg }};color: {{ v.numFg }}">{{ v.count }}</span>
-          </button>
-        </sc-for>
+    <div style="margin:0 0 24px">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 8px">Voir les biens de</div>
+      <div style="background:var(--c-card);border-radius:16px;box-shadow:var(--sh-card);overflow:hidden;transition:box-shadow .2s ease;border:1.5px solid {{ ventiBorder }}">
+        <button onClick="{{ onVentiToggle }}" aria-expanded="{{ ventiOpen }}" style="width:100%;border:0;background:none;padding:12px 14px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--c-ink)">
+          <span style="width:34px;height:34px;border-radius:17px;flex:none;background:var(--c-navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:700">{{ ventiCur.ini }}</span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:.96rem;font-weight:700">{{ ventiCur.nom }}</span>
+            <span style="display:block;font-size:.78rem;color:var(--c-sec2);margin-top:2px">{{ ventiCur.sub }}</span>
+          </span>
+          <span style="font-size:.84rem;font-weight:700;color:var(--c-accent-text)">Changer</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-accent-text);transition:transform .2s ease;transform: {{ ventiChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <sc-if value="{{ ventiOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="border-top:1px solid var(--c-rule);animation:rmFade .2s ease both">
+            <sc-for list="{{ venti }}" as="v" hint-placeholder-count="9">
+              <button onClick="{{ v.onTap }}" style="width:100%;border:0;border-bottom:1px solid var(--c-rule);padding:11px 14px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--c-ink);transition:background .18s ease;background: {{ v.bg }}">
+                <span style="width:18px;height:18px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;border:1.5px solid {{ v.radio }}">
+                  <span style="width:10px;height:10px;border-radius:5px;background: {{ v.dot }}"></span>
+                </span>
+                <span style="width:28px;height:28px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:700;background:var(--c-group);color:var(--c-ink)">{{ v.ini }}</span>
+                <span style="flex:1;min-width:0;font-size:.92rem;font-weight: {{ v.w }}">{{ v.nom }}</span>
+                <span style="font-size:.84rem;color:var(--c-sec2);font-variant-numeric:tabular-nums">{{ v.count }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
       </div>
     </div>
   </sc-if>
@@ -241,71 +270,74 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   <div data-list>
   <sc-if value="{{ showList }}" hint-placeholder-val="{{ true }}">
     <div>
-      <div style="font-size:1.15rem;font-weight:700;letter-spacing:-.02em;margin:14px 4px 16px">{{ listTitle }}</div>
+      <div style="font-size:1.08rem;font-weight:800;letter-spacing:-.02em;margin:4px 4px 12px">{{ listTitle }}</div>
 
-      <div style="display:flex;flex-wrap:wrap;gap:16px 14px;margin:8px 0 22px">
+      <div data-seg style="margin:0 0 12px">
         <sc-for list="{{ chips }}" as="c" hint-placeholder-count="5">
-          <button onClick="{{ c.onTap }}" style="position:relative;border:0;border-radius:16px;padding:10px 15px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:.94rem;font-weight:600;white-space:nowrap;transition:background .18s ease,transform .18s ease;background: {{ c.bg }};color: {{ c.fg }}" style-active="transform:scale(.96)">
-            <span style="width:8px;height:8px;border-radius:4px;flex:none;background: {{ c.dot }}"></span>
+          <button onClick="{{ c.onTap }}" style="flex:none;border:0;border-radius:11px;padding:9px 13px;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:.84rem;font-weight:700;white-space:nowrap;transition:background .18s ease,box-shadow .18s ease;background: {{ c.bg }};color: {{ c.fg }};box-shadow: {{ c.shadow }}">
             <span>{{ c.label }}</span>
-            <span style="position:absolute;top:-8px;right:-8px;min-width:22px;height:22px;padding:0 6px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:700;font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px var(--c-bg);background: {{ c.bubbleBg }};color: {{ c.countFg }}">{{ c.count }}</span>
+            <span style="font-size:.76rem;font-weight:700;font-variant-numeric:tabular-nums;color: {{ c.countFg }}">{{ c.count }}</span>
           </button>
         </sc-for>
       </div>
 
-      <div style="display:flex;align-items:center;gap:10px;margin:0 4px 16px;font-size:.84rem;color:var(--c-sec);line-height:1.4">
-        <span style="width:30px;height:30px;border-radius:15px;flex:none;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--rm-accent,#0071E3) 0 78%,var(--c-track) 78% 100%)">
-          <span style="width:23px;height:23px;border-radius:12px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:var(--c-scorehi)">78</span>
+      <div style="display:flex;align-items:center;gap:8px;margin:0 4px 12px;font-size:.78rem;color:var(--c-sec2);line-height:1.4">
+        <span style="width:16px;height:16px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--rm-accent,#2F6FE4) 0 78%,var(--c-track) 78% 100%)">
+          <span style="width:11px;height:11px;border-radius:6px;background:var(--c-bg)"></span>
         </span>
         <span>L'anneau, c'est la priorité du bien, sur 100.</span>
       </div>
 
-      <div data-cards style="margin-bottom:30px">
+      <div data-cards style="margin-bottom:22px">
         <sc-for list="{{ cards }}" as="it" hint-placeholder-count="5">
-          <div data-row style="background:var(--c-card);border-radius:20px;padding:14px;box-shadow:var(--sh-card);animation:rmUp .34s cubic-bezier(.32,.72,0,1) both">
-            <button data-rowbtn onClick="{{ it.onOpen }}" aria-label="{{ it.titre }}"></button>
+          <div data-row>
+            <button data-rowbtn onClick="{{ it.onOpen }}" aria-label="{{ it.titre }}" style-hover="background:var(--c-group2)"></button>
+            <span data-ring style="width:36px;height:36px;border-radius:18px;display:flex;align-items:center;justify-content:center;background: {{ it.gauge }}">
+              <span style="width:28px;height:28px;border-radius:14px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:800;font-variant-numeric:tabular-nums;color: {{ it.scoreFg }}">{{ it.score }}</span>
+            </span>
             <div data-thumb>
-              <div style="width:100%;height:100%;border-radius:13px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
+              <div style="width:100%;height:100%;border-radius:11px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
                 <img src="{{ it.photo }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display: {{ it.photoShow }}">
-                <span style="font-size:.72rem;color:var(--c-faint);display: {{ it.photoNone }}">Sans photo</span>
+                <span style="font-size:.6rem;color:var(--c-faint);text-align:center;display: {{ it.photoNone }}">Sans photo</span>
               </div>
             </div>
-            <div data-idn style="display:flex;align-items:center;gap:12px;min-width:0">
-              <span style="width:40px;height:40px;border-radius:20px;flex:none;display:flex;align-items:center;justify-content:center;background: {{ it.gauge }}">
-                <span style="width:31px;height:31px;border-radius:16px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:.84rem;font-weight:700;font-variant-numeric:tabular-nums;color: {{ it.scoreFg }}">{{ it.score }}</span>
+            <div data-txt>
+              <span style="display:block;font-size:.9rem;font-weight:700;letter-spacing:-.01em;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity: {{ it.dim }}">{{ it.titre }}</span>
+              <span style="display:flex;align-items:baseline;gap:6px;margin-top:3px;min-width:0;white-space:nowrap">
+                <span style="font-size:.9rem;font-weight:800;font-variant-numeric:tabular-nums;flex:none">{{ it.prix }}</span>
+                <sc-if value="{{ it.aBaisse }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:.72rem;font-weight:700;color:#C4412B;flex:none">{{ it.baisse }}</span>
+                </sc-if>
+                <span style="font-size:.74rem;color:var(--c-sec2);overflow:hidden;text-overflow:ellipsis;min-width:0">{{ it.lieu }}</span>
               </span>
-              <span style="min-width:0">
-                <span style="display:block;font-size:1.02rem;font-weight:600;letter-spacing:-.01em;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity: {{ it.dim }}">{{ it.titre }}</span>
-                <span style="display:block;font-size:.88rem;color:var(--c-sec);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.lieu }}</span>
-              </span>
-            </div>
-            <div data-prix style="font-size:1.25rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap">{{ it.prix }}
-              <sc-if value="{{ it.aBaisse }}" hint-placeholder-val="{{ false }}">
-                <span style="display:block;font-size:.78rem;font-weight:700;color:#A8321F;margin-top:2px">{{ it.baisse }}</span>
+              <sc-if value="{{ it.showGeste }}" hint-placeholder-val="{{ true }}">
+                <span style="display:flex;align-items:center;gap:6px;margin-top:4px;min-width:0">
+                  <span style="width:8px;height:8px;border-radius:4px;flex:none;background: {{ it.color }};border: {{ it.ring }}"></span>
+                  <span style="font-size:.74rem;color:var(--c-sec2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.geste }}</span>
+                </span>
               </sc-if>
             </div>
-            <div data-geste style="min-width:0">
+            <div data-act>
               <sc-if value="{{ it.canAssign }}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{ it.onAssignOpen }}" style="pointer-events:auto;border:0;border-radius:15px;background:var(--c-tint);color:var(--c-accent-text);font-size:.94rem;font-weight:600;padding:12px 18px;cursor:pointer;white-space:nowrap;transition:transform .18s ease,background .18s ease" style-active="transform:scale(.96)">Attribuer</button>
+                <button onClick="{{ it.onAssignOpen }}" aria-label="Attribuer" title="Attribuer" style="pointer-events:auto;width:30px;height:30px;border-radius:15px;border:0;background:color-mix(in srgb,var(--c-sky) 16%,var(--c-card));color:var(--c-accent-text);font-size:1.1rem;font-weight:700;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .18s ease" style-active="transform:scale(.9)">+</button>
               </sc-if>
               <sc-if value="{{ it.showGeste }}" hint-placeholder-val="{{ true }}">
-                <div style="display:flex;align-items:center;gap:9px;min-width:0">
-                  <span style="width:12px;height:12px;border-radius:6px;flex:none;background: {{ it.color }};border: {{ it.ring }}"></span>
-                  <span data-gtxt style="font-size:.88rem;color:var(--c-sec2);line-height:1.35;min-width:0">{{ it.geste }}</span>
-                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-faint)"><path d="M9 18l6-6-6-6"></path></svg>
               </sc-if>
             </div>
-            <span data-chev style="color:var(--c-faint);font-size:1.2rem;line-height:1">›</span>
           </div>
         </sc-for>
         <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ false }}">
-          <button onClick="{{ onMore }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.98rem;font-weight:600;padding:12px;cursor:pointer;border-radius:16px;transition:background .18s ease" style-hover="background:var(--c-group)">{{ moreLabel }}</button>
+          <button onClick="{{ onMore }}" style="border:0;border-top:1px solid var(--c-rule);background:none;color:var(--c-accent-text);font-size:.92rem;font-weight:700;padding:14px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-group2)">{{ moreLabel }}</button>
         </sc-if>
       </div>
 
-      <button onClick="{{ goRegles }}" style="width:100%;border:0;background:var(--c-group);border-radius:22px;padding:18px 20px;text-align:left;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-hover)">
-        <span style="display:block;font-size:.98rem;font-weight:600">Ce qui est autorisé, ce qui ne l'est plus</span>
-        <span style="display:block;font-size:.86rem;color:var(--c-sec);margin-top:4px;line-height:1.4">Le téléphone, le courrier, le passage sur place — et la règle du 11 août 2026.</span>
+      <button onClick="{{ goRegles }}" style="width:100%;border:0;background:color-mix(in srgb,var(--c-sky) 12%,var(--c-card));border-radius:16px;padding:14px 16px;text-align:left;cursor:pointer;display:flex;gap:12px;align-items:flex-start;color:var(--c-ink);transition:transform .18s ease" style-active="transform:scale(.985)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;color:var(--c-accent-text)"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
+        <span>
+          <span style="display:block;font-size:.9rem;font-weight:700;color:var(--c-accent-text)">Ce qui est autorisé, ce qui ne l'est plus</span>
+          <span style="display:block;font-size:.8rem;color:var(--c-sec2);margin-top:3px;line-height:1.4">Le téléphone, le courrier, le passage sur place — et la règle du 11 août 2026.</span>
+        </span>
       </button>
     </div>
   </sc-if>
@@ -323,339 +355,366 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   <sc-if value="{{ isBien }}" hint-placeholder-val="{{ false }}">
     <div>
       <div data-fiche>
+      <sc-if value="{{ sel.tabFiche }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:14px;animation:rmFade .25s ease both">
 
-        <div style="display:flex;align-items:center;gap:14px;margin-top:10px;background:var(--c-card);border-radius:20px;padding:14px 18px;box-shadow:var(--sh-card)">
-          <span style="width:40px;height:40px;border-radius:12px;flex:none;background:var(--c-tint);color:var(--c-accent-text);display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700">N°</span>
-          <span style="flex:1;min-width:0">
-            <span style="display:block;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2)">Dossier</span>
-            <span style="display:block;font-size:1.45rem;font-weight:700;letter-spacing:.02em;line-height:1.15;margin-top:2px;font-variant-numeric:tabular-nums;color: {{ sel.dossierFg }}">{{ sel.dossierAff }}</span>
-          </span>
+        <div>
+          <div data-photo data-fs="{{ sel.fs }}">
+            <div style="width:100%;height:100%;border-radius:18px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
+              <img src="{{ sel.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;display: {{ sel.photoShow }}">
+              <span style="font-size:.86rem;color:var(--c-faint);display: {{ sel.photoNone }}">Cette annonce n'a aucune photo</span>
+            </div>
+            <button data-zoomarea onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand"></button>
+            <div style="position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:2px;background:rgba(22,30,54,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:18px;padding:3px;color:#fff">
+              <button onClick="{{ sel.onPrev }}" aria-label="Photo précédente" style="width:30px;height:30px;border-radius:15px;border:0;background:none;color:#fff;cursor:pointer;font-size:1.1rem;line-height:1">‹</button>
+              <span style="font-size:.76rem;font-weight:600;font-variant-numeric:tabular-nums;min-width:38px;text-align:center">{{ sel.photoLabel }}</span>
+              <button onClick="{{ sel.onNext }}" aria-label="Photo suivante" style="width:30px;height:30px;border-radius:15px;border:0;background:none;color:#fff;cursor:pointer;font-size:1.1rem;line-height:1">›</button>
+            </div>
+            <button data-zoom onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand">⤢</button>
+          </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:14px">
-          <div style="background:var(--c-group);border-radius:22px;padding:20px;display:flex;align-items:center;gap:22px;flex-wrap:wrap">
-            <div style="flex:none;width:96px;height:96px;border-radius:48px;display:flex;align-items:center;justify-content:center;background: {{ sel.gauge }}">
-              <div style="width:74px;height:74px;border-radius:37px;background:var(--c-group);display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color: {{ sel.scoreColor }}">{{ sel.score }}</div>
+        <div style="padding:0 2px">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <span style="font-size:1.75rem;font-weight:800;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums">{{ sel.prix }}</span>
+            <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size:.84rem;color:var(--c-sec);text-decoration:line-through;font-variant-numeric:tabular-nums">{{ sel.prixInit }}</span>
+            </sc-if>
+          </div>
+          <div style="font-size:.94rem;font-weight:600;margin-top:8px;line-height:1.35;text-wrap:pretty">{{ sel.titre }}</div>
+          <div style="font-size:.8rem;color:var(--c-sec2);margin-top:3px;line-height:1.4">{{ sel.prixM2 }} · {{ sel.ecart }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
+            <sc-for list="{{ sel.tags }}" as="t" hint-placeholder-count="4">
+              <span data-pill style="background: {{ t.bg }};color: {{ t.fg }}">{{ t.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="flex:none;width:58px;height:58px;border-radius:29px;display:flex;align-items:center;justify-content:center;background: {{ sel.gauge }}">
+              <div style="width:46px;height:46px;border-radius:23px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:1.15rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color: {{ sel.scoreColor }}">{{ sel.score }}</div>
             </div>
-            <div style="flex:1 1 300px;min-width:0">
-              <div style="font-size:1.15rem;font-weight:600;letter-spacing:-.01em">{{ sel.scoreWordCap }}</div>
-              <div style="font-size:.98rem;color:var(--c-sec2);line-height:1.5;margin-top:8px;text-wrap:pretty">{{ sel.verdict }}</div>
-              <button onClick="{{ sel.onParts }}" style="margin-top:14px;border:0;background:none;padding:0;font-size:.94rem;font-weight:600;color:var(--c-accent-text);cursor:pointer;text-align:left;white-space:nowrap">{{ sel.partsLabel }}</button>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:1rem;font-weight:800;letter-spacing:-.01em">{{ sel.scoreWordCap }}</div>
+              <div style="font-size:.8rem;color:var(--c-sec2);line-height:1.5;margin-top:4px;text-wrap:pretty">{{ sel.verdict }}</div>
             </div>
           </div>
-
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
+            <sc-for list="{{ sel.pills }}" as="p" hint-placeholder-count="4">
+              <span data-pill title="{{ p.note }}" style="background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><b>{{ p.pts }}</b> {{ p.label }}</span>
+            </sc-for>
+          </div>
+          <button onClick="{{ sel.onParts }}" style="margin-top:12px;border:0;background:none;padding:0;font-size:.84rem;font-weight:700;color:var(--c-accent-text);cursor:pointer;text-align:left">{{ sel.partsLabel }}</button>
           <sc-if value="{{ sel.showParts }}" hint-placeholder-val="{{ false }}">
-            <div data-crit style="margin-top:14px;background:var(--c-group);border-radius:22px;padding:20px;animation:rmIn .28s cubic-bezier(.32,.72,0,1) both">
+            <div data-crit style="margin-top:12px;background:var(--c-group2);border-radius:14px;padding:14px;animation:rmIn .28s cubic-bezier(.32,.72,0,1) both">
               <sc-for list="{{ sel.parts }}" as="p" hint-placeholder-count="5">
                 <div>
-                  <div style="font-size:.82rem;font-weight:500;line-height:1.25;text-wrap:pretty">{{ p.label }}</div>
-                  <div style="height:6px;border-radius:3px;background:var(--c-track);overflow:hidden;margin:6px 0 4px">
-                    <div style="height:100%;border-radius:3px;background:var(--rm-accent,#0071E3);width: {{ p.pct }}%;transition:width .5s cubic-bezier(.32,.72,0,1)"></div>
+                  <div style="font-size:.78rem;font-weight:600;line-height:1.25;text-wrap:pretty">{{ p.label }}</div>
+                  <div style="height:5px;border-radius:3px;background:var(--c-track);overflow:hidden;margin:6px 0 4px">
+                    <div style="height:100%;border-radius:3px;background:var(--rm-accent,#2F6FE4);width: {{ p.pct }}%;transition:width .5s cubic-bezier(.32,.72,0,1)"></div>
                   </div>
-                  <div style="font-size:.78rem;color:var(--c-sec2)">{{ p.note }}</div>
+                  <div style="font-size:.74rem;color:var(--c-sec2)">{{ p.note }}</div>
                 </div>
               </sc-for>
             </div>
           </sc-if>
-          <div data-prixag style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;align-items:start">
-            <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ true }}">
-          <div>
-            <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Le prix a bougé</div>
-            <div style="background:var(--c-card);border-radius:24px;padding:22px;box-shadow:var(--sh-card)">
-              <div style="display:flex;align-items:center;gap:12px;background:color-mix(in srgb,#C0392B 12%,var(--c-card));border-radius:16px;padding:14px 16px">
-                <span style="font-size:1.3rem">↓</span>
-                <span style="font-size:.98rem;font-weight:600;color:#A8321F;line-height:1.4">{{ sel.prixBandeau }}</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--c-card);box-shadow:var(--sh-flat);color:var(--c-ink);font-size:.9rem;font-weight:700;padding:13px 10px;text-decoration:none">Itinéraire ↗</a>
+          <button onClick="{{ sel.adr.onDevant }}" style="border:0;border-radius:14px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.9rem;font-weight:700;padding:13px 10px;cursor:pointer;box-shadow:0 6px 16px rgba(47,111,228,.28);transition:transform .18s ease" style-active="transform:scale(.97)">{{ sel.adr.devantLabel }}</button>
+        </div>
+
+        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
+          <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin-bottom:10px">Où en est ce bien ?</div>
+          <div data-steps>
+            <sc-for list="{{ sel.pipe }}" as="p" hint-placeholder-count="5">
+              <div>
+                <div style="position:relative;height:26px;display:flex;align-items:center;justify-content:center">
+                  <span style="position:absolute;left:0;right:50%;height:2px;background: {{ p.barL }}"></span>
+                  <span style="position:absolute;left:50%;right:0;height:2px;background: {{ p.barR }}"></span>
+                  <span style="position:relative;width:22px;height:22px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;background: {{ p.bg }};color:#fff;border: {{ p.ring }};box-shadow: {{ p.shadow }};animation: {{ p.anim }}">{{ p.glyph }}</span>
+                </div>
+                <div style="font-size:.7rem;font-weight:600;line-height:1.25;margin-top:6px;padding:0 2px;min-height:2.5em;text-wrap:pretty;color: {{ p.labelFg }}">{{ p.label }}</div>
+                <div style="font-size:.66rem;color:var(--c-sec);margin-top:2px;padding:0 2px">{{ p.quand }}</div>
               </div>
-              <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
-                <sc-for list="{{ sel.prixLignes }}" as="b" hint-placeholder-count="2">
-                  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 14px;background:var(--c-group);border-radius:14px">
-                    <span style="font-size:.9rem;color:var(--c-sec)">{{ b.quand }}</span>
-                    <span style="font-size:.95rem"><span style="color:var(--c-sec);text-decoration:line-through">{{ b.de }}</span> → <b>{{ b.a }}</b> <span style="color:#A8321F;font-weight:600">{{ b.pct }}</span></span>
-                  </div>
+            </sc-for>
+          </div>
+          <div style="font-size:1rem;font-weight:800;letter-spacing:-.01em;margin-top:12px">{{ sel.nextLabel }}</div>
+          <div style="font-size:.8rem;color:var(--c-sec2);margin-top:2px;line-height:1.4">{{ sel.nextSub }}</div>
+          <sc-if value="{{ sel.canRecule }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onRecule }}" style="margin-top:6px;border:0;background:none;padding:4px 0;color:var(--c-sec2);font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:underline">{{ sel.reculeLabel }}</button>
+          </sc-if>
+
+          <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:16px 0 8px">Noter ce que vous avez fait</div>
+          <div style="display:flex;gap:8px">
+            <div style="position:relative;flex:1;min-width:0">
+              <select value="{{ sel.step }}" onChange="{{ sel.onStep }}" aria-label="Ce que vous avez fait" style="appearance:none;-webkit-appearance:none;width:100%;border:1px solid var(--c-rule);border-radius:12px;background:var(--c-card);font-size:.86rem;font-weight:500;padding:12px 34px 12px 12px;cursor:pointer;color:var(--c-ink);line-height:1.3;text-overflow:ellipsis">
+                <sc-for list="{{ sel.options }}" as="o" hint-placeholder-count="5">
+                  <option value="{{ o.v }}">{{ o.v }}</option>
                 </sc-for>
-              </div>
+              </select>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--c-sec)"><path d="M6 9l6 6 6-6"></path></svg>
             </div>
+            <button onClick="{{ sel.onSave }}" aria-label="Enregistrer" title="Enregistrer" style="flex:none;border:0;border-radius:12px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.88rem;font-weight:800;padding:0 16px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.95)">OK</button>
           </div>
+          <sc-if value="{{ sel.canDrop }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onDrop }}" style="margin-top:10px;border:0;background:none;padding:2px 0;color:var(--c-accent-text);font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:underline">Ce bien ne donnera rien</button>
+          </sc-if>
+          <sc-if value="{{ sel.isDropped }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:10px;background:var(--c-group);border-radius:12px;padding:11px 13px;font-size:.82rem;color:var(--c-sec2);line-height:1.45">Ce bien est mis de côté. Enregistrez une action pour le remettre en route.</div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ sel.canAssign }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ sel.onAssign }}" style="width:100%;border:0;border-radius:18px;background:var(--c-card);box-shadow:var(--sh-card);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;color:var(--c-ink);transition:transform .18s ease" style-active="transform:scale(.985)">
+            <span style="width:34px;height:34px;border-radius:17px;flex:none;border:1.5px dashed var(--c-faint);color:var(--c-sec);display:flex;align-items:center;justify-content:center;font-size:1rem">+</span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.9rem;font-weight:700">{{ sel.assignTitle }}</span>
+              <span style="display:block;font-size:.78rem;color:var(--c-sec2);margin-top:2px">{{ sel.assignSub }}</span>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-faint)"><path d="M9 18l6-6-6-6"></path></svg>
+          </button>
         </sc-if>
-            <div style="display:flex;flex-direction:column">
-              <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Qui vend</div>
-              <div style="flex:1;background:var(--c-card);border-radius:24px;padding:22px;box-shadow:var(--sh-card);display:flex;align-items:center;gap:12px">
-                <span style="width:40px;height:40px;border-radius:20px;flex:none;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;background: {{ sel.agenceBg }};color: {{ sel.agenceFg }}">{{ sel.agenceIcon }}</span>
-                <span style="min-width:0">
-                  <span style="display:block;font-size:1.1rem;font-weight:700;letter-spacing:-.01em;line-height:1.25;color: {{ sel.agenceFg }}">{{ sel.agenceTitre }}</span>
-                  <span style="display:block;font-size:.88rem;color:var(--c-sec2);margin-top:3px;line-height:1.4;text-wrap:pretty">{{ sel.agenceSub }}</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div>
-          <div data-photo data-fs="{{ sel.fs }}">
-            <div style="width:100%;height:100%;border-radius:22px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
-              <img src="{{ sel.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;display: {{ sel.photoShow }}">
-              <span style="font-size:.9rem;color:var(--c-faint);display: {{ sel.photoNone }}">Cette annonce n'a aucune photo</span>
-            </div>
-            <button data-zoomarea onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand"></button>
-            <button data-zoom onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand">⤢</button>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-top:14px">
-            <button onClick="{{ sel.onPrev }}" aria-label="Photo précédente" style="width:48px;height:48px;border-radius:24px;border:0;background:var(--c-group);cursor:pointer;font-size:1.3rem;line-height:1;color:var(--c-ink);display:flex;align-items:center;justify-content:center;transition:background .18s ease,transform .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">‹</button>
-            <span style="font-size:.94rem;color:var(--c-sec2);font-variant-numeric:tabular-nums;min-width:58px;text-align:center">{{ sel.photoLabel }}</span>
-            <button onClick="{{ sel.onNext }}" aria-label="Photo suivante" style="width:48px;height:48px;border-radius:24px;border:0;background:var(--c-group);cursor:pointer;font-size:1.3rem;line-height:1;color:var(--c-ink);display:flex;align-items:center;justify-content:center;transition:background .18s ease,transform .18s ease" style-hover="background:var(--c-hover)" style-active="transform:scale(.92)">›</button>
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:14px;margin-top:18px">
-            <div style="flex:1;min-width:0">
-              <div style="font-size:1.45rem;font-weight:700;letter-spacing:-.02em;line-height:1.2;text-wrap:pretty">{{ sel.titre }}</div>
-              <div style="font-size:.94rem;color:var(--c-sec2);margin-top:6px;line-height:1.4">{{ sel.sub }}</div>
-            </div>
-            
-          </div>
-        </div>
+        <sc-if value="{{ sel.showConsent }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ goRegles }}" style="width:100%;border:0;background:color-mix(in srgb,var(--c-sky) 12%,var(--c-card));border-radius:16px;padding:13px 15px;text-align:left;cursor:pointer;display:flex;gap:11px;align-items:flex-start;color:var(--c-ink)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px;color:var(--c-accent-text)"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
+            <span>
+              <span style="display:block;font-size:.86rem;font-weight:700;color:var(--c-accent-text)">Le téléphone n'est plus permis</span>
+              <span style="display:block;font-size:.78rem;color:var(--c-sec2);margin-top:3px;line-height:1.4">Pas d'appel sans l'accord du vendeur, depuis le 11 août 2026. L'entrée « Appel » précise que l'accord a été recueilli.</span>
+              <span style="display:block;font-size:.78rem;font-weight:700;color:var(--c-accent-text);margin-top:5px;text-decoration:underline">Lire la règle</span>
+            </span>
+          </button>
+        </sc-if>
 
-        <div>
-          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Où c'est</div>
-          <div style="background:var(--c-card);border-radius:24px;padding:18px;box-shadow:var(--sh-card)">
-            <div style="display:flex;align-items:center;gap:13px">
-              <span style="width:36px;height:36px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;background: {{ sel.adr.iconBg }};color: {{ sel.adr.iconFg }};border: {{ sel.adr.iconBorder }}">{{ sel.adr.icon }}</span>
+        <div data-drw>
+          <button data-drwbtn onClick="{{ sel.dr.onAdr }}" aria-expanded="{{ sel.dr.adr }}">
+            <span style="width:32px;height:32px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.9rem;font-weight:700">Adresse</span>
+              <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ sel.adr.titre }} · {{ sel.adr.source }}</span>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.adrChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{ sel.dr.adr }}" hint-placeholder-val="{{ false }}">
+          <div data-drwbody>
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="width:30px;height:30px;border-radius:15px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.86rem;font-weight:700;background: {{ sel.adr.iconBg }};color: {{ sel.adr.iconFg }};border: {{ sel.adr.iconBorder }}">{{ sel.adr.icon }}</span>
               <div style="min-width:0;flex:1">
-                <div style="font-size:1.2rem;font-weight:700;letter-spacing:-.01em;line-height:1.25;text-wrap:pretty">{{ sel.adr.titre }}</div>
-                <div style="font-size:.9rem;color:var(--c-sec2);margin-top:3px">{{ sel.adr.sous }}</div>
+                <div style="font-size:1rem;font-weight:700;letter-spacing:-.01em;line-height:1.25;text-wrap:pretty">{{ sel.adr.titre }}</div>
+                <div style="font-size:.8rem;color:var(--c-sec2);margin-top:2px">{{ sel.adr.sous }}</div>
               </div>
             </div>
-            <div style="font-size:.9rem;line-height:1.45;margin-top:12px;text-wrap:pretty;color: {{ sel.adr.sourceFg }};font-weight: {{ sel.adr.sourceW }}">{{ sel.adr.source }}</div>
+            <div style="font-size:.8rem;line-height:1.45;margin-top:10px;text-wrap:pretty;color: {{ sel.adr.sourceFg }};font-weight: {{ sel.adr.sourceW }}">{{ sel.adr.source }}</div>
 
             <sc-if value="{{ sel.adr.hasRues }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+              <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:14px 0 6px">Rues possibles</div>
+              <div style="display:flex;flex-direction:column">
                 <sc-for list="{{ sel.adr.rues }}" as="r" hint-placeholder-count="3">
-                  <div style="display:flex;align-items:center;gap:10px;background:var(--c-group);border-radius:18px;padding:10px 10px 10px 15px">
+                  <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--c-rule)">
                     <a href="{{ r.lien }}" target="_blank" rel="noopener noreferrer" style="flex:1;min-width:0;color:var(--c-ink);text-decoration:none">
-                      <span style="display:block;font-size:1rem;font-weight:600;line-height:1.3;text-wrap:pretty">{{ r.nom }}</span>
-                      <span style="display:block;font-size:.82rem;margin-top:3px;line-height:1.35;color: {{ r.raisonFg }};font-weight: {{ r.raisonW }}">{{ r.raison }}</span>
+                      <span style="display:block;font-size:.88rem;font-weight:600;line-height:1.3;text-wrap:pretty">{{ r.nom }}</span>
+                      <span style="display:block;font-size:.74rem;margin-top:2px;line-height:1.35;color: {{ r.raisonFg }};font-weight: {{ r.raisonW }}">{{ r.raison }}</span>
                     </a>
-                    <a href="{{ r.sv }}" target="_blank" rel="noopener noreferrer" style="flex:none;display:flex;align-items:center;gap:6px;white-space:nowrap;background:var(--c-card);color:var(--c-accent-text);border-radius:14px;padding:11px 13px;font-size:.88rem;font-weight:600;text-decoration:none;box-shadow:var(--sh-flat)"><span style="font-size:.95rem">◎</span>Street View</a>
+                    <a href="{{ r.sv }}" target="_blank" rel="noopener noreferrer" style="flex:none;display:flex;align-items:center;gap:5px;white-space:nowrap;background:var(--c-group);color:var(--c-accent-text);border-radius:10px;padding:8px 10px;font-size:.76rem;font-weight:700;text-decoration:none"><span>◎</span>Street View</a>
                   </div>
                 </sc-for>
               </div>
             </sc-if>
 
             <sc-if value="{{ sel.adr.ok }}" hint-placeholder-val="{{ false }}">
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
-                <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:15px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.96rem;font-weight:600;padding:14px 10px;text-decoration:none">Itinéraire ↗</a>
-                <a href="{{ sel.adr.sv }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:6px;border-radius:15px;background:var(--c-tint);color:var(--c-accent-text);font-size:.96rem;font-weight:600;padding:14px 10px;text-decoration:none;white-space:nowrap"><span>◎</span>Street View</a>
-              </div>
-              <button onClick="{{ sel.adr.onDevant }}" style="margin-top:8px;border:0;background:none;color:var(--c-accent-text);font-size:.88rem;font-weight:600;padding:8px 4px;cursor:pointer">{{ sel.adr.devantLabel }}</button>
-            </sc-if>
-            <sc-if value="{{ sel.adr.pistes }}" hint-placeholder-val="{{ true }}">
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-                <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:15px;background:var(--c-group);color:var(--c-ink);font-size:.96rem;font-weight:600;padding:14px 10px;text-decoration:none">Itinéraire ↗</a>
-                <button onClick="{{ sel.adr.onDevant }}" style="border:0;border-radius:15px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.96rem;font-weight:600;padding:14px 10px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.97)">{{ sel.adr.devantLabel }}</button>
+                <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--c-group);color:var(--c-ink);font-size:.86rem;font-weight:700;padding:12px 8px;text-decoration:none">Itinéraire ↗</a>
+                <a href="{{ sel.adr.sv }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text);font-size:.86rem;font-weight:700;padding:12px 8px;text-decoration:none;white-space:nowrap"><span>◎</span>Street View</a>
               </div>
             </sc-if>
             <sc-if value="{{ sel.adr.hasPin }}" hint-placeholder-val="{{ false }}">
-              <button onClick="{{ sel.adr.onEffacer }}" style="margin-top:4px;border:0;background:none;color:var(--c-sec2);font-size:.84rem;padding:6px 4px;cursor:pointer">Effacer la position relevée</button>
+              <button onClick="{{ sel.adr.onEffacer }}" style="margin-top:6px;border:0;background:none;color:var(--c-sec2);font-size:.78rem;padding:6px 0;cursor:pointer;text-decoration:underline">Effacer la position relevée</button>
             </sc-if>
 
-            <div style="margin-top:14px">
             <sc-if value="{{ sel.cad.show }}" hint-placeholder-val="{{ true }}">
-              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 4px 0;border-top:1px solid var(--c-rule)">
-                <span style="font-size:1.05rem;line-height:1.35;flex:none">▦</span>
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-top:12px;padding:11px 12px;border-radius:12px;background:var(--c-group2)">
+                <span style="font-size:.95rem;line-height:1.35;flex:none">▦</span>
                 <div style="min-width:0;flex:1">
-                  <div style="font-size:1rem;font-weight:600;line-height:1.35">Parcelle {{ sel.cad.ref }}</div>
-                  <div style="font-size:.82rem;color:var(--c-sec);margin-top:4px;line-height:1.45;text-wrap:pretty">{{ sel.cad.detail }}</div>
+                  <div style="font-size:.84rem;font-weight:700;line-height:1.35">Parcelle {{ sel.cad.ref }}</div>
+                  <div style="font-size:.76rem;color:var(--c-sec2);margin-top:3px;line-height:1.45;text-wrap:pretty">{{ sel.cad.detail }}</div>
                 </div>
               </div>
             </sc-if>
-            </div>
           </div>
+          </sc-if>
         </div>
 
-        <div>
-          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">À quel prix</div>
-          <div style="padding:0 4px">
-            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-              <span style="font-size:2.6rem;font-weight:700;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;flex:none">{{ sel.prix }}</span>
-              <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ false }}">
-                <span style="background:color-mix(in srgb,#C0392B 12%,var(--c-card));color:#A8321F;font-size:.86rem;font-weight:700;border-radius:11px;padding:5px 10px;white-space:nowrap">{{ sel.baisseChip }}</span>
-              </sc-if>
+        <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ true }}">
+        <div data-drw>
+          <button data-drwbtn onClick="{{ sel.dr.onPrix }}" aria-expanded="{{ sel.dr.prix }}">
+            <span style="width:32px;height:32px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text);font-weight:800;font-size:.9rem">€</span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.9rem;font-weight:700">Le prix a bougé</span>
+              <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ sel.prixResume }}</span>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.prixChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{ sel.dr.prix }}" hint-placeholder-val="{{ false }}">
+          <div data-drwbody>
+            <div style="display:flex;align-items:center;gap:10px;background:color-mix(in srgb,#C0392B 10%,var(--c-card));border-radius:12px;padding:11px 13px">
+              <span style="font-size:1.1rem;color:#C4412B">↓</span>
+              <span style="font-size:.84rem;font-weight:700;color:#A8321F;line-height:1.4">{{ sel.prixBandeau }}</span>
             </div>
-            <div style="font-size:.94rem;color:var(--c-sec2);margin-top:9px;line-height:1.4">{{ sel.prixM2 }} · {{ sel.ecart }}</div>
-          </div>
-        </div>
-
-        <div>
-          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Le bien</div>
-<div style="display:flex;flex-direction:column;gap:14px">
-              
-              <div style="background:var(--c-card);border-radius:24px;padding:18px;box-shadow:var(--sh-card);padding:20px">
-                <div style="font-size:.8rem;color:var(--c-sec2);letter-spacing:.01em">{{ sel.sourceLine }}</div>
-                <div style="font-size:1rem;line-height:1.6;margin-top:10px;text-wrap:pretty">{{ sel.texte }}</div>
-                <a href="{{ sel.url }}" target="_blank" rel="noopener noreferrer" style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:16px;background:var(--c-group);color:var(--c-ink);font-size:.98rem;font-weight:600;padding:14px 18px;text-decoration:none">Voir l'annonce d'origine <span style="color:var(--c-sec2)">↗</span></a>
-              </div>
-              <sc-if value="{{ sel.brutShow }}" hint-placeholder-val="{{ false }}">
-          <div>
-            <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Toutes les données reçues</div>
-            <div style="background:var(--c-card);border-radius:24px;padding:10px 8px;box-shadow:var(--sh-card)">
-              <sc-for list="{{ sel.brut }}" as="d" hint-placeholder-count="6">
-                <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 14px;border-bottom:1px solid var(--c-rule);font-size:.9rem">
-                  <span style="color:var(--c-sec);flex:none">{{ d.cle }}</span>
-                  <span style="text-align:right;word-break:break-word;min-width:0">{{ d.val }}</span>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">
+              <sc-for list="{{ sel.prixLignes }}" as="b" hint-placeholder-count="2">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 12px;background:var(--c-group2);border-radius:11px">
+                  <span style="font-size:.8rem;color:var(--c-sec)">{{ b.quand }}</span>
+                  <span style="font-size:.84rem;white-space:nowrap"><span style="color:var(--c-sec);text-decoration:line-through">{{ b.de }}</span> → <b>{{ b.a }}</b> <span style="color:#A8321F;font-weight:700">{{ b.pct }}</span></span>
                 </div>
               </sc-for>
-              <div style="font-size:.78rem;color:var(--c-faint);padding:12px 14px 6px;line-height:1.45">Visible par la direction seule. Données telles que renvoyées par l'API de pige, sans retouche.</div>
             </div>
           </div>
+          </sc-if>
+        </div>
         </sc-if>
-              <div>
-              
-          <sc-if value="{{ sel.canSuppr }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onSuppr }}" style="width:100%;margin-top:12px;border:0;border-radius:18px;font-size:.98rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease,color .18s ease;background: {{ sel.supprBg }};color: {{ sel.supprFg }}">{{ sel.supprLabel }}</button>
-          </sc-if>
-          <sc-if value="{{ sel.isSuppr }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:14px;background:var(--c-group);border-radius:18px;padding:15px 18px;font-size:.94rem;color:var(--c-sec2);line-height:1.45">{{ sel.supprInfo }}</div>
-          </sc-if>
-          <sc-if value="{{ sel.canRestore }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onRestore }}" style="width:100%;margin-top:10px;border:0;border-radius:18px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.98rem;font-weight:600;padding:15px;cursor:pointer">Remettre ce bien dans l'affichage</button>
-          </sc-if>
-              </div>
-            </div>
-        </div>
 
-        <div>
-          <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Quoi faire maintenant</div>
-          <div style="background:var(--c-card);border-radius:24px;padding:18px;box-shadow:var(--sh-card)">
-            <div data-steps>
-            <sc-for list="{{ sel.pipe }}" as="p" hint-placeholder-count="5">
-              <div>
-                <div style="position:relative;height:38px;display:flex;align-items:center;justify-content:center">
-                  <span style="position:absolute;left:0;right:50%;height:3px;border-radius:2px;background: {{ p.barL }}"></span>
-                  <span style="position:absolute;left:50%;right:0;height:3px;border-radius:2px;background: {{ p.barR }}"></span>
-                  <span style="position:relative;width:34px;height:34px;border-radius:17px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;background: {{ p.bg }};color:#fff;border: {{ p.ring }};box-shadow: {{ p.shadow }};animation: {{ p.anim }}">{{ p.glyph }}</span>
-                </div>
-                <div style="font-size:.86rem;font-weight:600;line-height:1.3;margin-top:10px;padding:0 3px;min-height:2.6em;text-wrap:pretty;color: {{ p.labelFg }}">{{ p.label }}</div>
-                <div style="font-size:.76rem;color:var(--c-sec);margin-top:5px;line-height:1.3;padding:0 3px">{{ p.quand }}</div>
-              </div>
-            </sc-for>
-          </div>
-            <sc-if value="{{ sel.canRecule }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onRecule }}" style="width:100%;margin-top:14px;border:0;border-radius:18px;background:var(--c-group);color:var(--c-ink);font-size:.98rem;font-weight:600;padding:15px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-hover)">{{ sel.reculeLabel }}</button>
-          </sc-if>
-            <div style="font-size:1.2rem;font-weight:700;letter-spacing:-.01em;margin-top:18px">{{ sel.nextLabel }}</div>
-            <div style="font-size:.9rem;color:var(--c-sec2);margin-top:4px;line-height:1.4">{{ sel.nextSub }}</div>
-            
-            <div style="font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c-sec2);margin:20px 4px 8px">Noter ce que vous avez fait</div>
-            <div style="position:relative">
-            <select value="{{ sel.step }}" onChange="{{ sel.onStep }}" style="appearance:none;-webkit-appearance:none;width:100%;border:0;border-radius:20px;background:var(--c-group);font-size:1.02rem;font-weight:500;padding:19px 52px 19px 20px;cursor:pointer;color:var(--c-ink);line-height:1.3">
-              <sc-for list="{{ sel.options }}" as="o" hint-placeholder-count="5">
-                <option value="{{ o.v }}">{{ o.v }}</option>
-              </sc-for>
-            </select>
-            <span style="position:absolute;right:22px;top:50%;transform:translateY(-58%);pointer-events:none;color:var(--c-sec);font-size:1.05rem;line-height:1">⌄</span>
-          </div>
-          <button onClick="{{ sel.onSave }}" style="width:100%;margin-top:10px;border:0;border-radius:20px;background:var(--rm-accent,#0071E3);color:#fff;font-size:1.1rem;font-weight:600;padding:19px 20px;cursor:pointer;box-shadow:0 6px 18px rgba(0,113,227,.28);transition:transform .18s cubic-bezier(.32,.72,0,1)" style-active="transform:scale(.975)">Enregistrer</button>
-          <sc-if value="{{ sel.canDrop }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onDrop }}" style="width:100%;margin-top:8px;border:0;border-radius:20px;background:none;color:var(--c-sec2);font-size:.98rem;font-weight:500;padding:16px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-group)">Ce bien ne donnera rien</button>
-          </sc-if>
-          <sc-if value="{{ sel.isDropped }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:12px;background:var(--c-group);border-radius:18px;padding:15px 18px;font-size:.94rem;color:var(--c-sec2);line-height:1.45">Ce bien est mis de côté. Enregistrez une action pour le remettre en route.</div>
-          </sc-if>
-            <sc-if value="{{ sel.showConsent }}" hint-placeholder-val="{{ false }}">
-              <button onClick="{{ goRegles }}" style="width:100%;margin-top:10px;border:0;background:var(--c-warnbg);color:var(--c-warnink);border-radius:15px;padding:12px 14px;font-size:.86rem;font-weight:600;line-height:1.4;cursor:pointer;text-align:left">Pas d'appel sans l'accord du vendeur, depuis le 11 août 2026. L'entrée « Appel » précise que l'accord a été recueilli. ›</button>
-            </sc-if>
-            <sc-if value="{{ sel.canAssign }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ sel.onAssign }}" style="width:100%;margin-top:14px;border:0;border-radius:20px;background:var(--c-card);box-shadow:var(--sh-card);padding:18px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:transform .18s ease" style-active="transform:scale(.985)">
-              <span style="flex:1">
-                <span style="display:block;font-size:.98rem;font-weight:600">{{ sel.assignTitle }}</span>
-                <span style="display:block;font-size:.86rem;color:var(--c-sec);margin-top:3px">{{ sel.assignSub }}</span>
+        <div data-drw>
+          <button data-drwbtn onClick="{{ sel.dr.onVend }}" aria-expanded="{{ sel.dr.vend }}">
+            <span style="width:32px;height:32px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M8 13h8M8 17h5"></path></svg></span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.9rem;font-weight:700">L'annonce du vendeur</span>
+              <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ sel.vendResume }}</span>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.vendChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{ sel.dr.vend }}" hint-placeholder-val="{{ false }}">
+          <div data-drwbody style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;background:var(--c-group2)">
+              <span style="width:32px;height:32px;border-radius:16px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;background: {{ sel.agenceBg }};color: {{ sel.agenceFg }}">{{ sel.agenceIcon }}</span>
+              <span style="min-width:0">
+                <span style="display:block;font-size:.88rem;font-weight:700;line-height:1.25;color: {{ sel.agenceFg }}">{{ sel.agenceTitre }}</span>
+                <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px;line-height:1.4;text-wrap:pretty">{{ sel.agenceSub }}</span>
               </span>
-              <span style="color:var(--c-faint);font-size:1.3rem;line-height:1">›</span>
-            </button>
-          </sc-if>
-          </div>
-        </div>
-
-        <div>
-          <div style="font-size:1.02rem;font-weight:600;margin:0 4px 12px">Commentaires de l'équipe</div>
-          <div style="background:var(--c-card);border-radius:24px;padding:22px;box-shadow:var(--sh-card)">
-            <div style="display:flex;gap:8px;align-items:center">
-              <input type="text" value="{{ sel.commDraft }}" onInput="{{ sel.onCommInput }}" onKeyDown="{{ sel.onCommKey }}" placeholder="Ajouter un mot pour l'équipe…" style="flex:1;min-width:0;border:1px solid var(--c-rule);border-radius:15px;padding:13px 15px;font-size:1rem;background:var(--c-card);color:var(--c-ink)">
-              <button onClick="{{ sel.onCommAdd }}" style="flex:none;border:0;border-radius:15px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.95rem;font-weight:600;padding:13px 18px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.96)">Ajouter</button>
             </div>
-            <sc-if value="{{ sel.commsVide }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:.9rem;color:var(--c-sec);margin-top:14px;line-height:1.45">Aucun commentaire pour l'instant. Tout ce qui est écrit ici est visible par toute l'équipe.</div>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:.84rem;align-items:baseline">
+              <span style="color:var(--c-sec2)">Annonceur</span>
+              <span style="font-weight:600;color: {{ sel.cv.nomColor }}">{{ sel.cv.nom }} <span style="font-weight:400;color:var(--c-sec2);font-size:.78rem">{{ sel.cv.nomLabel }} — {{ sel.cv.nomUtil }}</span></span>
+              <span style="color:var(--c-sec2)">Téléphone</span>
+              <span style="color: {{ sel.cv.telColor }}">{{ sel.cv.tel }}</span>
+              <span style="color:var(--c-sec2)">E-mail</span>
+              <span style="color: {{ sel.cv.mailColor }}">{{ sel.cv.mail }}</span>
+            </div>
+            <sc-if value="{{ sel.cv.hasDispo }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:10px 12px;border-radius:12px;background:var(--c-group2);font-size:.8rem;line-height:1.45;color:var(--c-sec2);text-wrap:pretty">{{ sel.cv.dispo }}</div>
             </sc-if>
-            <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
-              <sc-for list="{{ sel.comms }}" as="c" hint-placeholder-count="2">
-                <div style="background:var(--c-group);border-radius:16px;padding:13px 15px">
-                  <div style="font-size:.97rem;line-height:1.5;text-wrap:pretty">{{ c.txt }}</div>
-                  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:7px">
-                    <span style="font-size:.8rem;color:var(--c-sec)">{{ c.qui }} · {{ c.quand }}</span>
-                    <sc-if value="{{ c.peutEffacer }}" hint-placeholder-val="{{ true }}">
-                      <button onClick="{{ c.onEffacer }}" style="border:0;background:none;color:var(--c-sec);font-size:.8rem;padding:4px 6px;cursor:pointer;border-radius:10px">Effacer</button>
-                    </sc-if>
-                  </div>
-                </div>
-              </sc-for>
+            <div style="font-size:.78rem;color:var(--c-sec2);line-height:1.45;text-wrap:pretty">{{ sel.canalNote }}</div>
+            <a href="{{ sel.url }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.86rem;font-weight:700;padding:12px 14px;text-decoration:none">Écrire par la messagerie de l'annonce ↗</a>
+            <div style="border-top:1px solid var(--c-rule);padding-top:12px">
+              <div style="font-size:.74rem;color:var(--c-sec2);letter-spacing:.01em">{{ sel.sourceLine }}</div>
+              <div style="font-size:.86rem;line-height:1.6;margin-top:8px;text-wrap:pretty">{{ sel.texte }}</div>
+              <a href="{{ sel.url }}" target="_blank" rel="noopener noreferrer" style="margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;background:var(--c-group);color:var(--c-ink);font-size:.86rem;font-weight:700;padding:12px 14px;text-decoration:none">Voir l'annonce d'origine <span style="color:var(--c-sec2)">↗</span></a>
             </div>
+            <div style="background:var(--c-warnbg);border-radius:12px;padding:12px 13px">
+              <div style="font-size:.84rem;font-weight:700;color:var(--c-warnink)">Pas d'appel sans accord</div>
+              <div style="font-size:.78rem;color:var(--c-warnink);line-height:1.5;margin-top:4px;text-wrap:pretty">Depuis le 11 août 2026, on ne peut plus appeler un particulier qui n'a pas donné son accord. L'entrée « Appel » ne s'enregistre que si le vendeur a dit oui, et cet accord est daté et conservé.</div>
+              <button onClick="{{ goRegles }}" style="margin-top:8px;border:0;background:none;padding:0;font-size:.8rem;font-weight:700;color:var(--c-warnink);cursor:pointer;text-decoration:underline">Lire la règle en entier</button>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ sel.brutShow }}" hint-placeholder-val="{{ false }}">
+        <div data-drw>
+          <button data-drwbtn onClick="{{ sel.dr.onBrut }}" aria-expanded="{{ sel.dr.brut }}">
+            <span style="width:32px;height:32px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg></span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.9rem;font-weight:700">Toutes les données reçues</span>
+              <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ sel.brutResume }}</span>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.brutChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{ sel.dr.brut }}" hint-placeholder-val="{{ false }}">
+          <div data-drwbody style="padding:0 8px 12px">
+            <sc-for list="{{ sel.brut }}" as="d" hint-placeholder-count="6">
+              <div style="display:flex;justify-content:space-between;gap:14px;padding:8px;border-bottom:1px solid var(--c-rule);font-size:.8rem">
+                <span style="color:var(--c-sec);flex:none">{{ d.cle }}</span>
+                <span style="text-align:right;word-break:break-word;min-width:0">{{ d.val }}</span>
+              </div>
+            </sc-for>
+            <div style="font-size:.72rem;color:var(--c-faint);padding:10px 8px 0;line-height:1.45">Visible par la direction seule. Données telles que renvoyées par l'API de pige, sans retouche.</div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
+          <div style="font-size:.94rem;font-weight:800;margin-bottom:10px">Commentaires de l'équipe</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="text" value="{{ sel.commDraft }}" onInput="{{ sel.onCommInput }}" onKeyDown="{{ sel.onCommKey }}" placeholder="Ajouter un mot pour l'équipe…" style="flex:1;min-width:0;border:1px solid var(--c-rule);border-radius:12px;padding:11px 12px;font-size:.88rem;background:var(--c-card);color:var(--c-ink)">
+            <button onClick="{{ sel.onCommAdd }}" style="flex:none;border:0;border-radius:12px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.86rem;font-weight:700;padding:11px 14px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.96)">Ajouter</button>
+          </div>
+          <sc-if value="{{ sel.commsVide }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:.78rem;color:var(--c-sec);margin-top:10px;line-height:1.45">Aucun commentaire pour l'instant. Tout ce qui est écrit ici est visible par toute l'équipe.</div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+            <sc-for list="{{ sel.comms }}" as="c" hint-placeholder-count="2">
+              <div style="background:var(--c-group2);border-radius:12px;padding:11px 13px">
+                <div style="font-size:.88rem;line-height:1.5;text-wrap:pretty">{{ c.txt }}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:5px">
+                  <span style="font-size:.74rem;color:var(--c-sec)">{{ c.qui }} · {{ c.quand }}</span>
+                  <sc-if value="{{ c.peutEffacer }}" hint-placeholder-val="{{ true }}">
+                    <button onClick="{{ c.onEffacer }}" style="border:0;background:none;color:var(--c-sec);font-size:.74rem;padding:4px 6px;cursor:pointer;border-radius:8px">Effacer</button>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
           </div>
         </div>
 
-        <div>
-          <div style="display:flex;gap:4px;background:var(--c-group);border-radius:16px;padding:4px;margin-bottom:18px">
-            <sc-for list="{{ sel.tabs }}" as="ft" hint-placeholder-count="2">
-              <button onClick="{{ ft.onTap }}" style="flex:1;border:0;border-radius:13px;padding:11px 6px;font-size:.94rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .22s ease,box-shadow .22s ease;background: {{ ft.bg }};color: {{ ft.color }};box-shadow: {{ ft.shadow }}">{{ ft.label }}</button>
-            </sc-for>
-          </div>
-
-          <sc-if value="{{ sel.tabSuivi }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;flex-direction:column;gap:22px;animation:rmFade .25s ease both">
-              <div>
-                <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin:0 4px 10px">Ce qui a été fait</div>
-                <sc-if value="{{ sel.noHisto }}" hint-placeholder-val="{{ false }}">
-            <div style="font-size:.98rem;color:var(--c-sec);line-height:1.5;padding:0 4px">Rien encore. Ce bien est sorti dans la liste de ce matin.</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4px">
+          <span style="font-size:.76rem;color:var(--c-sec2);font-variant-numeric:tabular-nums">Dossier <b style="color: {{ sel.dossierFg }}">{{ sel.dossierAff }}</b></span>
+          <sc-if value="{{ sel.canSuppr }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ sel.onSuppr }}" style="flex:none;border:0;border-radius:10px;font-size:.78rem;font-weight:700;padding:7px 10px;cursor:pointer;transition:background .18s ease,color .18s ease;background: {{ sel.supprBg }};color: {{ sel.supprFg }}">{{ sel.supprLabel }}</button>
           </sc-if>
-          <div style="display:flex;flex-direction:column;gap:2px">
+        </div>
+        <sc-if value="{{ sel.isSuppr }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--c-group);border-radius:14px;padding:12px 14px;font-size:.82rem;color:var(--c-sec2);line-height:1.45">{{ sel.supprInfo }}</div>
+        </sc-if>
+        <sc-if value="{{ sel.canRestore }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ sel.onRestore }}" style="width:100%;border:0;border-radius:14px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.9rem;font-weight:700;padding:13px;cursor:pointer">Remettre ce bien dans l'affichage</button>
+        </sc-if>
+
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ sel.tabSuivi }}" hint-placeholder-val="{{ false }}">
+        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px;animation:rmFade .25s ease both">
+          <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin-bottom:12px">L'historique</div>
+          <div style="display:grid;grid-template-columns:62px 14px minmax(0,1fr);column-gap:10px">
+            <span style="font-size:.7rem;color:var(--c-sec2);text-align:right;padding-top:2px">Maintenant</span>
+            <span style="display:flex;flex-direction:column;align-items:center">
+              <span style="width:12px;height:12px;border-radius:6px;margin-top:3px;border:2px solid var(--rm-accent,#2F6FE4);background:var(--c-card);flex:none"></span>
+              <span style="flex:1;width:2px;background:var(--c-track);margin-top:2px"></span>
+            </span>
+            <span style="padding-bottom:16px">
+              <span style="display:block;font-size:.88rem;font-weight:700;line-height:1.35">{{ sel.nextLabel }}</span>
+              <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px">Étape en cours · {{ sel.nextSub }}</span>
+            </span>
             <sc-for list="{{ sel.histo }}" as="h" hint-placeholder-count="4">
-              <div style="display:flex;gap:14px;padding:14px 4px">
-                <span style="width:10px;height:10px;border-radius:5px;flex:none;margin-top:7px;background: {{ h.color }}"></span>
-                <span style="flex:1;min-width:0">
-                  <span style="display:block;font-size:1.02rem;line-height:1.4;text-wrap:pretty">{{ h.quoi }}</span>
-                  <span style="display:block;font-size:.86rem;color:var(--c-sec);margin-top:3px">{{ h.qui }} · {{ h.quand }}</span>
-                </span>
-              </div>
+              <span style="font-size:.7rem;color:var(--c-sec2);text-align:right;padding-top:2px;font-variant-numeric:tabular-nums">{{ h.jour }}</span>
+              <span style="display:flex;flex-direction:column;align-items:center">
+                <span style="width:10px;height:10px;border-radius:5px;margin-top:4px;flex:none;background: {{ h.color }}"></span>
+                <span style="flex:1;width:2px;background:var(--c-track);margin-top:2px"></span>
+              </span>
+              <span style="padding-bottom:16px">
+                <span style="display:block;font-size:.88rem;font-weight:700;line-height:1.4;text-wrap:pretty">{{ h.quoi }}</span>
+                <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px">{{ h.qui }} · {{ h.quand }}</span>
+              </span>
             </sc-for>
           </div>
-              </div>
-              
-            </div>
-          </sc-if>
-
-          <sc-if value="{{ sel.tabVendeur }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;flex-direction:column;gap:14px;animation:rmFade .25s ease both">
-              <div style="background:var(--c-card);border-radius:24px;padding:18px;box-shadow:var(--sh-card);padding:20px">
-                <div style="display:grid;grid-template-columns:auto 1fr;gap:11px 16px;font-size:.96rem;align-items:baseline">
-                  <span style="color:var(--c-sec2)">Annonceur</span>
-                  <span style="font-weight:600;color: {{ sel.cv.nomColor }}">{{ sel.cv.nom }} <span style="font-weight:400;color:var(--c-sec2);font-size:.86rem">{{ sel.cv.nomLabel }} — {{ sel.cv.nomUtil }}</span></span>
-                  <span style="color:var(--c-sec2)">Téléphone</span>
-                  <span style="color: {{ sel.cv.telColor }}">{{ sel.cv.tel }}</span>
-                  <span style="color:var(--c-sec2)">E-mail</span>
-                  <span style="color: {{ sel.cv.mailColor }}">{{ sel.cv.mail }}</span>
-                </div>
-                <sc-if value="{{ sel.cv.hasDispo }}" hint-placeholder-val="{{ false }}">
-                  <div style="margin-top:14px;padding:11px 13px;border-radius:14px;background:var(--c-group);font-size:.9rem;line-height:1.45;color:var(--c-sec2);text-wrap:pretty">{{ sel.cv.dispo }}</div>
-                </sc-if>
-                <div style="font-size:.84rem;color:var(--c-sec2);margin-top:12px;line-height:1.45;text-wrap:pretty">{{ sel.canalNote }}</div>
-                <a href="{{ sel.url }}" target="_blank" rel="noopener noreferrer" style="margin-top:14px;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:16px;background:var(--rm-accent,#0071E3);color:#fff;font-size:.98rem;font-weight:600;padding:15px 18px;text-decoration:none">Écrire par la messagerie de l'annonce ↗</a>
-              </div>
-              <div style="background:var(--c-warnbg);border-radius:20px;padding:18px">
-                <div style="font-size:.96rem;font-weight:700;color:var(--c-warnink)">Pas d'appel sans accord</div>
-                <div style="font-size:.88rem;color:var(--c-warnink);line-height:1.5;margin-top:6px;text-wrap:pretty">Depuis le 11 août 2026, on ne peut plus appeler un particulier qui n'a pas donné son accord. L'entrée « Appel » ne s'enregistre que si le vendeur a dit oui, et cet accord est daté et conservé.</div>
-                <button onClick="{{ goRegles }}" style="margin-top:10px;border:0;background:none;padding:0;font-size:.9rem;font-weight:600;color:var(--c-warnink);cursor:pointer;text-decoration:underline">Lire la règle en entier</button>
-              </div>
-            </div>
+          <sc-if value="{{ sel.noHisto }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:.86rem;color:var(--c-sec);line-height:1.5;margin-top:4px">Rien encore. Ce bien est sorti dans la liste de ce matin.</div>
           </sc-if>
         </div>
-
+      </sc-if>
       </div>
     </div>
   </sc-if>
@@ -767,44 +826,45 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 
       <div data-cards style="margin-bottom:30px">
         <sc-for list="{{ tousCards }}" as="it" hint-placeholder-count="5">
-          <div data-row style="background:var(--c-card);border-radius:20px;padding:14px;box-shadow:var(--sh-card);animation:rmUp .34s cubic-bezier(.32,.72,0,1) both">
-            <button data-rowbtn onClick="{{ it.onOpen }}" aria-label="{{ it.titre }}"></button>
+          <div data-row>
+            <button data-rowbtn onClick="{{ it.onOpen }}" aria-label="{{ it.titre }}" style-hover="background:var(--c-group2)"></button>
+            <span data-ring style="width:36px;height:36px;border-radius:18px;display:flex;align-items:center;justify-content:center;background: {{ it.gauge }}">
+              <span style="width:28px;height:28px;border-radius:14px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:800;font-variant-numeric:tabular-nums;color: {{ it.scoreFg }}">{{ it.score }}</span>
+            </span>
             <div data-thumb>
-              <div style="width:100%;height:100%;border-radius:13px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
+              <div style="width:100%;height:100%;border-radius:11px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
                 <img src="{{ it.photo }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display: {{ it.photoShow }}">
-                <span style="font-size:.72rem;color:var(--c-faint);display: {{ it.photoNone }}">Sans photo</span>
+                <span style="font-size:.6rem;color:var(--c-faint);text-align:center;display: {{ it.photoNone }}">Sans photo</span>
               </div>
             </div>
-            <div data-idn style="display:flex;align-items:center;gap:12px;min-width:0">
-              <span style="width:40px;height:40px;border-radius:20px;flex:none;display:flex;align-items:center;justify-content:center;background: {{ it.gauge }}">
-                <span style="width:31px;height:31px;border-radius:16px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:.84rem;font-weight:700;font-variant-numeric:tabular-nums;color: {{ it.scoreFg }}">{{ it.score }}</span>
+            <div data-txt>
+              <span style="display:block;font-size:.9rem;font-weight:700;letter-spacing:-.01em;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity: {{ it.dim }}">{{ it.titre }}</span>
+              <span style="display:flex;align-items:baseline;gap:6px;margin-top:3px;min-width:0;white-space:nowrap">
+                <span style="font-size:.9rem;font-weight:800;font-variant-numeric:tabular-nums;flex:none">{{ it.prix }}</span>
+                <sc-if value="{{ it.aBaisse }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:.72rem;font-weight:700;color:#C4412B;flex:none">{{ it.baisse }}</span>
+                </sc-if>
+                <span style="font-size:.74rem;color:var(--c-sec2);overflow:hidden;text-overflow:ellipsis;min-width:0">{{ it.lieu }}</span>
               </span>
-              <span style="min-width:0">
-                <span style="display:block;font-size:1.02rem;font-weight:600;letter-spacing:-.01em;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity: {{ it.dim }}">{{ it.titre }}</span>
-                <span style="display:block;font-size:.88rem;color:var(--c-sec);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.lieu }}</span>
-              </span>
-            </div>
-            <div data-prix style="font-size:1.25rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap">{{ it.prix }}
-              <sc-if value="{{ it.aBaisse }}" hint-placeholder-val="{{ false }}">
-                <span style="display:block;font-size:.78rem;font-weight:700;color:#A8321F;margin-top:2px">{{ it.baisse }}</span>
+              <sc-if value="{{ it.showGeste }}" hint-placeholder-val="{{ true }}">
+                <span style="display:flex;align-items:center;gap:6px;margin-top:4px;min-width:0">
+                  <span style="width:8px;height:8px;border-radius:4px;flex:none;background: {{ it.color }};border: {{ it.ring }}"></span>
+                  <span style="font-size:.74rem;color:var(--c-sec2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.geste }}</span>
+                </span>
               </sc-if>
             </div>
-            <div data-geste style="min-width:0">
-              <sc-if value="{{ it.canAssign }}" hint-placeholder-val="{{ true }}">
-                <button onClick="{{ it.onAssignOpen }}" style="pointer-events:auto;border:0;border-radius:15px;background:var(--c-tint);color:var(--c-accent-text);font-size:.94rem;font-weight:600;padding:12px 18px;cursor:pointer;white-space:nowrap;transition:transform .18s ease,background .18s ease" style-active="transform:scale(.96)">Attribuer</button>
+            <div data-act>
+              <sc-if value="{{ it.canAssign }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ it.onAssignOpen }}" aria-label="Attribuer" title="Attribuer" style="pointer-events:auto;width:30px;height:30px;border-radius:15px;border:0;background:color-mix(in srgb,var(--c-sky) 16%,var(--c-card));color:var(--c-accent-text);font-size:1.1rem;font-weight:700;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .18s ease" style-active="transform:scale(.9)">+</button>
               </sc-if>
-              <sc-if value="{{ it.showGeste }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:center;gap:9px;min-width:0">
-                  <span style="width:12px;height:12px;border-radius:6px;flex:none;background: {{ it.color }};border: {{ it.ring }}"></span>
-                  <span data-gtxt style="font-size:.88rem;color:var(--c-sec2);line-height:1.35;min-width:0">{{ it.geste }}</span>
-                </div>
+              <sc-if value="{{ it.showGeste }}" hint-placeholder-val="{{ true }}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-faint)"><path d="M9 18l6-6-6-6"></path></svg>
               </sc-if>
             </div>
-            <span data-chev style="color:var(--c-faint);font-size:1.2rem;line-height:1">›</span>
           </div>
         </sc-for>
         <sc-if value="{{ tousMore }}" hint-placeholder-val="{{ false }}">
-          <button onClick="{{ onTousMore }}" style="border:0;background:none;color:var(--c-accent-text);font-size:.98rem;font-weight:600;padding:12px;cursor:pointer;border-radius:16px;transition:background .18s ease" style-hover="background:var(--c-group)">{{ tousMoreLabel }}</button>
+          <button onClick="{{ onTousMore }}" style="border:0;border-top:1px solid var(--c-rule);background:none;color:var(--c-accent-text);font-size:.92rem;font-weight:700;padding:14px;cursor:pointer;transition:background .18s ease" style-hover="background:var(--c-group2)">{{ tousMoreLabel }}</button>
         </sc-if>
       </div>
     </div>
@@ -1029,12 +1089,15 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 </div>
 </div>
 
-<div data-tabbar style="position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--c-head);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);box-shadow:0 -.5px 0 var(--c-rule)">
-  <div style="max-width:520px;margin:0 auto;padding:8px 16px 14px;display:flex;gap:6px">
-    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
-      <button onClick="{{ t.onTap }}" style="flex:1;border:0;background:none;padding:10px 6px;cursor:pointer;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:background .18s ease;color: {{ t.color }}" style-hover="background:var(--c-group)" style-active="transform:scale(.96)">
-        <span style="font-size:1.25rem;line-height:1">{{ t.icon }}</span>
-        <span style="font-size:.72rem;font-weight:600;letter-spacing:.01em">{{ t.label }}</span>
+<div data-tabbar style="position:fixed;left:0;right:0;bottom:0;z-index:30;padding:0 16px max(14px,env(safe-area-inset-bottom));pointer-events:none">
+  <div style="max-width:488px;margin:0 auto;background:var(--c-navy);border-radius:28px;padding:6px;display:flex;gap:4px;align-items:center;box-shadow:0 12px 32px rgba(15,20,40,.32);pointer-events:auto">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button onClick="{{ t.onTap }}" aria-label="{{ t.label }}" title="{{ t.label }}" style="border:0;padding:11px 16px;cursor:pointer;border-radius:22px;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .22s ease,color .22s ease;flex: {{ t.grow }};background: {{ t.pill }};color: {{ t.barFg }}" style-active="transform:scale(.95)">
+        <sc-if value="{{ t.isJour }}" hint-placeholder-val="{{ true }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3.2" fill="currentColor"></circle></svg></sc-if>
+        <sc-if value="{{ t.isTous }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></sc-if>
+        <sc-if value="{{ t.isEquipe }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"></path><path d="M16 4.7a3.5 3.5 0 0 1 0 6.6M18 14.8c1.9.7 3.1 2.4 3.5 5.2"></path></svg></sc-if>
+        <sc-if value="{{ t.isRes }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h16M7 16v-5M12 16V6M17 16v-8"></path></svg></sc-if>
+        <sc-if value="{{ t.on }}" hint-placeholder-val="{{ true }}"><span style="font-size:.84rem;font-weight:700;white-space:nowrap">{{ t.label }}</span></sc-if>
       </button>
     </sc-for>
   </div>
@@ -1103,7 +1166,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0071E3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0071E3&quot;,&quot;var(--c-ink)&quot;,&quot;#0A8F5B&quot;,&quot;#B0561A&quot;],&quot;section&quot;:&quot;Apparence&quot;},&quot;textScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.02,&quot;min&quot;:0.9,&quot;max&quot;:1.3,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Apparence&quot;},&quot;feter&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportement&quot;},&quot;vue&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Direction&quot;,&quot;Négociateur&quot;],&quot;default&quot;:&quot;Direction&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Comportement&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2F6FE4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#2F6FE4&quot;,&quot;#0071E3&quot;,&quot;var(--c-ink)&quot;,&quot;#0A8F5B&quot;,&quot;#B0561A&quot;],&quot;section&quot;:&quot;Apparence&quot;},&quot;textScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.02,&quot;min&quot;:0.9,&quot;max&quot;:1.3,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Apparence&quot;},&quot;feter&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportement&quot;},&quot;vue&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Direction&quot;,&quot;Négociateur&quot;],&quot;default&quot;:&quot;Direction&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Comportement&quot;}}">
 class Component extends DCLogic {
   state = { user: null, loginFor: null, pin: "", pinErr: false, pinBusy: false, screen: "jour", stack: [], selId: null, role: "__dir", more: {}, ai: {}, toast: null, assignFor: null,
             party: null, repIdx: 0, tick: 0, filter: "contact",
@@ -2053,7 +2116,7 @@ class Component extends DCLogic {
     } else {
       this._charge = true;
     }
-    document.documentElement.style.setProperty("--rm-accent", this.props.accent || "#0071E3");
+    document.documentElement.style.setProperty("--rm-accent", this.props.accent || "#2F6FE4");
     document.documentElement.style.fontSize = (16 * (this.props.textScale || 1.02)) + "px";
     let u = null;
     try { u = localStorage.getItem("radar_user"); } catch (e) {}
@@ -2315,7 +2378,7 @@ class Component extends DCLogic {
       const patch = {}; patch[key] = o[0]; patch.tousAll = false;
       return {
         label: o[1],
-        bg: on ? (this.props.accent || "#0071E3") : "var(--c-group)",
+        bg: on ? (this.props.accent || "#2F6FE4") : "var(--c-group)",
         fg: on ? "#fff" : "var(--c-ink)",
         onTap: () => this.setState(patch)
       };
@@ -2453,7 +2516,7 @@ class Component extends DCLogic {
            d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
   }
   gauge(l) {
-    const c = l.score >= 70 ? (this.props.accent || "#0071E3") : l.score >= 50 ? "#E0951B" : "var(--c-faint)";
+    const c = l.score >= 70 ? (this.props.accent || "#2F6FE4") : l.score >= 50 ? "#E0951B" : "var(--c-faint)";
     return "conic-gradient(" + c + " 0 " + l.score + "%,var(--c-track) " + l.score + "% 100%)";
   }
 
@@ -2480,12 +2543,12 @@ class Component extends DCLogic {
 
   statColor(l) {
     return { nouveau: "var(--c-faint)", attribue: "#5AC8FA", contacte: "#FF9F0A",
-             rdv: this.props.accent || "#0071E3", mandat: "#34C759", sansSuite: "var(--c-track)" }[l.statut];
+             rdv: this.props.accent || "#2F6FE4", mandat: "#34C759", sansSuite: "var(--c-track)" }[l.statut];
   }
   statGlyph(l) { return l.statut === "mandat" ? "✓" : l.statut === "rdv" ? "★" : ""; }
   dots(l) {
     const n = l.score >= 70 ? 3 : l.score >= 50 ? 2 : 1;
-    const on = l.score >= 70 ? (this.props.accent || "#0071E3") : l.score >= 50 ? "#E0951B" : "var(--c-faint)";
+    const on = l.score >= 70 ? (this.props.accent || "#2F6FE4") : l.score >= 50 ? "#E0951B" : "var(--c-faint)";
     return [0, 1, 2].map(i => ({ c: i < n ? on : "var(--c-dot-off)" }));
   }
   cardVM(l) {
@@ -2642,9 +2705,35 @@ class Component extends DCLogic {
       opts = ["Estimation remise au vendeur", "Relance"];
     }
     const step = opts.indexOf(this.state.step) >= 0 ? this.state.step : opts[0];
-    const tab = this.state.fTab === "vendeur" ? "vendeur" : "suivi";
-    const a = this.props.accent || "#0071E3";
-    return {
+    const tab = this.state.fTab === "suivi" ? "suivi" : "fiche";
+    const a = this.props.accent || "#2F6FE4";
+    const dr = this.state.dr || {};
+    const drTog = k => () => this.setState(st => ({ dr: Object.assign({}, st.dr || {}, { [k]: !(st.dr || {})[k] }) }));
+    const hp = l.histoPrix || [];
+    const jm = t => new Date(t).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
+    const cv0 = this.contactVendeur(l);
+    const vm = {
+      dr: {
+        adr: !!dr.adr, prix: !!dr.prix, vend: !!dr.vend, brut: !!dr.brut,
+        adrChev: dr.adr ? "rotate(180deg)" : "none", prixChev: dr.prix ? "rotate(180deg)" : "none",
+        vendChev: dr.vend ? "rotate(180deg)" : "none", brutChev: dr.brut ? "rotate(180deg)" : "none",
+        onAdr: drTog("adr"), onPrix: drTog("prix"), onVend: drTog("vend"), onBrut: drTog("brut")
+      },
+      prixInit: hp.length ? this.eur(hp[0][2]) : "",
+      prixResume: hp.length ? hp[0][2].toLocaleString("fr-FR") + " → " + this.eur(l.prix) + " le " + jm(hp[hp.length - 1][0]) : "",
+      vendResume: [l.source, cv0.nom || "annonceur non communiqué",
+        cv0.tel || cv0.mail ? [cv0.tel ? "tél." : "", cv0.mail ? "e-mail" : ""].filter(Boolean).join(" et ") + " dans l'annonce" : "sans tél. ni e-mail"].join(" · "),
+      tags: [
+        { label: l.type },
+        l.surface ? { label: l.surface + " m²" } : null,
+        l.dpe ? { label: "DPE " + l.dpe, bg: "color-mix(in srgb,#34C759 16%,var(--c-card))", fg: "#0A7A4E" } : null,
+        hp.length ? { label: "−" + Math.round((1 - l.prix / hp[0][2]) * 100) + " % · " + (hp.length > 1 ? hp.length + " baisses" : "1 baisse") + " · le " + jm(hp[hp.length - 1][0]),
+          bg: "color-mix(in srgb,#C0392B 11%,var(--c-card))", fg: "#A8321F" } : null,
+        l.enAgence ? { label: "⌂ Déjà en agence", bg: "color-mix(in srgb,#B0561A 14%,var(--c-card))", fg: "#9A4A12" }
+          : { label: "✓ Particulier seul", bg: "color-mix(in srgb,#0A8F5B 13%,var(--c-card))", fg: "#0A7A4E" }
+      ].filter(Boolean).map(t => ({ label: t.label, bg: t.bg || "var(--c-card)", fg: t.fg || "var(--c-ink)" })),
+      pills: l.parts.filter(p => p[1] > 0).sort((x, y) => y[1] - x[1])
+        .map(p => ({ pts: "+" + String(p[1]).replace(".", ","), label: p[0], note: p[3] })),
       titre: l.titre,
       sub: l.type + " · " + l.secteur + (l.surface ? " · " + l.surface + " m²" : "") + (l.dpe ? " · DPE " + l.dpe : ""),
       prix: this.eur(l.prix),
@@ -2790,15 +2879,14 @@ class Component extends DCLogic {
       step,
       onStep: e => this.setState({ step: e.target.value }),
       onSave: () => { this.record(l, step); this.setState({ step: null }); },
-      tabBien: tab === "bien", tabSuivi: tab === "suivi", tabVendeur: tab === "vendeur",
+      tabFiche: tab === "fiche", tabSuivi: tab === "suivi",
       tabs: [
-        { key: "suivi", label: "Le suivi" + (l.histo.length ? " · " + l.histo.length : "") },
-        { key: "vendeur", label: "Le vendeur" }
+        { key: "fiche", label: "La fiche" },
+        { key: "suivi", label: "Ce qui a été fait" + (l.histo.length ? " · " + l.histo.length : "") }
       ].map(t => ({
         label: t.label,
-        bg: tab === t.key ? "var(--c-card)" : "transparent",
-        color: tab === t.key ? "var(--c-ink)" : "var(--c-sec)",
-        shadow: tab === t.key ? "var(--sh-tab)" : "none",
+        bg: tab === t.key ? "var(--c-navy3)" : "transparent",
+        color: tab === t.key ? "#fff" : "rgba(255,255,255,.62)",
         onTap: () => this.setState({ fTab: t.key })
       })),
       showConsent: l.reached < 2,
@@ -2903,7 +2991,7 @@ class Component extends DCLogic {
       texte: "« " + l.texte + " »",
       noHisto: l.histo.length === 0,
       histo: [...l.histo].sort((x, y) => y.t - x.t).map(e => ({
-        quoi: e.quoi, qui: e.qui, quand: this.quand(e.t),
+        quoi: e.quoi, qui: e.qui, quand: this.quand(e.t), jour: jm(e.t),
         color: e.et === "mandat" ? "#34C759" : e.et === "rdv" ? a : e.et === "contacte" ? "#FF9F0A"
              : e.et === "sansSuite" ? "var(--c-faint)" : "var(--c-faint)"
       })),
@@ -2918,10 +3006,12 @@ class Component extends DCLogic {
       scoreWord: l.score >= 70 ? "à travailler en premier" : l.score >= 50 ? "à travailler cette semaine" : "peut attendre",
       parts: l.parts.map(p => ({ label: p[0], note: p[3], pct: Math.round(p[1] / p[2] * 100) }))
     };
+    vm.brutResume = vm.brut.length + " données · dossier " + (l.dossier || "non attribué");
+    return vm;
   }
 
   renderVals() {
-    const dir = this.isDir(), sc = this.scope(), a = this.props.accent || "#0071E3";
+    const dir = this.isDir(), sc = this.scope(), a = this.props.accent || "#2F6FE4";
     const scr = this.state.screen;
     const l = this.sel();
     const titles = { notifs: "Notifications", jour: dir ? "Aujourd'hui" : "Mes biens", tous: "Tous les biens", bien: "Le bien", equipe: "L'équipe",
@@ -2955,7 +3045,7 @@ class Component extends DCLogic {
     return {
       headerTitle: (wide ? titles[base] : titles[scr]) || "",
       headerSub: base === "jour" && (wide || scr === "jour") ? (dir ? "Laborie Immobilier · Béziers" : this.state.role)
-               : scr === "bien" && l ? l.secteur : "",
+               : scr === "bien" && l ? l.secteur + (l.ref ? " · réf. " + l.ref : "") : "",
       showBack: ["bien", "qui", "repartir", "attribuer", "regles", "notifs"].includes(scr),
       onBack: () => this.back(),
       screenRef: this.screenRef,
@@ -2993,12 +3083,12 @@ class Component extends DCLogic {
         const defs = this.groupDefs(), cur = this.state.filter;
         const all = defs.concat([["__all", "Tous", "var(--c-faint)", this.listScope()]]);
         return all.map(d => {
-          const on = (cur || "__all") === d[0];
+          const on = (defs.some(x => x[0] === cur) ? cur : "__all") === d[0];
           return {
             label: d[1], count: d[3].length,
-            bg: on ? a : "var(--c-group)", fg: on ? "#fff" : "var(--c-ink)",
-            countFg: "#fff", bubbleBg: a,
-            dot: on ? "#fff" : d[2],
+            bg: on ? "var(--c-card)" : "transparent", fg: on ? "var(--c-ink)" : "var(--c-sec2)",
+            shadow: on ? "var(--sh-tab)" : "none",
+            countFg: on ? "var(--c-accent-text)" : "var(--c-sec)",
             onTap: () => this.setState({ filter: d[0] === "__all" ? null : d[0], seeAll: false })
           };
         });
@@ -3027,24 +3117,29 @@ class Component extends DCLogic {
       /* le filtre par personne n'existe qu'en vue direction */
       venti: [null].concat(this.TEAM).map(n => {
         const on = n === null ? !this.state.person : this.state.person === n;
-        if (n === null) return {
+        const look = { bg: on ? "color-mix(in srgb,var(--c-sky) 11%,var(--c-card))" : "var(--c-card)",
+          radio: on ? "var(--rm-accent,#2F6FE4)" : "var(--c-faint)", dot: on ? "var(--rm-accent,#2F6FE4)" : "transparent", w: on ? 700 : 500 };
+        if (n === null) return Object.assign(look, {
           nom: "Toute l'agence", ini: "LI", count: this.scope().length,
-          bg: on ? a : "var(--c-group)", fg: on ? "#fff" : "var(--c-ink)",
-          numFg: "#fff", bubbleBg: a,
-          avBg: on ? "rgba(255,255,255,.22)" : "var(--c-card)",
-          avFg: on ? "#fff" : "var(--c-ink)",
-          onTap: () => this.setState({ person: null, seeAll: false })
-        };
-        return {
+          onTap: () => this.setState({ person: null, seeAll: false, ventiOpen: false })
+        });
+        return Object.assign(look, {
           nom: n.split(" ")[0], ini: this.ini(n),
           count: this.L.filter(x => x.assign === n).length,
-          bg: on ? a : "var(--c-group)", fg: on ? "#fff" : "var(--c-ink)",
-          numFg: "#fff", bubbleBg: a,
-          avBg: on ? "rgba(255,255,255,.22)" : "var(--c-card)",
-          avFg: on ? "#fff" : "var(--c-ink)",
-          onTap: () => this.setState(s => ({ person: s.person === n ? null : n, seeAll: false }))
-        };
+          onTap: () => this.setState({ person: n, seeAll: false, ventiOpen: false })
+        });
       }),
+      ventiOpen: !!this.state.ventiOpen,
+      ventiBorder: this.state.ventiOpen ? "var(--rm-accent,#2F6FE4)" : "transparent",
+      ventiChev: this.state.ventiOpen ? "rotate(180deg)" : "none",
+      onVentiToggle: () => this.setState(st => ({ ventiOpen: !st.ventiOpen })),
+      ventiCur: (() => {
+        const p = this.state.person;
+        if (!p) return { nom: "Toute l'agence", ini: "LI",
+          sub: this.TEAM.length + " personnes · " + this.scope().length + " biens" };
+        const k = this.L.filter(x => x.assign === p).length;
+        return { nom: p, ini: this.ini(p), sub: k + (k > 1 ? " biens confiés" : " bien confié") };
+      })(),
       cards: (() => {
         const d = this.groupDefs().find(x => x[0] === this.state.filter);
         const list = d ? d[3] : this.listScope();
@@ -3251,9 +3346,13 @@ class Component extends DCLogic {
         ...(dir ? [{ label: "L'équipe", icon: "◍", key: "equipe" }] : []),
         { label: dir ? "Résultats" : "Mes résultats", icon: "◒", key: "resultats" }
       ].map(t => ({
-        label: t.label, icon: t.icon,
+        label: t.label, icon: t.icon, on: base === t.key,
+        isJour: t.key === "jour", isTous: t.key === "tous", isEquipe: t.key === "equipe", isRes: t.key === "resultats",
         color: base === t.key ? "var(--c-accent-text)" : "var(--c-sec)",
         bg: base === t.key ? "var(--c-tint)" : "transparent",
+        pill: base === t.key ? "var(--rm-accent,#2F6FE4)" : "transparent",
+        barFg: base === t.key ? "#fff" : "rgba(255,255,255,.7)",
+        grow: base === t.key ? "0 0 auto" : "1 1 0",
         onTap: () => this.tab(t.key)
       })),
 
