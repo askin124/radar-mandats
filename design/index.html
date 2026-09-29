@@ -452,17 +452,20 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </sc-if>
         </div>
 
-        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
-          <div style="display:flex;gap:14px;align-items:flex-start">
+        <div data-drw>
+          <button data-drwbtn onClick="{{ sel.dr.onScore }}" aria-expanded="{{ sel.dr.score }}" style="padding:16px;gap:14px;align-items:flex-start">
             <div style="flex:none;width:58px;height:58px;border-radius:29px;display:flex;align-items:center;justify-content:center;background: {{ sel.gauge }}">
               <div style="width:46px;height:46px;border-radius:23px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:1.15rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color: {{ sel.scoreColor }}">{{ sel.score }}</div>
             </div>
             <div style="flex:1;min-width:0">
               <div style="font-size:1rem;font-weight:800;letter-spacing:-.01em">{{ sel.scoreWordCap }}</div>
-              <div style="font-size:.8rem;color:var(--c-sec2);line-height:1.5;margin-top:4px;text-wrap:pretty">{{ sel.verdict }}</div>
+              <div style="font-size:.8rem;color:var(--c-sec2);line-height:1.5;margin-top:4px;text-wrap:pretty;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp: {{ sel.dr.scoreClamp }}">{{ sel.verdict }}</div>
             </div>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.scoreChev }}"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{ sel.dr.score }}" hint-placeholder-val="{{ false }}">
+          <div data-drwbody>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
             <sc-for list="{{ sel.pills }}" as="p" hint-placeholder-count="4">
               <span data-pill title="{{ p.note }}" style="background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><b>{{ p.pts }}</b> {{ p.label }}</span>
             </sc-for>
@@ -480,6 +483,8 @@ a:hover{color:var(--c-accent-text);opacity:.7}
                 </div>
               </sc-for>
             </div>
+          </sc-if>
+          </div>
           </sc-if>
         </div>
 
@@ -2720,6 +2725,7 @@ class Component extends DCLogic {
     const cv0 = this.contactVendeur(l);
     const vm = {
       dr: {
+        score: !!dr.score, scoreChev: dr.score ? "rotate(180deg)" : "none", scoreClamp: dr.score ? "unset" : "2", onScore: drTog("score"),
         adr: !!dr.adr, prix: !!dr.prix, vend: !!dr.vend, brut: !!dr.brut,
         adrChev: dr.adr ? "rotate(180deg)" : "none", prixChev: dr.prix ? "rotate(180deg)" : "none",
         vendChev: dr.vend ? "rotate(180deg)" : "none", brutChev: dr.brut ? "rotate(180deg)" : "none",
