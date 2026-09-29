@@ -390,41 +390,16 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </div>
         </div>
 
-        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
-          <div style="display:flex;gap:14px;align-items:flex-start">
-            <div style="flex:none;width:58px;height:58px;border-radius:29px;display:flex;align-items:center;justify-content:center;background: {{ sel.gauge }}">
-              <div style="width:46px;height:46px;border-radius:23px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:1.15rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color: {{ sel.scoreColor }}">{{ sel.score }}</div>
-            </div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:1rem;font-weight:800;letter-spacing:-.01em">{{ sel.scoreWordCap }}</div>
-              <div style="font-size:.8rem;color:var(--c-sec2);line-height:1.5;margin-top:4px;text-wrap:pretty">{{ sel.verdict }}</div>
-            </div>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
-            <sc-for list="{{ sel.pills }}" as="p" hint-placeholder-count="4">
-              <span data-pill title="{{ p.note }}" style="background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><b>{{ p.pts }}</b> {{ p.label }}</span>
-            </sc-for>
-          </div>
-          <button onClick="{{ sel.onParts }}" style="margin-top:12px;border:0;background:none;padding:0;font-size:.84rem;font-weight:700;color:var(--c-accent-text);cursor:pointer;text-align:left">{{ sel.partsLabel }}</button>
-          <sc-if value="{{ sel.showParts }}" hint-placeholder-val="{{ false }}">
-            <div data-crit style="margin-top:12px;background:var(--c-group2);border-radius:14px;padding:14px;animation:rmIn .28s cubic-bezier(.32,.72,0,1) both">
-              <sc-for list="{{ sel.parts }}" as="p" hint-placeholder-count="5">
-                <div>
-                  <div style="font-size:.78rem;font-weight:600;line-height:1.25;text-wrap:pretty">{{ p.label }}</div>
-                  <div style="height:5px;border-radius:3px;background:var(--c-track);overflow:hidden;margin:6px 0 4px">
-                    <div style="height:100%;border-radius:3px;background:var(--rm-accent,#2F6FE4);width: {{ p.pct }}%;transition:width .5s cubic-bezier(.32,.72,0,1)"></div>
-                  </div>
-                  <div style="font-size:.74rem;color:var(--c-sec2)">{{ p.note }}</div>
-                </div>
-              </sc-for>
-            </div>
-          </sc-if>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--c-card);box-shadow:var(--sh-flat);color:var(--c-ink);font-size:.9rem;font-weight:700;padding:13px 10px;text-decoration:none">Itinéraire ↗</a>
-          <button onClick="{{ sel.adr.onDevant }}" style="border:0;border-radius:14px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.9rem;font-weight:700;padding:13px 10px;cursor:pointer;box-shadow:0 6px 16px rgba(47,111,228,.28);transition:transform .18s ease" style-active="transform:scale(.97)">{{ sel.adr.devantLabel }}</button>
-        </div>
+        <sc-if value="{{ sel.canAssign }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ sel.onAssign }}" style="width:100%;border:0;border-radius:18px;background:var(--c-card);box-shadow:var(--sh-card);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;color:var(--c-ink);transition:transform .18s ease" style-active="transform:scale(.985)">
+            <span style="width:34px;height:34px;border-radius:17px;flex:none;border:1.5px dashed var(--c-faint);color:var(--c-sec);display:flex;align-items:center;justify-content:center;font-size:1rem">+</span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:.9rem;font-weight:700">{{ sel.assignTitle }}</span>
+              <span style="display:block;font-size:.78rem;color:var(--c-sec2);margin-top:2px">{{ sel.assignSub }}</span>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-faint)"><path d="M9 18l6-6-6-6"></path></svg>
+          </button>
+        </sc-if>
 
         <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
           <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2);margin-bottom:10px">Où en est ce bien ?</div>
@@ -467,15 +442,59 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </sc-if>
         </div>
 
-        <sc-if value="{{ sel.canAssign }}" hint-placeholder-val="{{ false }}">
-          <button onClick="{{ sel.onAssign }}" style="width:100%;border:0;border-radius:18px;background:var(--c-card);box-shadow:var(--sh-card);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;color:var(--c-ink);transition:transform .18s ease" style-active="transform:scale(.985)">
-            <span style="width:34px;height:34px;border-radius:17px;flex:none;border:1.5px dashed var(--c-faint);color:var(--c-sec);display:flex;align-items:center;justify-content:center;font-size:1rem">+</span>
+        <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="flex:none;width:58px;height:58px;border-radius:29px;display:flex;align-items:center;justify-content:center;background: {{ sel.gauge }}">
+              <div style="width:46px;height:46px;border-radius:23px;background:var(--c-card);display:flex;align-items:center;justify-content:center;font-size:1.15rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color: {{ sel.scoreColor }}">{{ sel.score }}</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:1rem;font-weight:800;letter-spacing:-.01em">{{ sel.scoreWordCap }}</div>
+              <div style="font-size:.8rem;color:var(--c-sec2);line-height:1.5;margin-top:4px;text-wrap:pretty">{{ sel.verdict }}</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
+            <sc-for list="{{ sel.pills }}" as="p" hint-placeholder-count="4">
+              <span data-pill title="{{ p.note }}" style="background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><b>{{ p.pts }}</b> {{ p.label }}</span>
+            </sc-for>
+          </div>
+          <button onClick="{{ sel.onParts }}" style="margin-top:12px;border:0;background:none;padding:0;font-size:.84rem;font-weight:700;color:var(--c-accent-text);cursor:pointer;text-align:left">{{ sel.partsLabel }}</button>
+          <sc-if value="{{ sel.showParts }}" hint-placeholder-val="{{ false }}">
+            <div data-crit style="margin-top:12px;background:var(--c-group2);border-radius:14px;padding:14px;animation:rmIn .28s cubic-bezier(.32,.72,0,1) both">
+              <sc-for list="{{ sel.parts }}" as="p" hint-placeholder-count="5">
+                <div>
+                  <div style="font-size:.78rem;font-weight:600;line-height:1.25;text-wrap:pretty">{{ p.label }}</div>
+                  <div style="height:5px;border-radius:3px;background:var(--c-track);overflow:hidden;margin:6px 0 4px">
+                    <div style="height:100%;border-radius:3px;background:var(--rm-accent,#2F6FE4);width: {{ p.pct }}%;transition:width .5s cubic-bezier(.32,.72,0,1)"></div>
+                  </div>
+                  <div style="font-size:.74rem;color:var(--c-sec2)">{{ p.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ sel.brutShow }}" hint-placeholder-val="{{ false }}">
+        <div data-drw>
+          <button data-drwbtn onClick="{{ sel.dr.onBrut }}" aria-expanded="{{ sel.dr.brut }}">
+            <span style="width:32px;height:32px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg></span>
             <span style="flex:1;min-width:0">
-              <span style="display:block;font-size:.9rem;font-weight:700">{{ sel.assignTitle }}</span>
-              <span style="display:block;font-size:.78rem;color:var(--c-sec2);margin-top:2px">{{ sel.assignSub }}</span>
+              <span style="display:block;font-size:.9rem;font-weight:700">Toutes les données reçues</span>
+              <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ sel.brutResume }}</span>
             </span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-faint)"><path d="M9 18l6-6-6-6"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.brutChev }}"><path d="M6 9l6 6 6-6"></path></svg>
           </button>
+          <sc-if value="{{ sel.dr.brut }}" hint-placeholder-val="{{ false }}">
+          <div data-drwbody style="padding:0 8px 12px">
+            <sc-for list="{{ sel.brut }}" as="d" hint-placeholder-count="6">
+              <div style="display:flex;justify-content:space-between;gap:14px;padding:8px;border-bottom:1px solid var(--c-rule);font-size:.8rem">
+                <span style="color:var(--c-sec);flex:none">{{ d.cle }}</span>
+                <span style="text-align:right;word-break:break-word;min-width:0">{{ d.val }}</span>
+              </div>
+            </sc-for>
+            <div style="font-size:.72rem;color:var(--c-faint);padding:10px 8px 0;line-height:1.45">Visible par la direction seule. Données telles que renvoyées par l'API de pige, sans retouche.</div>
+          </div>
+          </sc-if>
+        </div>
         </sc-if>
 
         <sc-if value="{{ sel.showConsent }}" hint-placeholder-val="{{ false }}">
@@ -524,11 +543,12 @@ a:hover{color:var(--c-accent-text);opacity:.7}
               </div>
             </sc-if>
 
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+              <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--c-card);box-shadow:var(--sh-flat);color:var(--c-ink);font-size:.9rem;font-weight:700;padding:13px 10px;text-decoration:none">Itinéraire ↗</a>
+              <button onClick="{{ sel.adr.onDevant }}" style="border:0;border-radius:14px;background:var(--rm-accent,#2F6FE4);color:#fff;font-size:.9rem;font-weight:700;padding:13px 10px;cursor:pointer;box-shadow:0 6px 16px rgba(47,111,228,.28);transition:transform .18s ease" style-active="transform:scale(.97)">{{ sel.adr.devantLabel }}</button>
+            </div>
             <sc-if value="{{ sel.adr.ok }}" hint-placeholder-val="{{ false }}">
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-                <a href="{{ sel.adr.carte }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--c-group);color:var(--c-ink);font-size:.86rem;font-weight:700;padding:12px 8px;text-decoration:none">Itinéraire ↗</a>
-                <a href="{{ sel.adr.sv }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text);font-size:.86rem;font-weight:700;padding:12px 8px;text-decoration:none;white-space:nowrap"><span>◎</span>Street View</a>
-              </div>
+              <a href="{{ sel.adr.sv }}" target="_blank" rel="noopener noreferrer" style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text);font-size:.86rem;font-weight:700;padding:12px 8px;text-decoration:none;white-space:nowrap"><span>◎</span>Street View</a>
             </sc-if>
             <sc-if value="{{ sel.adr.hasPin }}" hint-placeholder-val="{{ false }}">
               <button onClick="{{ sel.adr.onEffacer }}" style="margin-top:6px;border:0;background:none;color:var(--c-sec2);font-size:.78rem;padding:6px 0;cursor:pointer;text-decoration:underline">Effacer la position relevée</button>
@@ -620,30 +640,6 @@ a:hover{color:var(--c-accent-text);opacity:.7}
           </div>
           </sc-if>
         </div>
-
-        <sc-if value="{{ sel.brutShow }}" hint-placeholder-val="{{ false }}">
-        <div data-drw>
-          <button data-drwbtn onClick="{{ sel.dr.onBrut }}" aria-expanded="{{ sel.dr.brut }}">
-            <span style="width:32px;height:32px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c-sky) 13%,var(--c-card));color:var(--c-accent-text)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg></span>
-            <span style="flex:1;min-width:0">
-              <span style="display:block;font-size:.9rem;font-weight:700">Toutes les données reçues</span>
-              <span style="display:block;font-size:.76rem;color:var(--c-sec2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ sel.brutResume }}</span>
-            </span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--c-sec);transition:transform .2s ease;transform: {{ sel.dr.brutChev }}"><path d="M6 9l6 6 6-6"></path></svg>
-          </button>
-          <sc-if value="{{ sel.dr.brut }}" hint-placeholder-val="{{ false }}">
-          <div data-drwbody style="padding:0 8px 12px">
-            <sc-for list="{{ sel.brut }}" as="d" hint-placeholder-count="6">
-              <div style="display:flex;justify-content:space-between;gap:14px;padding:8px;border-bottom:1px solid var(--c-rule);font-size:.8rem">
-                <span style="color:var(--c-sec);flex:none">{{ d.cle }}</span>
-                <span style="text-align:right;word-break:break-word;min-width:0">{{ d.val }}</span>
-              </div>
-            </sc-for>
-            <div style="font-size:.72rem;color:var(--c-faint);padding:10px 8px 0;line-height:1.45">Visible par la direction seule. Données telles que renvoyées par l'API de pige, sans retouche.</div>
-          </div>
-          </sc-if>
-        </div>
-        </sc-if>
 
         <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
           <div style="font-size:.94rem;font-weight:800;margin-bottom:10px">Commentaires de l'équipe</div>
