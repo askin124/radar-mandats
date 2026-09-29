@@ -1180,7 +1180,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 <script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2F6FE4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#2F6FE4&quot;,&quot;#0071E3&quot;,&quot;var(--c-ink)&quot;,&quot;#0A8F5B&quot;,&quot;#B0561A&quot;],&quot;section&quot;:&quot;Apparence&quot;},&quot;textScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.02,&quot;min&quot;:0.9,&quot;max&quot;:1.3,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Apparence&quot;},&quot;feter&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportement&quot;},&quot;vue&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Direction&quot;,&quot;Négociateur&quot;],&quot;default&quot;:&quot;Direction&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Comportement&quot;}}">
 class Component extends DCLogic {
   state = { user: null, loginFor: null, pin: "", pinErr: false, pinBusy: false, screen: "jour", stack: [], selId: null, role: "__dir", more: {}, ai: {}, toast: null, assignFor: null,
-            party: null, repIdx: 0, tick: 0, filter: "contact",
+            party: null, repIdx: 0, tick: 0, filter: "__def",
             fType: "", fVille: "", fPrix: "", fAge: "", fCible: "", fQuali: "", tousAll: false };
 
   constructor(props) {
@@ -2604,6 +2604,12 @@ class Component extends DCLogic {
     return this.isDir() && this.state.person ? s.filter(l => l.assign === this.state.person) : s;
   }
 
+  /* filtre à l'arrivée : « À confier » pour la direction, « À contacter » pour un négociateur */
+  curFilter() {
+    const f = this.state.filter;
+    return f === "__def" ? (this.isDir() ? "nouveaux" : "contact") : f;
+  }
+
   groupDefs() {
     const s = this.listScope();
     return (this.isDir() ? [
@@ -3102,7 +3108,7 @@ class Component extends DCLogic {
         }
       },
       chips: (() => {
-        const defs = this.groupDefs(), cur = this.state.filter;
+        const defs = this.groupDefs(), cur = this.curFilter();
         const all = defs.concat([["__all", "Tous", "var(--c-faint)", this.listScope()]]);
         return all.map(d => {
           const on = (defs.some(x => x[0] === cur) ? cur : "__all") === d[0];
@@ -3163,12 +3169,12 @@ class Component extends DCLogic {
         return { nom: p, ini: this.ini(p), sub: k + (k > 1 ? " biens confiés" : " bien confié") };
       })(),
       cards: (() => {
-        const d = this.groupDefs().find(x => x[0] === this.state.filter);
+        const d = this.groupDefs().find(x => x[0] === this.curFilter());
         const list = d ? d[3] : this.listScope();
         return (this.state.seeAll ? list : list.slice(0, 7)).map(x => this.cardVM(x));
       })(),
       hasMore: (() => {
-        const d = this.groupDefs().find(x => x[0] === this.state.filter);
+        const d = this.groupDefs().find(x => x[0] === this.curFilter());
         return (d ? d[3].length : this.listScope().length) > 7;
       })(),
       moreLabel: this.state.seeAll ? "Réduire la liste" : "Voir tous les biens",
@@ -3292,7 +3298,7 @@ class Component extends DCLogic {
                 { pct: c("sansSuite") / tot * 100, c: "var(--c-track)" }],
           alert: dorm > 0,
           alertText: dorm + (dorm > 1 ? " biens confiés depuis plus de 3 jours, jamais touchés" : " bien confié depuis plus de 3 jours, jamais touché"),
-          onOpen: () => { this.setState({ role: nom, screen: "jour", stack: [], more: {}, person: null, filter: "contact", seeAll: false }); }
+          onOpen: () => { this.setState({ role: nom, screen: "jour", stack: [], more: {}, person: null, filter: "__def", seeAll: false }); }
         };
       }),
 
@@ -3332,7 +3338,7 @@ class Component extends DCLogic {
           avBg: this.state.role === p.key ? a : "var(--c-card)",
           avColor: this.state.role === p.key ? "#fff" : "var(--c-ink)",
           check: this.state.role === p.key ? "✓" : "",
-          onPick: () => this.setState({ role: p.key, screen: "jour", stack: [], selId: null, more: {}, ai: {}, person: null, filter: "contact", seeAll: false })
+          onPick: () => this.setState({ role: p.key, screen: "jour", stack: [], selId: null, more: {}, ai: {}, person: null, filter: "__def", seeAll: false })
         })),
       quiIntro: this.estDirecteur()
         ? "Vous êtes connecté en tant que direction. Vous pouvez ouvrir la session de n'importe quel collaborateur pour voir ce qu'il voit."
