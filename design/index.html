@@ -51,7 +51,10 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 [data-sheetwrap]{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center}
 [data-sheet]{width:100%;max-width:560px;border-radius:28px 28px 0 0;padding-bottom:6px}
 [data-crit]{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px 20px}
-[data-photo]{position:relative;width:100%;aspect-ratio:16 / 10}
+[data-photo]{position:relative;width:100%;aspect-ratio:4 / 3}
+[data-herophoto]{margin:-14px -20px 0}
+[data-herophoto] [data-photoin]{border-radius:0}
+[data-photo][data-fs="on"] [data-photoin]{border-radius:18px}
 [data-photo][data-fs="on"]{position:fixed;inset:20px;z-index:62;width:auto;aspect-ratio:auto}
 [data-zoom]{position:absolute;right:12px;bottom:12px;display:none;align-items:center;justify-content:center;width:40px;height:40px;border-radius:20px;border:0;background:rgba(255,255,255,.92);box-shadow:0 2px 8px rgba(0,0,0,.18);font-size:1rem;cursor:zoom-in;color:var(--c-ink)}
 [data-zoomarea]{position:absolute;inset:54px 0 0 0;display:none;border:0;background:none;cursor:zoom-in;padding:0}
@@ -85,6 +88,9 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   [data-sheetwrap]{align-items:center}
   [data-sheet]{max-width:480px;border-radius:26px}
   [data-herocard]{margin:22px 0 26px;padding:20px 24px}
+  [data-herophoto]{margin:0}
+  [data-herophoto] [data-photoin]{border-radius:18px}
+  [data-herophoto] [data-photo]{aspect-ratio:16 / 9}
 
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -390,34 +396,51 @@ a:hover{color:var(--c-accent-text);opacity:.7}
       <sc-if value="{{ sel.tabFiche }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:14px;animation:rmFade .25s ease both">
 
-        <div>
+        <div data-herophoto>
           <div data-photo data-fs="{{ sel.fs }}">
-            <div style="width:100%;height:100%;border-radius:18px;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
+            <div data-photoin style="width:100%;height:100%;overflow:hidden;background:var(--c-group);display:flex;align-items:center;justify-content:center">
               <img src="{{ sel.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;display: {{ sel.photoShow }}">
               <span style="font-size:.86rem;color:var(--c-faint);display: {{ sel.photoNone }}">Cette annonce n'a aucune photo</span>
             </div>
             <button data-zoomarea onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand"></button>
-            <div style="position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:2px;background:rgba(22,30,54,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:18px;padding:3px;color:#fff">
-              <button onClick="{{ sel.onPrev }}" aria-label="Photo précédente" style="width:30px;height:30px;border-radius:15px;border:0;background:none;color:#fff;cursor:pointer;font-size:1.1rem;line-height:1">‹</button>
-              <span style="font-size:.76rem;font-weight:600;font-variant-numeric:tabular-nums;min-width:38px;text-align:center">{{ sel.photoLabel }}</span>
-              <button onClick="{{ sel.onNext }}" aria-label="Photo suivante" style="width:30px;height:30px;border-radius:15px;border:0;background:none;color:#fff;cursor:pointer;font-size:1.1rem;line-height:1">›</button>
-            </div>
-            <button data-zoom onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand">⤢</button>
+            <sc-if value="{{ sel.multiPics }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ sel.onPrev }}" aria-label="Photo précédente" style="position:absolute;left:10px;top:50%;transform:translateY(-80%);width:34px;height:34px;border-radius:17px;border:0;background:rgba(255,255,255,.82);color:var(--c-navy);cursor:pointer;font-size:1.2rem;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.15)">‹</button>
+              <button onClick="{{ sel.onNext }}" aria-label="Photo suivante" style="position:absolute;right:10px;top:50%;transform:translateY(-80%);width:34px;height:34px;border-radius:17px;border:0;background:rgba(255,255,255,.82);color:var(--c-navy);cursor:pointer;font-size:1.2rem;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.15)">›</button>
+              <div style="position:absolute;left:0;right:0;bottom:66px;display:flex;justify-content:center;align-items:center;gap:6px;pointer-events:none">
+                <sc-if value="{{ sel.fewPics }}" hint-placeholder-val="{{ true }}">
+                  <sc-for list="{{ sel.photoDots }}" as="d" hint-placeholder-count="3">
+                    <span style="height:7px;border-radius:4px;background:#fff;transition:width .2s ease,opacity .2s ease;width: {{ d.w }};opacity: {{ d.o }}"></span>
+                  </sc-for>
+                </sc-if>
+                <sc-if value="{{ sel.manyPics }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:.74rem;font-weight:700;color:#fff;background:rgba(22,30,54,.6);border-radius:10px;padding:3px 9px;font-variant-numeric:tabular-nums">{{ sel.photoLabel }}</span>
+                </sc-if>
+              </div>
+            </sc-if>
+            <button data-zoom onClick="{{ sel.onZoom }}" aria-label="Voir la photo en grand" style="top:12px;bottom:auto">⤢</button>
           </div>
         </div>
 
-        <div style="padding:0 2px">
-          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
-            <span style="font-size:1.75rem;font-weight:800;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums">{{ sel.prix }}</span>
-            <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ false }}">
-              <span style="font-size:.84rem;color:var(--c-sec);text-decoration:line-through;font-variant-numeric:tabular-nums">{{ sel.prixInit }}</span>
-            </sc-if>
+        <div style="position:relative;z-index:2;margin-top:-66px;background:var(--c-card);border-radius:22px;box-shadow:var(--sh-card-hi);padding:18px">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="min-width:0">
+              <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+                <span style="font-size:1.9rem;font-weight:800;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums">{{ sel.prix }}</span>
+                <sc-if value="{{ sel.prixShow }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:.84rem;color:var(--c-sec);text-decoration:line-through;font-variant-numeric:tabular-nums">{{ sel.prixInit }}</span>
+                </sc-if>
+              </div>
+              <div style="font-size:.8rem;color:var(--c-sec2);margin-top:6px;line-height:1.4">{{ sel.prixSub }}</div>
+            </div>
+            <span data-pill style="flex:none;padding:7px 11px;font-size:.78rem;background: {{ sel.quali.bg }};color: {{ sel.quali.fg }}">{{ sel.quali.label }}</span>
           </div>
-          <div style="font-size:.94rem;font-weight:600;margin-top:8px;line-height:1.35;text-wrap:pretty">{{ sel.titre }}</div>
-          <div style="font-size:.8rem;color:var(--c-sec2);margin-top:3px;line-height:1.4">{{ sel.prixM2 }} · {{ sel.ecart }}</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
-            <sc-for list="{{ sel.tags }}" as="t" hint-placeholder-count="4">
-              <span data-pill style="background: {{ t.bg }};color: {{ t.fg }}">{{ t.label }}</span>
+          <div style="font-size:.98rem;font-weight:700;margin-top:12px;line-height:1.35;text-wrap:pretty">{{ sel.titre }}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+            <sc-for list="{{ sel.facts }}" as="f" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:9px;background:var(--c-group2);border-radius:12px;padding:11px 12px;min-width:0;grid-column: {{ f.span }};color: {{ f.fg }}">
+                <span style="flex:none;display:flex;color: {{ f.ic }}"><sc-if value="{{ f.isType }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg></sc-if><sc-if value="{{ f.isSurf }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"></rect><path d="M4 9h5V4"></path></svg></sc-if><sc-if value="{{ f.isDpe }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"></path><path d="M5 19l7-7"></path></svg></sc-if><sc-if value="{{ f.isAge }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg></sc-if><sc-if value="{{ f.isBaisse }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l6 6 4-4 6 6"></path><path d="M20 11v4h-4"></path></svg></sc-if></span>
+                <span style="font-size:.84rem;font-weight:700;line-height:1.3;min-width:0">{{ f.label }}</span>
+              </div>
             </sc-for>
           </div>
         </div>
@@ -2890,6 +2913,26 @@ class Component extends DCLogic {
         onAdr: drTog("adr"), onPrix: drTog("prix"), onVend: drTog("vend"), onBrut: drTog("brut")
       },
       prixInit: hp.length ? this.eur(hp[0][2]) : "",
+      quali: l.enAgence
+        ? { label: "⌂ Déjà en agence", bg: "color-mix(in srgb,#64748B 16%,var(--c-card))", fg: "#475569" }
+        : { label: "✓ Particulier seul", bg: "color-mix(in srgb,#2E9E5B 15%,var(--c-card))", fg: "#1E7A45" },
+      facts: [
+        { isType: true, label: l.type },
+        l.surface ? { isSurf: true, label: l.surface + " m²" } : null,
+        l.dpe ? { isDpe: true, label: "DPE " + l.dpe } : null,
+        { isAge: true, label: "En ligne depuis " + l.jours + " j" },
+        hp.length ? { isBaisse: true, span: "1 / -1", label: "−" + Math.round((1 - l.prix / hp[0][2]) * 100) + " % · " + (hp.length > 1 ? hp.length + " baisses" : "1 baisse") + " · dernière le " + jm(hp[hp.length - 1][0]) } : null
+      ].filter(Boolean).map(f => Object.assign({ isType: false, isSurf: false, isDpe: false, isAge: false, isBaisse: false, span: "auto",
+        ic: "var(--c-accent-text)", fg: "var(--c-ink)" }, f)),
+      prixSub: (l.surface ? this.eur(Math.round(l.prix / l.surface)) + " / m²" : "surface non dite")
+        + (l.ecartPct === null ? "" : " · " + (l.ecartPct > 0 ? "+" : "") + l.ecartPct + " % face au quartier"),
+      multiPics: (l.pics || []).length > 1,
+      fewPics: (l.pics || []).length > 1 && (l.pics || []).length <= 8,
+      manyPics: (l.pics || []).length > 8,
+      photoDots: (l.pics || []).map((p, k) => {
+        const on = k === ((this.state.photoIdx || 0) % Math.max(1, (l.pics || []).length));
+        return { w: on ? "20px" : "7px", o: on ? 1 : .6 };
+      }),
       prixResume: hp.length ? hp[0][2].toLocaleString("fr-FR") + " → " + this.eur(l.prix) + " le " + jm(hp[hp.length - 1][0]) : "",
       vendResume: [l.source, cv0.nom || "annonceur non communiqué",
         cv0.tel || cv0.mail ? [cv0.tel ? "tél." : "", cv0.mail ? "e-mail" : ""].filter(Boolean).join(" et ") + " dans l'annonce" : "sans tél. ni e-mail"].join(" · "),
