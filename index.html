@@ -2948,7 +2948,13 @@ class Component extends DCLogic {
   /* Commentaires libres : le brouillon vit hors de l'état pour ne pas
      perdre la frappe à chaque rafraîchissement. */
   brouillon(l) { return (this._brouillons || {})[this.cleBien(l)] || ""; }
-  noterBrouillon(l, txt) { this._brouillons = this._brouillons || {}; this._brouillons[this.cleBien(l)] = txt; }
+  /* Le champ est contrôlé (value=brouillon) : sans nouveau rendu, chaque frappe écrase la précédente. */
+  noterBrouillon(l, txt) {
+    this._brouillons = this._brouillons || {};
+    if (this._brouillons[this.cleBien(l)] === txt) return;
+    this._brouillons[this.cleBien(l)] = txt;
+    this.setState(st => ({ tick: (st.tick || 0) + 1 }));
+  }
   ajouterCommentaire(l) {
     this.numeroDossier(l);
     const txt = this.brouillon(l).trim();
