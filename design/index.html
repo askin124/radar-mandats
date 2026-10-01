@@ -48,6 +48,7 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 [data-steps]{display:flex;align-items:flex-start;gap:0}
 [data-steps] > div{flex:1;min-width:0;text-align:center}
 [data-sheetwrap]{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center}
+[data-stepcom] textarea:focus{border-color:var(--rm-accent,#3D67B1)}
 [data-sheet]{width:100%;max-width:560px;border-radius:28px 28px 0 0;padding-bottom:6px}
 [data-crit]{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px 20px}
 [data-photo]{position:relative;width:100%;aspect-ratio:4 / 3}
@@ -1402,6 +1403,32 @@ a:hover{color:var(--c-accent-text);opacity:.7}
   </div>
 </sc-if>
 
+<sc-if value="{{ stepComOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-sheetwrap data-stepcom>
+    <div onClick="{{ stepCom.onAnnuler }}" style="position:absolute;inset:0;background:rgba(15,20,40,.45);animation:rmFade .2s ease both"></div>
+    <div data-sheet role="dialog" aria-modal="true" aria-labelledby="stepcom-titre" style="position:relative;background:var(--c-card);box-shadow:0 -10px 40px rgba(0,0,0,.22);animation:rmUp .3s cubic-bezier(.32,.72,0,1) both">
+      <div style="width:40px;height:5px;border-radius:3px;background:var(--c-track);margin:10px auto 0"></div>
+      <div style="padding:14px 20px 4px">
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sec2)">Ce que vous avez fait</div>
+        <div id="stepcom-titre" style="font-size:1.15rem;font-weight:800;letter-spacing:-.02em;margin-top:4px;line-height:1.3;text-wrap:pretty">{{ stepCom.titre }}</div>
+        <div style="font-size:.82rem;color:var(--c-sec2);margin-top:4px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ stepCom.bien }}</div>
+      </div>
+      <div style="padding:12px 20px 4px">
+        <label for="stepcom-txt" style="display:block;font-size:.84rem;font-weight:700;margin-bottom:6px">Commentaire pour l'équipe <span style="color:var(--c-err)">*</span></label>
+        <textarea id="stepcom-txt" rows="4" maxlength="400" value="{{ stepCom.txt }}" onInput="{{ stepCom.onInput }}" onKeyDown="{{ stepCom.onKey }}" aria-required="true" placeholder="Ex. : J'ai déposé des courriers dans tout le quartier" style="width:100%;resize:vertical;min-height:96px;border:1.5px solid var(--c-rule);border-radius:12px;background:var(--c-group2);color:var(--c-ink);font:inherit;font-size:1rem;line-height:1.45;padding:11px 12px;outline:none"></textarea>
+        <div style="font-size:.74rem;color:var(--c-sec2);margin-top:6px;line-height:1.4">Obligatoire pour enregistrer l'étape. Il sera ajouté aux commentaires du bien.</div>
+        <sc-if value="{{ stepCom.peut }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:10px;background:var(--c-group2);border-radius:12px;padding:10px 12px;font-size:.84rem;line-height:1.45;color:var(--c-sec2);text-wrap:pretty"><span style="font-weight:700;color:var(--c-ink)">Aperçu · </span>{{ stepCom.apercu }}</div>
+        </sc-if>
+      </div>
+      <div style="display:flex;gap:8px;padding:14px 20px max(18px,env(safe-area-inset-bottom))">
+        <button onClick="{{ stepCom.onAnnuler }}" style="flex:1;border:0;border-radius:14px;background:var(--c-group);color:var(--c-ink);font-size:.98rem;font-weight:700;padding:14px;cursor:pointer">Annuler</button>
+        <button onClick="{{ stepCom.onValider }}" aria-disabled="{{ stepCom.bloque }}" style="flex:1.4;border:0;border-radius:14px;background:var(--rm-accent,#3D67B1);color:#fff;font-size:.98rem;font-weight:800;padding:14px;cursor: {{ stepCom.btnCursor }};opacity: {{ stepCom.btnOpacity }};transition:opacity .18s ease">Enregistrer l'étape</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
 <sc-if value="{{ zoomed }}" hint-placeholder-val="{{ false }}">
   <div style="position:fixed;inset:0;z-index:61;background:rgba(0,0,0,.86);animation:rmFade .2s ease both"></div>
   <button onClick="{{ onZoomClose }}" aria-label="Fermer la photo" style="position:fixed;top:26px;right:26px;z-index:64;width:46px;height:46px;border-radius:23px;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:1.3rem;cursor:pointer;backdrop-filter:blur(10px)">✕</button>
@@ -2576,6 +2603,7 @@ class Component extends DCLogic {
       else if (this.state.sheet) this.setState({ sheet: null });
       else if (this.state.zoom) this.setState({ zoom: false });
       else if (this.state.assignFor !== null && this.state.assignFor !== undefined) this.setState({ assignFor: null });
+      else if (this.state.stepCom) this.setState({ stepCom: null });
     };
     window.addEventListener("keydown", this._onKey);
   }
@@ -2963,6 +2991,21 @@ class Component extends DCLogic {
     this.noterBrouillon(l, "");
     this.setState(st => ({ tick: (st.tick || 0) + 1 }));
     this.toast("Commentaire enregistré");
+  }
+  /* Avancer le pipeline passe par un commentaire obligatoire :
+     il rejoint les commentaires sous la forme « Étape : commentaire ». */
+  ouvrirEtape(l, label) {
+    this.setState({ stepCom: { id: l.id, label, txt: "" }, stepOpen: false },
+      () => setTimeout(() => { const t = document.querySelector("[data-stepcom] textarea"); if (t) t.focus(); }, 60));
+  }
+  validerEtape() {
+    const s = this.state.stepCom;
+    const l = s && this.L.find(y => y.id === s.id);
+    const txt = s ? s.txt.trim() : "";
+    if (!l || !txt) return;
+    this.record(l, s.label);
+    l.comms = (l.comms || []).concat([{ t: Date.now(), qui: this.who(), txt: (s.label + " : " + txt).slice(0, 500) }]);
+    this.setState(st => ({ stepCom: null, step: null, tick: (st.tick || 0) + 1 }));
   }
   supprimerCommentaire(l, t) {
     l.comms = (l.comms || []).filter(c => c.t !== t);
@@ -3458,7 +3501,7 @@ class Component extends DCLogic {
       onRestore: () => this.restaurerBien(l),
       canDrop: l.statut !== "sansSuite" && l.reached < 4,
       isDropped: l.statut === "sansSuite",
-      onDrop: () => this.record(l, "Ce bien ne donnera rien"),
+      onDrop: () => this.ouvrirEtape(l, "Ce bien ne donnera rien"),
       options: opts.map(v => {
         const on = v === step;
         return { v, w: on ? 700 : 500,
@@ -3472,7 +3515,7 @@ class Component extends DCLogic {
       onStepToggle: () => this.setState(st => ({ stepOpen: !st.stepOpen })),
       step,
       onStep: e => this.setState({ step: e.target.value }),
-      onSave: () => { this.record(l, step); this.setState({ step: null, stepOpen: false }); },
+      onSave: () => this.ouvrirEtape(l, step),
       tabFiche: tab === "fiche", tabSuivi: tab === "suivi",
       tabs: [
         { key: "fiche", label: "La fiche" },
@@ -3738,6 +3781,21 @@ class Component extends DCLogic {
         }
       })),
       onAssignClose: () => this.setState({ assignFor: null }),
+      stepComOpen: !!this.state.stepCom,
+      stepCom: (() => {
+        const s = this.state.stepCom || { label: "", txt: "" };
+        const x = this.L.find(y => y.id === s.id);
+        const ok = s.txt.trim().length > 0;
+        return {
+          titre: s.label, bien: x ? x.titre + " · " + x.secteur : "", txt: s.txt,
+          apercu: ok ? s.label + " : " + s.txt.trim() : "",
+          peut: ok, bloque: !ok, btnOpacity: ok ? "1" : ".45", btnCursor: ok ? "pointer" : "not-allowed",
+          onInput: e => { const v = e && e.target ? e.target.value : ""; this.setState(st => ({ stepCom: st.stepCom ? Object.assign({}, st.stepCom, { txt: v }) : null })); },
+          onKey: e => { if (e && e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); this.validerEtape(); } },
+          onValider: () => this.validerEtape(),
+          onAnnuler: () => this.setState({ stepCom: null })
+        };
+      })(),
       /* le filtre par personne n'existe qu'en vue direction */
       venti: [null].concat(this.TEAM).map(n => {
         const on = n === null ? !this.state.person : this.state.person === n;
