@@ -196,6 +196,13 @@
   "octets": 29644
  },
  {
+  "slug": "espondeilhan",
+  "commune": "Espondeilhan",
+  "adresses": 792,
+  "parcelles": 619,
+  "octets": 66316
+ },
+ {
   "slug": "felines-minervois",
   "commune": "Félines-Minervois",
   "adresses": 355,
@@ -264,6 +271,13 @@
   "adresses": 444,
   "parcelles": 464,
   "octets": 43948
+ },
+ {
+  "slug": "luc-sur-orbieu",
+  "commune": "Luc-sur-Orbieu",
+  "adresses": 768,
+  "parcelles": 552,
+  "octets": 58401
  },
  {
   "slug": "magalas",
@@ -371,6 +385,13 @@
   "octets": 19698
  },
  {
+  "slug": "ouveillan",
+  "commune": "Ouveillan",
+  "adresses": 1574,
+  "parcelles": 1170,
+  "octets": 123845
+ },
+ {
   "slug": "pailhes",
   "commune": "Pailhès",
   "adresses": 324,
@@ -434,6 +455,13 @@
   "octets": 68266
  },
  {
+  "slug": "puisserguier",
+  "commune": "Puisserguier",
+  "adresses": 2073,
+  "parcelles": 1601,
+  "octets": 167403
+ },
+ {
   "slug": "raissac-d-aude",
   "commune": "Raissac-d'Aude",
   "adresses": 162,
@@ -469,6 +497,13 @@
   "octets": 81386
  },
  {
+  "slug": "saint-genies-de-fontedit",
+  "commune": "Saint-Geniès-de-Fontedit",
+  "adresses": 984,
+  "parcelles": 857,
+  "octets": 83277
+ },
+ {
   "slug": "saint-jean-de-minervois",
   "commune": "Saint-Jean-de-Minervois",
   "adresses": 188,
@@ -495,6 +530,13 @@
   "adresses": 364,
   "parcelles": 381,
   "octets": 34058
+ },
+ {
+  "slug": "salleles-d-aude",
+  "commune": "Sallèles-d'Aude",
+  "adresses": 1733,
+  "parcelles": 1615,
+  "octets": 153213
  },
  {
   "slug": "salles-d-aude",
@@ -551,6 +593,13 @@
   "adresses": 2742,
   "parcelles": 2766,
   "octets": 263018
+ },
+ {
+  "slug": "valros",
+  "commune": "Valros",
+  "adresses": 891,
+  "parcelles": 857,
+  "octets": 80578
  },
  {
   "slug": "vendres",
