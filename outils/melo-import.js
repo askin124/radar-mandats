@@ -35,7 +35,7 @@ const existants = Function('"use strict"; return [' + lignes.slice(debut + 1, fi
 /* Colonnes du tableau RAW (voir build() dans la page) */
 const C = { titre: 0, type: 1, commune: 2, surface: 3, prix: 4, jours: 5, histoPrix: 6, dpe: 7, republi: 8, texte: 9, url: 10,
   refusAgence: 11, actif: 12, cible: 13, pics: 14, nom: 15, lat: 16, lon: 17, enAgence: 18, agence: 19, dateAgence: 20,
-  terrain: 21, annee: 22, etage: 23, etagesImm: 24, misEnLigne: 25 };
+  terrain: 21, annee: 22, etage: 23, etagesImm: 24, misEnLigne: 25, ges: 26 };
 
 /* ---------- Melo → ligne RAW ---------- */
 const TYPES = { 0: 'Appartement', 1: 'Maison', 5: 'Terrain', 6: 'Commerce' };
@@ -96,6 +96,7 @@ function versLigne(p) {
   r[C.etage] = p.floor == null ? -1 : p.floor;
   r[C.etagesImm] = etages || 0;
   r[C.misEnLigne] = jour(p.createdAt);
+  r[C.ges] = ((p.adverts.find(a => a.greenHouseGas && a.greenHouseGas.category) || {}).greenHouseGas || {}).category || '';
   return r;
 }
 
@@ -129,7 +130,7 @@ for (const f of fichiers) {
     const maj = ancien.slice();
     /* On garde l'URL, le titre et le texte déjà connus ; le reste suit Melo. */
     for (const k of ['prix', 'histoPrix', 'dpe', 'republi', 'refusAgence', 'actif', 'pics', 'nom', 'lat', 'lon',
-                     'enAgence', 'agence', 'dateAgence', 'terrain', 'annee', 'etage', 'etagesImm', 'misEnLigne', 'jours']) {
+                     'enAgence', 'agence', 'dateAgence', 'terrain', 'annee', 'etage', 'etagesImm', 'misEnLigne', 'jours', 'ges']) {
       if (k === 'pics' && !neuf[C.pics].length) continue;
       if (k === 'nom' && !neuf[C.nom]) continue;
       maj[C[k]] = neuf[C[k]];
