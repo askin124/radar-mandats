@@ -678,6 +678,20 @@ a:hover{color:var(--c-accent-text);opacity:.7}
             <sc-if value="{{ sel.adr.confirmable }}" hint-placeholder-val="{{ false }}">
               <button type="button" onClick="{{ sel.adr.onConfirmer }}" style="margin-top:8px;width:100%;border:1.5px solid color-mix(in srgb,var(--c-sky) 40%,var(--c-card));border-radius:12px;background:var(--c-card);color:var(--c-accent-text);font-size:.86rem;font-weight:700;padding:11px 8px;cursor:pointer">✓ C'est la bonne adresse</button>
             </sc-if>
+            <sc-if value="{{ sel.adr.editOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:10px;padding:12px;border-radius:12px;background:var(--c-group2)">
+                <label for="adr-edit" style="display:block;font-size:.8rem;font-weight:700;margin-bottom:6px">Adresse exacte (numéro et rue)</label>
+                <input id="adr-edit" type="text" value="{{ sel.adr.editTxt }}" onInput="{{ sel.adr.onEditInput }}" onKeyDown="{{ sel.adr.onEditKey }}" placeholder="Ex. : 20 lotissement Saint Julien" autocomplete="off" style="width:100%;border:1.5px solid var(--c-rule);border-radius:10px;background:var(--c-card);color:var(--c-ink);font:inherit;font-size:1rem;padding:10px 12px;outline:none">
+                <div style="font-size:.72rem;color:var(--c-sec2);margin-top:6px;line-height:1.4">Vérifiée dans la Base Adresse Nationale, puis partagée avec toute l'équipe.</div>
+                <div style="display:flex;gap:8px;margin-top:10px">
+                  <button type="button" onClick="{{ sel.adr.onEditAnnuler }}" style="flex:1;border:0;border-radius:10px;background:var(--c-group);color:var(--c-ink);font-size:.86rem;font-weight:700;padding:10px;cursor:pointer">Annuler</button>
+                  <button type="button" onClick="{{ sel.adr.onEditValider }}" style="flex:1.4;border:0;border-radius:10px;background:var(--rm-accent,#3D67B1);color:#fff;font-size:.86rem;font-weight:700;padding:10px;cursor:pointer">Valider l'adresse</button>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ sel.adr.editFerme }}" hint-placeholder-val="{{ true }}">
+              <button type="button" onClick="{{ sel.adr.onEdit }}" style="margin-top:8px;border:0;background:none;color:var(--c-accent-text);font-size:.8rem;font-weight:700;padding:6px 0;cursor:pointer">{{ sel.adr.editLabel }}</button>
+            </sc-if>
             <sc-if value="{{ sel.adr.confirmBusy }}" hint-placeholder-val="{{ false }}">
               <div role="status" style="margin-top:6px;font-size:.78rem;color:var(--c-sec2);text-align:center">Confirmation en cours…</div>
             </sc-if>
@@ -781,6 +795,16 @@ a:hover{color:var(--c-accent-text);opacity:.7}
 
         <div style="background:var(--c-card);border-radius:18px;box-shadow:var(--sh-card);padding:16px">
           <div style="font-size:.94rem;font-weight:800;margin-bottom:10px">Commentaires de l'équipe</div>
+          <sc-if value="{{ sel.adrSug.show }}" hint-placeholder-val="{{ false }}">
+            <div role="status" style="margin-bottom:12px;padding:11px 12px;border-radius:12px;background:color-mix(in srgb,var(--c-sky) 12%,var(--c-card));border:1px solid color-mix(in srgb,var(--c-sky) 35%,var(--c-card))">
+              <div style="font-size:.8rem;color:var(--c-sec2);line-height:1.4">Adresse repérée dans un commentaire de {{ sel.adrSug.qui }}</div>
+              <div style="font-size:.92rem;font-weight:700;margin-top:2px;line-height:1.35">{{ sel.adrSug.adresse }}</div>
+              <div style="display:flex;gap:8px;margin-top:9px">
+                <button type="button" onClick="{{ sel.adrSug.onConfirmer }}" style="flex:1.4;border:0;border-radius:10px;background:var(--rm-accent,#3D67B1);color:#fff;font-size:.82rem;font-weight:700;padding:9px;cursor:pointer">✓ En faire l'adresse du bien</button>
+                <button type="button" onClick="{{ sel.adrSug.onIgnorer }}" style="flex:1;border:0;border-radius:10px;background:var(--c-group);color:var(--c-ink);font-size:.82rem;font-weight:700;padding:9px;cursor:pointer">Ignorer</button>
+              </div>
+            </div>
+          </sc-if>
           <div style="display:flex;gap:8px;align-items:center">
             <input type="text" value="{{ sel.commDraft }}" onInput="{{ sel.onCommInput }}" onKeyDown="{{ sel.onCommKey }}" placeholder="Ajouter un mot pour l'équipe…" style="flex:1;min-width:0;border:1px solid var(--c-rule);border-radius:12px;padding:11px 12px;font-size:.88rem;background:var(--c-card);color:var(--c-ink)">
             <button onClick="{{ sel.onCommAdd }}" style="flex:none;border:0;border-radius:12px;background:var(--rm-accent,#3D67B1);color:#fff;font-size:.86rem;font-weight:700;padding:11px 14px;cursor:pointer;transition:transform .18s ease" style-active="transform:scale(.96)">Ajouter</button>
@@ -1423,16 +1447,26 @@ a:hover{color:var(--c-accent-text);opacity:.7}
         <div style="font-size:.82rem;color:var(--c-sec2);margin-top:4px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ stepCom.bien }}</div>
       </div>
       <div style="padding:12px 20px 4px">
-        <label for="stepcom-txt" style="display:block;font-size:.84rem;font-weight:700;margin-bottom:6px">Commentaire pour l'équipe <span style="color:var(--c-err)">*</span></label>
-        <textarea id="stepcom-txt" rows="4" maxlength="400" value="{{ stepCom.txt }}" onInput="{{ stepCom.onInput }}" onKeyDown="{{ stepCom.onKey }}" aria-required="true" placeholder="Ex. : J'ai déposé des courriers dans tout le quartier" style="width:100%;resize:vertical;min-height:96px;border:1.5px solid var(--c-rule);border-radius:12px;background:var(--c-group2);color:var(--c-ink);font:inherit;font-size:1rem;line-height:1.45;padding:11px 12px;outline:none"></textarea>
-        <div style="font-size:.74rem;color:var(--c-sec2);margin-top:6px;line-height:1.4">Obligatoire pour enregistrer l'étape. Il sera ajouté aux commentaires du bien.</div>
+        <sc-if value="{{ stepCom.estSortie }}" hint-placeholder-val="{{ false }}">
+          <div role="radiogroup" aria-label="Motif" style="margin-bottom:14px">
+            <div style="font-size:.84rem;font-weight:700;margin-bottom:8px">Pourquoi ? <span style="color:var(--c-err)">*</span></div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ stepCom.motifs }}" as="m" hint-placeholder-count="7">
+                <button type="button" role="radio" aria-checked="{{ m.on }}" onClick="{{ m.onPick }}" style="border:0;border-radius:10px;padding:9px 12px;font-size:.84rem;font-weight:700;cursor:pointer;background: {{ m.bg }};color: {{ m.fg }};transition:background .15s ease">{{ m.m }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <label for="stepcom-txt" style="display:block;font-size:.84rem;font-weight:700;margin-bottom:6px">{{ stepCom.champLabel }} <sc-if value="{{ stepCom.champRequis }}" hint-placeholder-val="{{ true }}"><span style="color:var(--c-err)">*</span></sc-if></label>
+        <textarea id="stepcom-txt" rows="4" maxlength="400" value="{{ stepCom.txt }}" onInput="{{ stepCom.onInput }}" onKeyDown="{{ stepCom.onKey }}" aria-required="{{ stepCom.champRequis }}" placeholder="{{ stepCom.placeholder }}" style="width:100%;resize:vertical;min-height:96px;border:1.5px solid var(--c-rule);border-radius:12px;background:var(--c-group2);color:var(--c-ink);font:inherit;font-size:1rem;line-height:1.45;padding:11px 12px;outline:none"></textarea>
+        <div style="font-size:.74rem;color:var(--c-sec2);margin-top:6px;line-height:1.4">{{ stepCom.aide }}</div>
         <sc-if value="{{ stepCom.peut }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:10px;background:var(--c-group2);border-radius:12px;padding:10px 12px;font-size:.84rem;line-height:1.45;color:var(--c-sec2);text-wrap:pretty"><span style="font-weight:700;color:var(--c-ink)">Aperçu · </span>{{ stepCom.apercu }}</div>
         </sc-if>
       </div>
       <div style="display:flex;gap:8px;padding:14px 20px max(18px,env(safe-area-inset-bottom))">
         <button onClick="{{ stepCom.onAnnuler }}" style="flex:1;border:0;border-radius:14px;background:var(--c-group);color:var(--c-ink);font-size:.98rem;font-weight:700;padding:14px;cursor:pointer">Annuler</button>
-        <button onClick="{{ stepCom.onValider }}" aria-disabled="{{ stepCom.bloque }}" style="flex:1.4;border:0;border-radius:14px;background:var(--rm-accent,#3D67B1);color:#fff;font-size:.98rem;font-weight:800;padding:14px;cursor: {{ stepCom.btnCursor }};opacity: {{ stepCom.btnOpacity }};transition:opacity .18s ease">Enregistrer l'étape</button>
+        <button onClick="{{ stepCom.onValider }}" aria-disabled="{{ stepCom.bloque }}" style="flex:1.4;border:0;border-radius:14px;background:var(--rm-accent,#3D67B1);color:#fff;font-size:.98rem;font-weight:800;padding:14px;cursor: {{ stepCom.btnCursor }};opacity: {{ stepCom.btnOpacity }};transition:opacity .18s ease">{{ stepCom.btnLabel }}</button>
       </div>
     </div>
   </div>
@@ -1555,9 +1589,9 @@ class Component extends DCLogic {
     this.CANAUX = ["Courrier déposé","Passage sur place","Message sur l'annonce","Boîtage du quartier","Appel après accord"];
     this.ACTIONS = [
       { l: "Courrier déposé dans la boîte", s: "contacte", c: "Courrier déposé" },
-      { l: "Passage devant le bien", s: "contacte", c: "Passage sur place" },
+      { l: "Passage sur place (personne ou pas)", s: "contacte", c: "Passage sur place" },
       { l: "Message envoyé sur l'annonce", s: "contacte", c: "Message sur l'annonce" },
-      { l: "Boîtage du quartier", s: "contacte", c: "Boîtage du quartier" },
+      { l: "Flyers / boîtage du quartier", s: "contacte", c: "Boîtage du quartier" },
       { l: "Appel — le vendeur avait donné son accord", s: "contacte", c: "Appel après accord" },
       { l: "Le vendeur accepte d'être rappelé (accord daté)", s: null },
       { l: "Relance", s: null },
@@ -1567,6 +1601,10 @@ class Component extends DCLogic {
       { l: "Ce bien ne donnera rien", s: "sansSuite" }
     ];
     this.ETAPES = { nouveau:{r:0}, attribue:{r:1}, contacte:{r:2}, rdv:{r:3}, mandat:{r:4}, sansSuite:{r:0} };
+    /* Sortie du pipeline : le motif est obligatoire (suivi des biens abandonnés) */
+    this.SORTIE = "Ce bien ne donnera rien";
+    this.MOTIFS_SORTIE = ["Déjà vendu ou en mandat ailleurs", "Annonce retirée", "Adresse introuvable",
+      "Secteur non travaillé", "Prix hors marché", "Le vendeur refuse", "Autre raison"];
     this.build();
   }
 
@@ -2232,14 +2270,44 @@ class Component extends DCLogic {
   /* « C'est cette adresse » : la piste choisie devient l'adresse du bien pour toute l'équipe
      (même canal que la position relevée sur place, marquée via:"piste"). Chaque confirmation
      sert aussi de vérité terrain à outils/mesure-localisation.js. */
+  /* Adresse écrite par un négociateur dans un commentaire (« 20 lotissement Saint Julien ») */
+  adresseDansTexte(txt) {
+    const m = String(txt || "").match(/\b(\d{1,4}(?:\s?(?:bis|ter))?)\s*,?\s+((?:rue|avenue|av\.?|boulevard|bd|chemin|impasse|place|all[ée]e|route|quai|cours|lotissement|lot\.?|r[ée]sidence|lieu[- ]dit|traverse|square|passage|clos|hameau)\s+[^,.;!?\n]{2,40})/i);
+    if (!m || /^place\s+de\s+(parking|stationnement)/i.test(m[2])) return "";
+    return (m[1] + " " + m[2]).replace(/\s+/g, " ").replace(/\s+(à|a|sur|pas loin|vers|près)\b.*$/i, "").trim();
+  }
+  lireIgnores() { try { return JSON.parse(localStorage.getItem("radar_adr_ignore") || "{}"); } catch (e) { return {}; } }
+  ignorerSuggestion(l, adr) {
+    const ig = this.lireIgnores(), k = this.cleBien(l);
+    ig[k] = (ig[k] || []).concat([this.normAdr(adr)]);
+    try { localStorage.setItem("radar_adr_ignore", JSON.stringify(ig)); } catch (e) {}
+    this.setState(st => ({ tick: (st.tick || 0) + 1 }));
+  }
+  /* dernière adresse trouvée dans les commentaires, si elle n'est ni confirmée ni écartée */
+  suggestionAdresse(l) {
+    const k = this.cleBien(l), pin = this.lirePins()[k], ig = this.lireIgnores()[k] || [];
+    const deja = pin && pin.via === "piste" ? this.normAdr(pin.adresse) : "";
+    for (const c of [...(l.comms || [])].sort((a, b) => b.t - a.t)) {
+      const a = this.adresseDansTexte(c.txt);
+      if (!a) continue;
+      const n = this.normAdr(a);
+      if (ig.indexOf(n) >= 0 || (deja && (deja === n || deja.indexOf(n) >= 0 || n.indexOf(deja) >= 0))) return null;
+      return { adresse: a, qui: c.qui };
+    }
+    return null;
+  }
+
   async confirmerAdresse(l, nom) {
     const k = this.cleBien(l);
     if (!nom || this.state.confirmBusy) return;
     this.setState({ confirmBusy: k });
     let la = null, lo = null, adresse = nom;
+    /* on cherche autour du point le plus fiable connu (position relevée, sinon point du portail) */
+    const pin0 = this.lirePins()[k];
+    const ref = pin0 ? { lat: pin0.lat, lon: pin0.lon } : (l.lat ? { lat: l.lat, lon: l.lon } : null);
     try {
       const q = encodeURIComponent(nom + " " + l.secteur);
-      const r = await fetch("https://api-adresse.data.gouv.fr/search/?q=" + q + "&limit=1" + (l.lat ? "&lat=" + l.lat + "&lon=" + l.lon : ""));
+      const r = await fetch("https://api-adresse.data.gouv.fr/search/?q=" + q + "&limit=1" + (ref ? "&lat=" + ref.lat + "&lon=" + ref.lon : ""));
       const f = ((await r.json()).features || [])[0];
       if (f && this.normCommune(f.properties.city) === this.normCommune(l.secteur)) {
         [lo, la] = f.geometry.coordinates;
@@ -2255,7 +2323,7 @@ class Component extends DCLogic {
     pins[k] = { lat: la, lon: lo, acc: 0, adresse, qui: this.who(), t: Date.now(), via: "piste" };
     this.ecrirePins(pins);
     l.histo.push({ t: Date.now(), qui: this.who(), quoi: "Adresse confirmée — " + adresse, et: "note" });
-    this.setState(st => ({ confirmBusy: null, tick: (st.tick || 0) + 1 }));
+    this.setState(st => ({ confirmBusy: null, adrEdit: null, tick: (st.tick || 0) + 1 }));
     this.chercherCadastre(l);
     this.toast(this.SYNC_URL ? "Adresse confirmée pour toute l'équipe." : "Adresse confirmée sur cet appareil.");
   }
@@ -3062,16 +3130,28 @@ class Component extends DCLogic {
   /* Avancer le pipeline passe par un commentaire obligatoire :
      il rejoint les commentaires sous la forme « Étape : commentaire ». */
   ouvrirEtape(l, label) {
-    this.setState({ stepCom: { id: l.id, label, txt: "" }, stepOpen: false },
+    this.setState({ stepCom: { id: l.id, label, txt: "", motif: "" }, stepOpen: false },
       () => setTimeout(() => { const t = document.querySelector("[data-stepcom] textarea"); if (t) t.focus(); }, 60));
+  }
+  /* « Étape : commentaire », ou pour une sortie « Ce bien ne donnera rien — motif : précisions » */
+  texteEtape(s) {
+    const t = (s.txt || "").trim();
+    if (s.label === this.SORTIE) return s.label + " — " + s.motif + (t ? " : " + t : "");
+    return s.label + " : " + t;
   }
   validerEtape() {
     const s = this.state.stepCom;
     const l = s && this.L.find(y => y.id === s.id);
     const txt = s ? s.txt.trim() : "";
-    if (!l || !txt) return;
+    const sortie = s && s.label === this.SORTIE;
+    if (!l || (sortie ? !s.motif || (s.motif === "Autre raison" && !txt) : !txt)) return;
     this.record(l, s.label);
-    l.comms = (l.comms || []).concat([{ t: Date.now(), qui: this.who(), txt: (s.label + " : " + txt).slice(0, 500) }]);
+    if (sortie) {
+      /* le motif suit le geste dans l'historique (synchronisé avec le Sheet) */
+      const h = l.histo[l.histo.length - 1];
+      if (h && h.et === "sansSuite") { h.quoi = this.SORTIE + " — " + s.motif; h.motif = s.motif; }
+    }
+    l.comms = (l.comms || []).concat([{ t: Date.now(), qui: this.who(), txt: this.texteEtape(s).slice(0, 500) }]);
     this.setState(st => ({ stepCom: null, step: null, tick: (st.tick || 0) + 1 }));
   }
   supprimerCommentaire(l, t) {
@@ -3224,16 +3304,31 @@ class Component extends DCLogic {
     return f === "__def" ? (this.isDir() ? "nouveaux" : "contact") : f;
   }
 
+  /* dernier signe de vie d'un bien : geste du pipeline ou commentaire */
+  derniereActivite(l) {
+    let t = 0;
+    (l.histo || []).forEach(h => { if (h.t > t) t = h.t; });
+    (l.comms || []).forEach(c => { if (c.t > t) t = c.t; });
+    return t;
+  }
+  /* confiés mais rien de fait depuis 7 jours (hors mandats et biens mis de côté) */
+  enSommeil(l) {
+    if (!l.assign || l.statut === "mandat" || l.statut === "sansSuite") return false;
+    const t = this.derniereActivite(l);
+    return !t || Date.now() - t > 7 * 86400000;
+  }
   groupDefs() {
     const s = this.listScope();
     return (this.isDir() ? [
       ["nouveaux", "À confier", "var(--c-faint)", s.filter(l => l.statut === "nouveau")],
+      ["sommeil", "Sans geste depuis 7 jours", "#C2410C", s.filter(l => this.enSommeil(l))],
       ["contact", "Premier geste à faire", "#A9BEE3", s.filter(l => l.reached === 1)],
       ["cours", "En cours", "#5A80C4", s.filter(l => l.reached === 2 || l.reached === 3)],
       ["signes", "Signés", "#3D67B1", s.filter(l => l.statut === "mandat")],
       ["cote", "De côté", "var(--c-faint)", s.filter(l => l.statut === "sansSuite")]
     ] : [
       ["contact", "À contacter", "#A9BEE3", s.filter(l => l.reached <= 1)],
+      ["sommeil", "Sans geste depuis 7 jours", "#C2410C", s.filter(l => this.enSommeil(l))],
       ["cours", "En cours", "#5A80C4", s.filter(l => l.reached === 2 || l.reached === 3)],
       ["signes", "Mes mandats", "#3D67B1", s.filter(l => l.statut === "mandat")],
       ["cote", "De côté", "var(--c-faint)", s.filter(l => l.statut === "sansSuite")]
@@ -3324,11 +3419,11 @@ class Component extends DCLogic {
     if (!l) return { titre: "", sub: "", parts: [], histo: [], options: [], tabs: [] };
     let opts;
     if (l.reached < 2) {
-      opts = ["Courrier déposé dans la boîte", "Passage devant le bien", "Message envoyé sur l'annonce",
-              "Boîtage du quartier", "Appel — le vendeur avait donné son accord",
+      opts = ["Courrier déposé dans la boîte", "Passage sur place (personne ou pas)", "Message envoyé sur l'annonce",
+              "Flyers / boîtage du quartier", "Appel — le vendeur avait donné son accord",
               "Le vendeur accepte d'être rappelé (accord daté)"];
     } else if (l.reached === 2) {
-      opts = ["Rendez-vous d'estimation obtenu", "Relance",
+      opts = ["Rendez-vous d'estimation obtenu", "Relance", "Passage sur place (personne ou pas)", "Flyers / boîtage du quartier",
               "Le vendeur accepte d'être rappelé (accord daté)"];
     } else if (l.reached === 3) {
       opts = ["Mandat signé", "Estimation remise au vendeur", "Relance"];
@@ -3626,6 +3721,17 @@ class Component extends DCLogic {
         const confirme = pin && pin.via === "piste";
         const base = { hasPin: !!pin, rues: [], hasRues: false, confirmable: false, onConfirmer: null,
           confirmBusy: this.state.confirmBusy === k,
+          /* saisie ou correction manuelle (le GPS donne la rue, rarement le bon numéro) */
+          editOpen: !!(this.state.adrEdit && this.state.adrEdit.k === k),
+          editTxt: this.state.adrEdit && this.state.adrEdit.k === k ? this.state.adrEdit.txt : "",
+          editFerme: !(this.state.adrEdit && this.state.adrEdit.k === k),
+          editLabel: pin ? "✎ Corriger l'adresse" : "✎ Saisir l'adresse exacte",
+          onEdit: () => this.setState({ adrEdit: { k, txt: pin && pin.adresse ? pin.adresse : "" } },
+            () => setTimeout(() => { const t = document.getElementById("adr-edit"); if (t) t.focus(); }, 60)),
+          onEditInput: e => { const v = e && e.target ? e.target.value : ""; this.setState(st => ({ adrEdit: st.adrEdit ? Object.assign({}, st.adrEdit, { txt: v }) : null })); },
+          onEditKey: e => { if (e && e.key === "Enter") { e.preventDefault(); const t = (this.state.adrEdit || {}).txt; if (t && t.trim()) this.confirmerAdresse(l, t.trim()); } if (e && e.key === "Escape") this.setState({ adrEdit: null }); },
+          onEditValider: () => { const t = (this.state.adrEdit || {}).txt; if (t && t.trim()) this.confirmerAdresse(l, t.trim()); },
+          onEditAnnuler: () => this.setState({ adrEdit: null }),
           effacerLabel: confirme ? "Effacer l'adresse confirmée" : "Effacer la position relevée",
           devantLabel: this.state.pinBusy ? "Localisation en cours…" : (pin ? "Relever à nouveau" : "Je suis devant"),
           onDevant: () => this.jeSuisDevant(l), onEffacer: () => this.effacerPin(l) };
@@ -3729,6 +3835,11 @@ class Component extends DCLogic {
     };
     vm.brutResume = vm.brut.length + " données · dossier " + (l.dossier || "non attribué");
     vm.lookup = this.lookupVM(l, vm.adr);
+    const sug = this.suggestionAdresse(l);
+    vm.adrSug = { show: !!sug, adresse: sug ? sug.adresse : "", qui: sug ? sug.qui : "",
+      busy: this.state.confirmBusy === this.cleBien(l),
+      onConfirmer: () => sug && this.confirmerAdresse(l, sug.adresse),
+      onIgnorer: () => sug && this.ignorerSuggestion(l, sug.adresse) };
     vm.cv.hasIdentite = vm.lookup.noms.length > 0;
     vm.cv.identite = vm.lookup.noms.join(" · ");
     if (vm.lookup.tels.length) {
@@ -3867,13 +3978,28 @@ class Component extends DCLogic {
       onAssignClose: () => this.setState({ assignFor: null }),
       stepComOpen: !!this.state.stepCom,
       stepCom: (() => {
-        const s = this.state.stepCom || { label: "", txt: "" };
+        const s = this.state.stepCom || { label: "", txt: "", motif: "" };
         const x = this.L.find(y => y.id === s.id);
-        const ok = s.txt.trim().length > 0;
+        const t = s.txt.trim();
+        /* sortie du pipeline : un motif est obligatoire, le commentaire seulement pour « Autre » */
+        const sortie = s.label === this.SORTIE;
+        const ok = sortie ? !!s.motif && (s.motif !== "Autre raison" || t.length > 0) : t.length > 0;
         return {
           titre: s.label, bien: x ? x.titre + " · " + x.secteur : "", txt: s.txt,
-          apercu: ok ? s.label + " : " + s.txt.trim() : "",
+          estSortie: sortie,
+          motifs: this.MOTIFS_SORTIE.map(m => {
+            const on = s.motif === m;
+            return { m, on, bg: on ? "var(--rm-accent,#3D67B1)" : "var(--c-group2)", fg: on ? "#fff" : "var(--c-ink)",
+              onPick: () => this.setState(st => ({ stepCom: st.stepCom ? Object.assign({}, st.stepCom, { motif: m }) : null })) };
+          }),
+          champLabel: sortie ? "Précisions pour l'équipe" : "Commentaire pour l'équipe",
+          champRequis: !sortie || s.motif === "Autre raison",
+          aide: sortie ? "Choisissez le motif : il sert au suivi des biens abandonnés. Le commentaire est facultatif, sauf pour « Autre raison »."
+                       : "Obligatoire pour enregistrer l'étape. Il sera ajouté aux commentaires du bien.",
+          placeholder: sortie ? "Ex. : vendu le mois dernier par une agence du centre" : "Ex. : J'ai déposé des courriers dans tout le quartier",
+          apercu: ok ? this.texteEtape(s) : "",
           peut: ok, bloque: !ok, btnOpacity: ok ? "1" : ".45", btnCursor: ok ? "pointer" : "not-allowed",
+          btnLabel: sortie ? "Mettre de côté" : "Enregistrer l'étape",
           onInput: e => { const v = e && e.target ? e.target.value : ""; this.setState(st => ({ stepCom: st.stepCom ? Object.assign({}, st.stepCom, { txt: v }) : null })); },
           onKey: e => { if (e && e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); this.validerEtape(); } },
           onValider: () => this.validerEtape(),
