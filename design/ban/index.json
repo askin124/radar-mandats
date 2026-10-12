@@ -336,6 +336,13 @@
   "octets": 86663
  },
  {
+  "slug": "montblanc",
+  "commune": "Montblanc",
+  "cp": "34290",
+  "adresses": 1685,
+  "octets": 80370
+ },
+ {
   "slug": "montbrun-des-corbieres",
   "commune": "Montbrun-des-Corbières",
   "cp": "11700",
