@@ -329,6 +329,13 @@
   "octets": 157024
  },
  {
+  "slug": "montblanc",
+  "commune": "Montblanc",
+  "adresses": 1685,
+  "parcelles": 1447,
+  "octets": 147325
+ },
+ {
   "slug": "montbrun-des-corbieres",
   "commune": "Montbrun-des-Corbières",
   "adresses": 275,
