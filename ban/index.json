@@ -322,11 +322,25 @@
   "octets": 5634
  },
  {
+  "slug": "mirepeisset",
+  "commune": "Mirepeisset",
+  "cp": "11120",
+  "adresses": 462,
+  "octets": 21797
+ },
+ {
   "slug": "montady",
   "commune": "Montady",
   "cp": "34310",
   "adresses": 1894,
   "octets": 86663
+ },
+ {
+  "slug": "montblanc",
+  "commune": "Montblanc",
+  "cp": "34290",
+  "adresses": 1685,
+  "octets": 80370
  },
  {
   "slug": "montbrun-des-corbieres",
@@ -418,6 +432,13 @@
   "cp": "11700",
   "adresses": 847,
   "octets": 39406
+ },
+ {
+  "slug": "peyriac-de-mer",
+  "commune": "Peyriac-de-Mer",
+  "cp": "11440",
+  "adresses": 914,
+  "octets": 41565
  },
  {
   "slug": "poilhes",
