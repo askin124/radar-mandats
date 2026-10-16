@@ -7,16 +7,20 @@
                                son URL ne change jamais (c'est la clé du suivi dans le Google Sheet)
    - bien absent de l'import → laissé tel quel
    Usage :
-     node outils/melo-import.js [--page design/index.html] [--dry] reponse1.json reponse2.json …
+     node outils/melo-import.js [--page design/index.html] [--dry] [--secteur "Émilie P."] reponse1.json reponse2.json …
+   --secteur : ne garde que les nouveaux biens des communes de ce secteur (this.SECTEURS de la page) ;
+               les biens déjà connus sont toujours mis à jour.
 */
 const fs = require('fs');
 const path = require('path');
 
 const args = process.argv.slice(2);
 const dry = args.includes('--dry');
-const pageArg = args.indexOf('--page');
-const page = path.resolve(pageArg >= 0 ? args[pageArg + 1] : path.join(__dirname, '..', 'design', 'index.html'));
-const fichiers = args.filter((a, i) => !a.startsWith('--') && (pageArg < 0 || i !== pageArg + 1));
+const valeur = nom => { const i = args.indexOf(nom); return i >= 0 ? args[i + 1] : null; };
+const indexValeurs = ['--page', '--secteur'].map(n => args.indexOf(n)).filter(i => i >= 0).map(i => i + 1);
+const page = path.resolve(valeur('--page') || path.join(__dirname, '..', 'design', 'index.html'));
+const secteur = valeur('--secteur');
+const fichiers = args.filter((a, i) => !a.startsWith('--') && indexValeurs.indexOf(i) < 0);
 if (!fichiers.length) {
   console.error('Indiquez au moins un fichier de réponse Melo.\n  node outils/melo-import.js [--page design/index.html] [--dry] reponse.json …');
   process.exit(1);
@@ -31,6 +35,17 @@ const fin = lignes.findIndex((l, i) => i > debut && /^\s*\];\s*$/.test(l));
 if (debut < 0 || fin < 0) throw new Error('Tableau « const RAW = [ … ]; » introuvable dans ' + page);
 const indent = (lignes[debut + 1].match(/^\s*/) || [''])[0];
 const existants = Function('"use strict"; return [' + lignes.slice(debut + 1, fin).join('\n') + '];')();
+
+/* communes du secteur demandé (même normalisation que normCommune() dans la page) */
+const normCommune = t => (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+  .replace(/^(la|le|les|l')[\s'’-]+/, '').replace(/\bste\b/g, 'sainte').replace(/\bst\b/g, 'saint').replace(/[^a-z]/g, '');
+let communesSecteur = null;
+if (secteur) {
+  const m = html.match(/this\.SECTEURS = (\{[\s\S]*?\n    \});/);
+  const tous = m ? Function('return ' + m[1])() : {};
+  if (!tous[secteur]) { console.error(`Secteur « ${secteur} » introuvable. Secteurs : ${Object.keys(tous).join(', ')}`); process.exit(1); }
+  communesSecteur = new Set(tous[secteur].map(normCommune));
+}
 
 /* Colonnes du tableau RAW (voir build() dans la page) */
 const C = { titre: 0, type: 1, commune: 2, surface: 3, prix: 4, jours: 5, histoPrix: 6, dpe: 7, republi: 8, texte: 9, url: 10,
@@ -104,7 +119,7 @@ function versLigne(p) {
 const parUrl = new Map(existants.map((r, i) => [r[C.url], i]));
 const fusion = existants.map(r => r.slice());
 const change = new Set();
-const bilan = { lus: 0, nouveaux: [], majs: 0, baisses: [], agence: [], retires: [], ignores: 0 };
+const bilan = { lus: 0, nouveaux: [], majs: 0, baisses: [], agence: [], retires: [], ignores: 0, horsSecteur: {} };
 const vus = new Set();
 
 for (const f of fichiers) {
@@ -121,6 +136,9 @@ for (const f of fichiers) {
     const idx = p.adverts.map(a => parUrl.get(a.url)).find(i => i !== undefined);
     if (idx === undefined) {
       if (p.expired) { bilan.ignores++; continue; }        /* déjà retirée : rien à travailler */
+      if (communesSecteur && !communesSecteur.has(normCommune(neuf[C.commune]))) {      /* hors du secteur demandé */
+        bilan.horsSecteur[neuf[C.commune]] = (bilan.horsSecteur[neuf[C.commune]] || 0) + 1; continue;
+      }
       fusion.unshift(neuf);
       parUrl.clear(); fusion.forEach((r, i) => parUrl.set(r[C.url], i));
       bilan.nouveaux.push(neuf[C.titre] + ' — ' + neuf[C.commune] + ' — ' + neuf[C.prix] + ' €');
@@ -155,6 +173,7 @@ const sortie = fusion.map((r, i) => {
 const resultat = [...lignes.slice(0, debut + 1), ...sortie, ...lignes.slice(fin)].join(eol);
 
 console.log(`\n${bilan.lus} biens lus · ${bilan.nouveaux.length} nouveaux · ${bilan.majs} mis à jour · ${bilan.ignores} déjà retirés ignorés · ${fusion.length} biens au total`);
+if (communesSecteur) { const h = Object.entries(bilan.horsSecteur).sort((a, b) => b[1] - a[1]); console.log(`Secteur « ${secteur} » : ${h.reduce((s, x) => s + x[1], 0)} nouveaux biens écartés hors secteur` + (h.length ? ' (' + h.map(x => x[0] + ' ' + x[1]).join(', ') + ')' : '')); }
 if (bilan.nouveaux.length) console.log('\nNouveaux :\n  ' + bilan.nouveaux.join('\n  '));
 if (bilan.baisses.length) console.log('\nPrix modifiés :\n  ' + bilan.baisses.join('\n  '));
 if (bilan.agence.length) console.log('\nPassés en agence :\n  ' + bilan.agence.join('\n  '));
