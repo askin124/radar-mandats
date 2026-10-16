@@ -7,6 +7,13 @@
   "octets": 79835
  },
  {
+  "slug": "agde",
+  "commune": "Agde",
+  "adresses": 12551,
+  "parcelles": 9976,
+  "octets": 1058495
+ },
+ {
   "slug": "agel",
   "commune": "Agel",
   "adresses": 182,
@@ -77,6 +84,13 @@
   "octets": 15716
  },
  {
+  "slug": "bessan",
+  "commune": "Bessan",
+  "adresses": 2718,
+  "parcelles": 2253,
+  "octets": 235080
+ },
+ {
   "slug": "beziers",
   "commune": "Béziers",
   "adresses": 19934,
@@ -105,6 +119,13 @@
   "octets": 44377
  },
  {
+  "slug": "bouzigues",
+  "commune": "Bouzigues",
+  "adresses": 1003,
+  "parcelles": 778,
+  "octets": 85141
+ },
+ {
   "slug": "canet",
   "commune": "Canet",
   "adresses": 2459,
@@ -124,6 +145,13 @@
   "adresses": 350,
   "parcelles": 341,
   "octets": 31903
+ },
+ {
+  "slug": "castelnau-de-guers",
+  "commune": "Castelnau-de-Guers",
+  "adresses": 763,
+  "parcelles": 641,
+  "octets": 61732
  },
  {
   "slug": "caunette",
@@ -159,6 +187,20 @@
   "adresses": 344,
   "parcelles": 351,
   "octets": 32259
+ },
+ {
+  "slug": "ceyras",
+  "commune": "Ceyras",
+  "adresses": 678,
+  "parcelles": 474,
+  "octets": 53900
+ },
+ {
+  "slug": "clermont-l-herault",
+  "commune": "Clermont-l'Hérault",
+  "adresses": 3455,
+  "parcelles": 3237,
+  "octets": 310847
  },
  {
   "slug": "colombiers",
@@ -217,6 +259,13 @@
   "octets": 301941
  },
  {
+  "slug": "gignac",
+  "commune": "Gignac",
+  "adresses": 3031,
+  "parcelles": 1720,
+  "octets": 229488
+ },
+ {
   "slug": "ginestas",
   "commune": "Ginestas",
   "adresses": 897,
@@ -273,6 +322,20 @@
   "octets": 43948
  },
  {
+  "slug": "lodeve",
+  "commune": "Lodève",
+  "adresses": 3021,
+  "parcelles": 2552,
+  "octets": 260356
+ },
+ {
+  "slug": "loupian",
+  "commune": "Loupian",
+  "adresses": 1445,
+  "parcelles": 1057,
+  "octets": 118923
+ },
+ {
   "slug": "luc-sur-orbieu",
   "commune": "Luc-sur-Orbieu",
   "adresses": 768,
@@ -308,6 +371,13 @@
   "octets": 99709
  },
  {
+  "slug": "meze",
+  "commune": "Mèze",
+  "adresses": 5603,
+  "parcelles": 3545,
+  "octets": 427879
+ },
+ {
   "slug": "minerve",
   "commune": "Minerve",
   "adresses": 83,
@@ -327,6 +397,13 @@
   "adresses": 1713,
   "parcelles": 1713,
   "octets": 157024
+ },
+ {
+  "slug": "montagnac",
+  "commune": "Montagnac",
+  "adresses": 2441,
+  "parcelles": 1499,
+  "octets": 186538
  },
  {
   "slug": "montblanc",
@@ -434,6 +511,13 @@
   "octets": 75574
  },
  {
+  "slug": "pezenas",
+  "commune": "Pézenas",
+  "adresses": 4159,
+  "parcelles": 3234,
+  "octets": 348766
+ },
+ {
   "slug": "poilhes",
   "commune": "Poilhes",
   "adresses": 303,
@@ -446,6 +530,13 @@
   "adresses": 2011,
   "parcelles": 2126,
   "octets": 201575
+ },
+ {
+  "slug": "poussan",
+  "commune": "Poussan",
+  "adresses": 2439,
+  "parcelles": 1907,
+  "octets": 201927
  },
  {
   "slug": "pouzols-minervois",
@@ -518,11 +609,32 @@
   "octets": 81386
  },
  {
+  "slug": "saint-andre-de-sangonis",
+  "commune": "Saint-André-de-Sangonis",
+  "adresses": 2950,
+  "parcelles": 2062,
+  "octets": 234761
+ },
+ {
+  "slug": "saint-felix-de-lodez",
+  "commune": "Saint-Félix-de-Lodez",
+  "adresses": 649,
+  "parcelles": 459,
+  "octets": 53406
+ },
+ {
   "slug": "saint-genies-de-fontedit",
   "commune": "Saint-Geniès-de-Fontedit",
   "adresses": 984,
   "parcelles": 857,
   "octets": 83277
+ },
+ {
+  "slug": "saint-jean-de-fos",
+  "commune": "Saint-Jean-de-Fos",
+  "adresses": 1206,
+  "parcelles": 847,
+  "octets": 97832
  },
  {
   "slug": "saint-jean-de-minervois",
@@ -544,6 +656,13 @@
   "adresses": 1014,
   "parcelles": 1043,
   "octets": 99544
+ },
+ {
+  "slug": "saint-thibery",
+  "commune": "Saint-Thibéry",
+  "adresses": 1895,
+  "parcelles": 1186,
+  "octets": 143238
  },
  {
   "slug": "sainte-valiere",
@@ -642,6 +761,13 @@
   "adresses": 2048,
   "parcelles": 2099,
   "octets": 191910
+ },
+ {
+  "slug": "villeveyrac",
+  "commune": "Villeveyrac",
+  "adresses": 1872,
+  "parcelles": 1689,
+  "octets": 161339
  },
  {
   "slug": "vinassan",
