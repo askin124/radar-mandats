@@ -2224,7 +2224,7 @@ class Component extends DCLogic {
     this.L = RAW.map((r, i) => {
       const l = { id:i, titre:r[0], type:r[1], secteur:r[2], surface:r[3], prix:r[4], jours:r[5],
                   histoPrix:r[6], baisses:(r[6] || []).length, dpe:r[7], republi:r[8], texte:r[9], url:r[10],
-                  refusAgence:r[11], actif:r[12], cible:r[13], pics:r[14],
+                  refusAgence:r[11], actif:r[12], cible:r[13] && r[1] !== "Terrain", pics:r[14], /* terrains retirés des leads (oct. 2026) : seuls ceux déjà confiés restent visibles */
                   nom:r[15], lat:r[16], lon:r[17], enAgence:r[18], agence:r[19], dateAgence:r[20], terrain:r[21], annee:r[22], etage:r[23], etagesImm:r[24], ges:r[26] || "",
                   median:0, proSuspect:false, source:/pap\.fr/.test(r[10]) ? "PAP" : "leboncoin",
                   assign:"", statut:"nouveau", reached:0, canal:"", histo:[] };
@@ -2832,9 +2832,14 @@ class Component extends DCLogic {
     s += p5; parts.push(["Prix dans la cible", p5, 12,
       l.prix <= 300000 ? "sous 300 000 €" : "au-dessus de la cible"]);
 
-    const p6 = l.cible ? 5 : 0;
-    s += p6; parts.push(["Type de bien recherché", p6, 5,
-      l.cible ? l.type.toLowerCase() : "hors critères"]);
+    /* Les maisons passent en premier (retours terrain d'octobre : les terrains n'ont
+       souvent ni boîte aux lettres ni propriétaire sur place, les appartements sont
+       difficiles à localiser dans un immeuble) */
+    const POIDS_TYPE = { "Maison": 15, "Appartement": 7, "Commerce": 2 };
+    const p6 = l.cible ? (POIDS_TYPE[l.type] ?? 5) : 0;
+    s += p6; parts.push(["Type de bien recherché", p6, 15,
+      !l.cible ? (l.type === "Terrain" ? "terrain : retiré des leads" : "hors critères") : l.type === "Maison" ? "maison : prioritaire"
+        : l.type.toLowerCase()]);
 
     const p7 = l.jours >= 60 && l.jours <= 210 ? 13 : l.jours > 210 ? 10
              : l.jours >= 30 ? 7 : l.jours >= 8 ? 4 : 2;

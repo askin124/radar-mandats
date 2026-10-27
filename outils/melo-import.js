@@ -119,7 +119,7 @@ function versLigne(p) {
 const parUrl = new Map(existants.map((r, i) => [r[C.url], i]));
 const fusion = existants.map(r => r.slice());
 const change = new Set();
-const bilan = { lus: 0, nouveaux: [], majs: 0, baisses: [], agence: [], retires: [], ignores: 0, horsSecteur: {} };
+const bilan = { lus: 0, nouveaux: [], majs: 0, baisses: [], agence: [], retires: [], ignores: 0, horsSecteur: {}, terrains: 0 };
 const vus = new Set();
 
 for (const f of fichiers) {
@@ -136,6 +136,7 @@ for (const f of fichiers) {
     const idx = p.adverts.map(a => parUrl.get(a.url)).find(i => i !== undefined);
     if (idx === undefined) {
       if (p.expired) { bilan.ignores++; continue; }        /* déjà retirée : rien à travailler */
+      if (neuf[C.type] === 'Terrain') { bilan.terrains++; continue; }   /* terrains retirés des leads (oct. 2026) */
       if (communesSecteur && !communesSecteur.has(normCommune(neuf[C.commune]))) {      /* hors du secteur demandé */
         bilan.horsSecteur[neuf[C.commune]] = (bilan.horsSecteur[neuf[C.commune]] || 0) + 1; continue;
       }
@@ -173,6 +174,7 @@ const sortie = fusion.map((r, i) => {
 const resultat = [...lignes.slice(0, debut + 1), ...sortie, ...lignes.slice(fin)].join(eol);
 
 console.log(`\n${bilan.lus} biens lus · ${bilan.nouveaux.length} nouveaux · ${bilan.majs} mis à jour · ${bilan.ignores} déjà retirés ignorés · ${fusion.length} biens au total`);
+if (bilan.terrains) console.log(`${bilan.terrains} nouveau(x) terrain(s) écarté(s) (les terrains ne sont plus des leads)`);
 if (communesSecteur) { const h = Object.entries(bilan.horsSecteur).sort((a, b) => b[1] - a[1]); console.log(`Secteur « ${secteur} » : ${h.reduce((s, x) => s + x[1], 0)} nouveaux biens écartés hors secteur` + (h.length ? ' (' + h.map(x => x[0] + ' ' + x[1]).join(', ') + ')' : '')); }
 if (bilan.nouveaux.length) console.log('\nNouveaux :\n  ' + bilan.nouveaux.join('\n  '));
 if (bilan.baisses.length) console.log('\nPrix modifiés :\n  ' + bilan.baisses.join('\n  '));
